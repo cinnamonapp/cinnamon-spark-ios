@@ -7,10 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A6EF372C3934F2246E6229D3 /* libPods-CinnamonSpark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A51D2CAEBE17904D55F97869 /* libPods-CinnamonSpark.a */; };
+		B007561B1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B007561A1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift */; };
+		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
+		B0AF66B21AC1754000E23657 /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = B0AF66B11AC1754000E23657 /* TODO.md */; };
+		B0ECE8CA1AC066FA001D00CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0ECE8C91AC066FA001D00CE /* QuartzCore.framework */; };
+		B0ECE8CC1AC081CF001D00CE /* CSCameraDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0ECE8CB1AC081CF001D00CE /* CSCameraDelegate.swift */; };
 		B0EDD69B1ABC2A170065644F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EDD69A1ABC2A170065644F /* AppDelegate.swift */; };
 		B0EDD69E1ABC2A170065644F /* CinnamonSpark.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0EDD69C1ABC2A170065644F /* CinnamonSpark.xcdatamodeld */; };
-		B0EDD6A01ABC2A170065644F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EDD69F1ABC2A170065644F /* ViewController.swift */; };
-		B0EDD6A31ABC2A170065644F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0EDD6A11ABC2A170065644F /* Main.storyboard */; };
+		B0EDD6A01ABC2A170065644F /* CSCameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */; };
 		B0EDD6A51ABC2A170065644F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0EDD6A41ABC2A170065644F /* Images.xcassets */; };
 		B0EDD6A81ABC2A170065644F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0EDD6A61ABC2A170065644F /* LaunchScreen.xib */; };
 		B0EDD6B41ABC2A170065644F /* CinnamonSparkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EDD6B31ABC2A170065644F /* CinnamonSparkTests.swift */; };
@@ -27,17 +32,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		06F3B02634BCE54827C8EF09 /* Pods-CinnamonSpark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinnamonSpark.release.xcconfig"; path = "Pods/Target Support Files/Pods-CinnamonSpark/Pods-CinnamonSpark.release.xcconfig"; sourceTree = "<group>"; };
+		3F23AD0B248C3121EC388D81 /* Pods-CinnamonSpark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinnamonSpark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CinnamonSpark/Pods-CinnamonSpark.debug.xcconfig"; sourceTree = "<group>"; };
+		A51D2CAEBE17904D55F97869 /* libPods-CinnamonSpark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CinnamonSpark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B007561A1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowserViewController.swift; sourceTree = "<group>"; };
+		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
+		B0AF66B11AC1754000E23657 /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
+		B0ECE8C91AC066FA001D00CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B0ECE8CB1AC081CF001D00CE /* CSCameraDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSCameraDelegate.swift; sourceTree = "<group>"; };
 		B0EDD6951ABC2A170065644F /* CinnamonSpark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CinnamonSpark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0EDD6991ABC2A170065644F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0EDD69A1ABC2A170065644F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0EDD69D1ABC2A170065644F /* CinnamonSpark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CinnamonSpark.xcdatamodel; sourceTree = "<group>"; };
-		B0EDD69F1ABC2A170065644F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		B0EDD6A21ABC2A170065644F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSCameraViewController.swift; sourceTree = "<group>"; };
 		B0EDD6A41ABC2A170065644F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B0EDD6A71ABC2A170065644F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		B0EDD6AD1ABC2A170065644F /* CinnamonSparkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinnamonSparkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0EDD6B21ABC2A170065644F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0EDD6B31ABC2A170065644F /* CinnamonSparkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonSparkTests.swift; sourceTree = "<group>"; };
+		B0EDD6BE1ABC31C90065644F /* CinnamonSpark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CinnamonSpark-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +58,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0ECE8CA1AC066FA001D00CE /* QuartzCore.framework in Frameworks */,
+				A6EF372C3934F2246E6229D3 /* libPods-CinnamonSpark.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,12 +73,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F2C87824EBAAB41ED4B886D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				3F23AD0B248C3121EC388D81 /* Pods-CinnamonSpark.debug.xcconfig */,
+				06F3B02634BCE54827C8EF09 /* Pods-CinnamonSpark.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		100BA9D59D6F7765472FB032 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0ECE8C91AC066FA001D00CE /* QuartzCore.framework */,
+				A51D2CAEBE17904D55F97869 /* libPods-CinnamonSpark.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B0AF66B31AC1763E00E23657 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */,
+				B007561A1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		B0AF66B41AC1764300E23657 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B074349A1AC062960065403A /* CSTapSelector.swift */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		B0AF66B51AC1766300E23657 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				B0ECE8CB1AC081CF001D00CE /* CSCameraDelegate.swift */,
+			);
+			name = Delegates;
+			sourceTree = "<group>";
+		};
 		B0EDD68C1ABC2A170065644F = {
 			isa = PBXGroup;
 			children = (
 				B0EDD6971ABC2A170065644F /* CinnamonSpark */,
 				B0EDD6B01ABC2A170065644F /* CinnamonSparkTests */,
 				B0EDD6961ABC2A170065644F /* Products */,
+				0F2C87824EBAAB41ED4B886D /* Pods */,
+				100BA9D59D6F7765472FB032 /* Frameworks */,
+				B0EDD6BE1ABC31C90065644F /* CinnamonSpark-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,13 +140,15 @@
 		B0EDD6971ABC2A170065644F /* CinnamonSpark */ = {
 			isa = PBXGroup;
 			children = (
+				B0AF66B51AC1766300E23657 /* Delegates */,
+				B0AF66B41AC1764300E23657 /* Components */,
+				B0AF66B31AC1763E00E23657 /* Controllers */,
 				B0EDD69A1ABC2A170065644F /* AppDelegate.swift */,
-				B0EDD69F1ABC2A170065644F /* ViewController.swift */,
-				B0EDD6A11ABC2A170065644F /* Main.storyboard */,
 				B0EDD6A41ABC2A170065644F /* Images.xcassets */,
 				B0EDD6A61ABC2A170065644F /* LaunchScreen.xib */,
 				B0EDD69C1ABC2A170065644F /* CinnamonSpark.xcdatamodeld */,
 				B0EDD6981ABC2A170065644F /* Supporting Files */,
+				B0AF66B11AC1754000E23657 /* TODO.md */,
 			);
 			path = CinnamonSpark;
 			sourceTree = "<group>";
@@ -122,9 +185,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B0EDD6B71ABC2A170065644F /* Build configuration list for PBXNativeTarget "CinnamonSpark" */;
 			buildPhases = (
+				2F7C0FF80B110260D41D2A19 /* Check Pods Manifest.lock */,
 				B0EDD6911ABC2A170065644F /* Sources */,
 				B0EDD6921ABC2A170065644F /* Frameworks */,
 				B0EDD6931ABC2A170065644F /* Resources */,
+				40146B554A04E6FE00BE83C1 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -164,6 +229,7 @@
 				TargetAttributes = {
 					B0EDD6941ABC2A170065644F = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = USKYH3LF56;
 					};
 					B0EDD6AC1ABC2A170065644F = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -195,7 +261,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0EDD6A31ABC2A170065644F /* Main.storyboard in Resources */,
 				B0EDD6A81ABC2A170065644F /* LaunchScreen.xib in Resources */,
 				B0EDD6A51ABC2A170065644F /* Images.xcassets in Resources */,
 			);
@@ -210,13 +275,50 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		2F7C0FF80B110260D41D2A19 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		40146B554A04E6FE00BE83C1 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CinnamonSpark/Pods-CinnamonSpark-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B0EDD6911ABC2A170065644F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B0EDD6A01ABC2A170065644F /* ViewController.swift in Sources */,
+				B007561B1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift in Sources */,
+				B0EDD6A01ABC2A170065644F /* CSCameraViewController.swift in Sources */,
+				B0AF66B21AC1754000E23657 /* TODO.md in Sources */,
 				B0EDD69E1ABC2A170065644F /* CinnamonSpark.xcdatamodeld in Sources */,
+				B0ECE8CC1AC081CF001D00CE /* CSCameraDelegate.swift in Sources */,
+				B074349B1AC062960065403A /* CSTapSelector.swift in Sources */,
 				B0EDD69B1ABC2A170065644F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -240,14 +342,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		B0EDD6A11ABC2A170065644F /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B0EDD6A21ABC2A170065644F /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B0EDD6A61ABC2A170065644F /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -338,21 +432,36 @@
 		};
 		B0EDD6B81ABC2A170065644F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3F23AD0B248C3121EC388D81 /* Pods-CinnamonSpark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CinnamonSpark/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CinnamonSpark-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		B0EDD6B91ABC2A170065644F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 06F3B02634BCE54827C8EF09 /* Pods-CinnamonSpark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CinnamonSpark/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "CinnamonSpark-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -409,6 +518,7 @@
 				B0EDD6B91ABC2A170065644F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B0EDD6BA1ABC2A170065644F /* Build configuration list for PBXNativeTarget "CinnamonSparkTests" */ = {
 			isa = XCConfigurationList;
@@ -417,6 +527,7 @@
 				B0EDD6BC1ABC2A170065644F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
