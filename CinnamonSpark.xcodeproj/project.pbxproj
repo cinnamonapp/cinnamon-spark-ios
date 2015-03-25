@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		A6EF372C3934F2246E6229D3 /* libPods-CinnamonSpark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A51D2CAEBE17904D55F97869 /* libPods-CinnamonSpark.a */; };
 		B007561B1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B007561A1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift */; };
+		B01260561AC326C500351D40 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01260541AC326C500351D40 /* Crashlytics.framework */; };
+		B01260571AC326C500351D40 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01260551AC326C500351D40 /* Fabric.framework */; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
 		B0AF66B21AC1754000E23657 /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = B0AF66B11AC1754000E23657 /* TODO.md */; };
 		B0ECE8CA1AC066FA001D00CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0ECE8C91AC066FA001D00CE /* QuartzCore.framework */; };
@@ -36,6 +38,8 @@
 		3F23AD0B248C3121EC388D81 /* Pods-CinnamonSpark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinnamonSpark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CinnamonSpark/Pods-CinnamonSpark.debug.xcconfig"; sourceTree = "<group>"; };
 		A51D2CAEBE17904D55F97869 /* libPods-CinnamonSpark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CinnamonSpark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B007561A1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowserViewController.swift; sourceTree = "<group>"; };
+		B01260541AC326C500351D40 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		B01260551AC326C500351D40 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
 		B0AF66B11AC1754000E23657 /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		B0ECE8C91AC066FA001D00CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -59,7 +63,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0ECE8CA1AC066FA001D00CE /* QuartzCore.framework in Frameworks */,
+				B01260561AC326C500351D40 /* Crashlytics.framework in Frameworks */,
 				A6EF372C3934F2246E6229D3 /* libPods-CinnamonSpark.a in Frameworks */,
+				B01260571AC326C500351D40 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -85,6 +91,8 @@
 		100BA9D59D6F7765472FB032 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B01260541AC326C500351D40 /* Crashlytics.framework */,
+				B01260551AC326C500351D40 /* Fabric.framework */,
 				B0ECE8C91AC066FA001D00CE /* QuartzCore.framework */,
 				A51D2CAEBE17904D55F97869 /* libPods-CinnamonSpark.a */,
 			);
@@ -190,6 +198,7 @@
 				B0EDD6921ABC2A170065644F /* Frameworks */,
 				B0EDD6931ABC2A170065644F /* Resources */,
 				40146B554A04E6FE00BE83C1 /* Copy Pods Resources */,
+				B01260531AC3268F00351D40 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -305,6 +314,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CinnamonSpark/Pods-CinnamonSpark-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		B01260531AC3268F00351D40 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run cc868daa408eda2540d6bee3fb321315377a9b8d 5bb15b663582031bdf09378915bc6e3f13147babdfbb1b7671483fe716b271fd";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -438,6 +460,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CinnamonSpark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -456,6 +482,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = CinnamonSpark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -19,8 +19,6 @@ class CSPhotoBrowserViewController: UIViewController, MWPhotoBrowserDelegate, CS
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        println("appearing")
-        
         photos = NSMutableArray()
         
         self.resetPhotoBrowser()
@@ -57,13 +55,23 @@ class CSPhotoBrowserViewController: UIViewController, MWPhotoBrowserDelegate, CS
 
         let photo = MWPhoto(image: image)
         photo.caption = "Meal size: \(selectedValue as String)"
-        photos.addObject(photo)
+        self.photos.addObject(photo)
         
-        println("Chosen value \(selectedValue)")
+//        println("Chosen value \(selectedValue)")
+        
+        self.resetPhotoBrowser()
+    }
+    
+    func didFinishUploadingPicture(thumbUrl: NSURL, originalUrl: NSURL) {
+        
+        println("finished uploading!")
+        
+        self.photos.removeLastObject()
+        self.photos.addObject(MWPhoto(URL: originalUrl))
         
         self.cameraViewController = nil
         
-        self.resetPhotoBrowser()
+        self.browser.reloadData()
     }
     
     func openCamera(){

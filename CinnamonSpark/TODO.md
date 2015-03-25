@@ -1,13 +1,20 @@
 # TODO
 
-- Display value in photo browser // Do it later
-- Refine TapSelector component to be more precise and scientific
+- own your photos and download thumbs
+- save and display meal size
 - Backend for doctor linnea
-- Cut rounded pictures
-- Customize photo browser view
+- doctor linnea notification
+- Cut rounded pictures (server side?)
+- Customize photo browser view (add symbols and values)
+- Display value in photo browser // Do it later
+
 
 # DONE
 
+- Deploy beta app
+- Deploy server
 - Photo feed browser
 - Take a picture and display in photo feed
 - Upload pic to server and cut in thumbnails
+- Refine TapSelector component to be more precise and scientific
+- Add "Are you sure?" screen to camera view controller

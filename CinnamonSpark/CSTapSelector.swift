@@ -20,8 +20,20 @@ class CSTapSelector: UIView {
     
     
     // Init the view with a set of values
-    convenience init(values: NSArray, origin: CGPoint){
+    convenience init(values: NSArray, origin: CGPoint, minimumRadius: Float?, maximumRadius: Float?){
         self.init()
+        
+        // Set the minimum radius from the user if it's present
+        if(minimumRadius != nil){
+            self.minRadius = minimumRadius!
+        }
+        
+        // Set the maximum radius from the user if it's present
+        if(maximumRadius != nil){
+            self.maxRadius = maximumRadius!
+        }
+        
+        
         
         // Set the array of values
         self.valuesSet = values
@@ -29,24 +41,14 @@ class CSTapSelector: UIView {
         // Set the origin with center anchor point
         self.setOriginFromCenter(origin)
         
-        
-        
         self.prepareView()
         
         // Handle tap on selector
         var tapGesture = UITapGestureRecognizer(target: self, action: "handleTapSelection:")
         self.addGestureRecognizer(tapGesture)
     }
-
-    // Stuff to get the view ready to be shown
-    private func prepareView(){
-        // Set a transparent background
-        self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
-        // Pick the first selected item
-        self._selectedValueIndex = 0
-        // Update frames
-        self.refreshFrame()
-    }
+    
+    // MARK: - Getters and setters
     
     // Set the origin of the view with center anchor point
     func setOriginFromCenter(origin: CGPoint){
@@ -70,12 +72,16 @@ class CSTapSelector: UIView {
         return self.valuesSet[self._selectedValueIndex]
     }
     
+    // Returns the radius for the current selectedValueIndex
     private func radiusForSelectedValueIndex() -> Float{
-        let step : Float = (self.maxRadius - self.minRadius) / Float(valuesSet.count - 1)
-        
-        return Float(self.minRadius) + Float(step) * Float(self._selectedValueIndex)
+        let step : Float = (self.maxRadius - self.minRadius) / Float(valuesSet.count - 1) // Calculate the step size
+        let radius : Float = self.minRadius + step * Float(self._selectedValueIndex) // Starting from the minRadius add needed steps
+        return radius
     }
     
+    // MARK: - View operations
+    
+    // Returns a new frame for the given radius
     private func generateFrameForRadius(radius: Float) -> CGRect{
         var rect = CGRect()
         
@@ -88,24 +94,39 @@ class CSTapSelector: UIView {
         return rect
     }
     
+    // Stuff to get the view ready to be shown
+    private func prepareView(){
+        // Set a transparent background
+        self.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0)
+        // Pick the first selected item
+        self._selectedValueIndex = 0
+        // Update frames
+        self.refreshFrame()
+    }
+    
+    // Update the frame size and position
     func refreshFrame(){
         self.frame = self.generateFrameForRadius(self.radiusForSelectedValueIndex())
         self.setOriginFromCenter(self._initialOrigin)
     }
     
+    // MARK: - Gesture recognition
+    
+    // Perform action when touched
     func handleTapSelection(sender: UIGestureRecognizer){
-        println("handling tap")
         
+        // Increment the selected value index
         self._selectedValueIndex = self._selectedValueIndex + 1
         
-        var centerTransformation : CGAffineTransform
-        
+        // If the index is out of bounds
         if (self._selectedValueIndex >= self.valuesSet.count){
             self._selectedValueIndex = 0
         }
         
         self.refreshFrame()
     }
+    
+    // MARK: - Custom drawings
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.

@@ -11,4 +11,5 @@ import UIKit
 protocol CSCameraDelegate {
     
     optional func didTakePicture(image: UIImage, withSelectionValue selectedValue: AnyObject)
+    optional func didFinishUploadingPicture(thumbUrl: NSURL, originalUrl: NSURL)
 }
