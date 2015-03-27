@@ -1,7 +1,5 @@
 # TODO
 
-- own your photos and download thumbs
-- save and display meal size
 - Backend for doctor linnea
 - doctor linnea notification
 - Cut rounded pictures (server side?)
@@ -11,6 +9,8 @@
 
 # DONE
 
+- save and display meal size
+- own your photos and download thumbs
 - Deploy beta app
 - Deploy server
 - Photo feed browser

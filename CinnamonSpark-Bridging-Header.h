@@ -5,3 +5,4 @@
 #import "FastttCamera.h"
 #import "MWPhotoBrowser.h"
 #import "AFNetworking.h"
+#import "UIDevice+IdentifierAddition.h"

@@ -8,7 +8,7 @@
 
 import UIKit
 @objc
-protocol CSCameraDelegate {
+protocol CSCameraDelegate : CSBaseDelegate {
     
     optional func didTakePicture(image: UIImage, withSelectionValue selectedValue: AnyObject)
     optional func didFinishUploadingPicture(thumbUrl: NSURL, originalUrl: NSURL)

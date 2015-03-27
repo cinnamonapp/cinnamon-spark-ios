@@ -24,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.backgroundColor = UIColor.blackColor()
         
-//        let cameraViewController = CSCameraViewController()
         let photoBrowserViewController = CSPhotoBrowserViewController()
         
         let navigationController = UINavigationController(rootViewController: photoBrowserViewController)
@@ -34,6 +33,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.makeKeyAndVisible()
         
         Fabric.with([Crashlytics()])
+        
+        // Check in current user
+        (CSAPIRequest()).checkCurrentUserInUsingDeviceUUID()
         
         return true
     }

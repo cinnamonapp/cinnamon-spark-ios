@@ -8,20 +8,40 @@
 
 import Foundation
 
-class CSPhotoBrowserViewController: UIViewController, MWPhotoBrowserDelegate, CSCameraDelegate {
+class CSPhotoBrowserViewController: UIViewController, MWPhotoBrowserDelegate, CSCameraDelegate, CSAPIRequestDelegate {
     
     var photos : NSMutableArray!
     var browser : MWPhotoBrowser!
     var cameraViewController : CSCameraViewController!
+    let mealSizesArray = ["small", "medium", "large"]
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        photos = NSMutableArray()
+        self.photos = NSMutableArray()
+        
+        CSAPIRequest().getMealRecords({ (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+            var mealRecords = responseObject as [NSDictionary]
+            
+            for (mealRecord) in mealRecords{
+                
+                let photo = MWPhoto(URL: NSURL(string: mealRecord["photo_original_url"] as String))
+                let mealSize: Int = mealRecord["size"] as Int
+                photo.caption = "Meal size: \(self.mealSizesArray[mealSize - 1])"
+                
+                self.photos.addObject(photo)
+            }
+            
+            self.resetPhotoBrowser()
+        }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+            
+        })
         
         self.resetPhotoBrowser()
+        
+        self.openCamera()
     }
     
     func resetPhotoBrowser(){
@@ -54,7 +74,8 @@ class CSPhotoBrowserViewController: UIViewController, MWPhotoBrowserDelegate, CS
     func didTakePicture(image: UIImage, withSelectionValue selectedValue: AnyObject) {
 
         let photo = MWPhoto(image: image)
-        photo.caption = "Meal size: \(selectedValue as String)"
+        let mealSize = selectedValue as Int
+        photo.caption = "Meal size: \(self.mealSizesArray[mealSize - 1])"
         self.photos.addObject(photo)
         
 //        println("Chosen value \(selectedValue)")
@@ -62,12 +83,18 @@ class CSPhotoBrowserViewController: UIViewController, MWPhotoBrowserDelegate, CS
         self.resetPhotoBrowser()
     }
     
-    func didFinishUploadingPicture(thumbUrl: NSURL, originalUrl: NSURL) {
-        
-        println("finished uploading!")
-        
+    func didSuccessfullyCreateMealRecord(response: NSDictionary) {
+        let thumbUrl    = NSURL(string: response["photo_thumb_url"]     as String)
+        let originalUrl = NSURL(string: response["photo_original_url"]  as String)
+        let mealSize    = response["size"] as Int
+        let mealSizeName = self.mealSizesArray[mealSize - 1]
+
         self.photos.removeLastObject()
-        self.photos.addObject(MWPhoto(URL: originalUrl))
+        
+        let photo = MWPhoto(URL: originalUrl)
+        photo.caption = "Meal size: \(mealSizeName)"
+        
+        self.photos.addObject(photo)
         
         self.cameraViewController = nil
         

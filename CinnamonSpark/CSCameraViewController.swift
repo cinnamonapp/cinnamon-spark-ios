@@ -25,7 +25,7 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate {
     var fastCamera : FastttCamera!
     var stillImageView : UIImageView!
     var cameraButton : UIButton!
-    var delegate : CSCameraDelegate!
+    var delegate : CSBaseDelegate!
     var tapSelector : CSTapSelector!
     var retakeButton : UIBarButtonItem!
     var takenPicture : FastttCapturedImage!
@@ -73,7 +73,7 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate {
     func initiateTapSelector(){
         let mainScreen = UIScreen.mainScreen().bounds
         
-        tapSelector = CSTapSelector(values: ["1", "2", "3"],
+        tapSelector = CSTapSelector(values: [1, 2, 3],
             origin: CGPointMake(CGRectGetMidX(self.fastCamera.view.frame), CGRectGetMidY(self.fastCamera.view.frame)),
             minimumRadius: nil,
             maximumRadius: Float(mainScreen.size.width / 2.0) - 20.0)
@@ -154,34 +154,14 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate {
         let image = self.takenPicture.scaledImage
         let imageData = UIImageJPEGRepresentation(image, 0.7)
         
-        println(self.tapSelector.selectedValue())
+//        println(self.tapSelector.selectedValue())
         
-        let manager = AFHTTPRequestOperationManager()
-
-        let params : NSDictionary = [
-            "meal_record": [
-                "size": 2
-            ]
-        ]
+        CSAPIRequest().createMealRecord(self.tapSelector.selectedValue() as Int, withImageData: imageData, delegate: self.delegate as? CSAPIRequestDelegate)
         
-        manager.POST(self.apiUrl, parameters: params, constructingBodyWithBlock: { (formData: AFMultipartFormData!) -> Void in
-            formData.appendPartWithFileData(imageData, name: "meal_record[photo]", fileName: "testfile.jpeg", mimeType: "image/jpeg")
-
-            }, success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-//                let thumbUrl = responseObject.response
-//                self.delegate.didFinishUploadingPicture(<#thumbUrl: NSURL#>, originalUrl: <#NSURL#>)
-                let responseDictionary = responseObject as NSDictionary
-                let thumbUrl = NSURL(string: responseDictionary.objectForKey("photo_thumb_url") as String)
-                let originalUrl = NSURL(string: responseDictionary.objectForKey("photo_original_url") as String)
-                
-                self.delegate.didFinishUploadingPicture!(thumbUrl!, originalUrl: originalUrl!)
-                
-            }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                println("error")
+        if let cameraDelegate = self.delegate as? CSCameraDelegate{
+            cameraDelegate.didTakePicture!(image, withSelectionValue: self.tapSelector.selectedValue())
         }
-        
-        
-        self.delegate.didTakePicture!(image, withSelectionValue: "small")
+    
         self.closeViewController()
 
     }
@@ -235,36 +215,6 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate {
     }
     
     // MARK: - FastttCameraDelegate methods
-    
-    func cameraController(cameraController: FastttCameraInterface!, didFinishCapturingImage capturedImage: FastttCapturedImage!) {
-        
-//        let image = capturedImage.fullImage
-//        let imageData = UIImageJPEGRepresentation(image, 0.7)
-//        
-//        let manager = AFHTTPRequestOperationManager()
-//        
-//        let params : NSDictionary = [
-//            "meal_record": [
-//                "size": 2,
-//                "carbs_estimate": 3
-//            ]
-//        ]
-//        
-//        manager.POST("http://192.168.10.222:3000/meal_records", parameters: params, constructingBodyWithBlock: { (formData: AFMultipartFormData!) -> Void in
-//            formData.appendPartWithFileData(imageData, name: "meal_record[photo]", fileName: "testfile.jpeg", mimeType: "image/jpeg")
-//            
-//        }, success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-//            println(responseObject)
-//            
-//        }) { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-//            println("error")
-//        }
-        
-//        self.delegate.didTakePicture!(image, withSelectionValue: tapSelector.selectedValue() as String)
-    
-//        dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     
     func cameraController(cameraController: FastttCameraInterface!, didFinishScalingCapturedImage capturedImage: FastttCapturedImage!) {
         
