@@ -13,10 +13,14 @@ import Crashlytics
 
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
     var window: UIWindow?
-
+    
+    
+    var userFeedNavigationController : UINavigationController!
+    var socialFeedNavigationController : UINavigationController!
+    var tabBarViewController: UITabBarController!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -24,11 +28,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.backgroundColor = UIColor.blackColor()
         
-        let photoBrowserViewController = CSPhotoBrowserViewController()
+        self.prepareSocialFeedNavigationControllerForReuse()
+        self.prepareUserFeedNavigationControllerForReuse()
+        self.prepareTabBarViewControllerForReuse()
         
-        let navigationController = UINavigationController(rootViewController: photoBrowserViewController)
-        
-        self.window?.rootViewController = navigationController
+        // Set the tabBarViewController as root view controller
+        self.window?.rootViewController = self.tabBarViewController
         
         self.window?.makeKeyAndVisible()
         
@@ -37,9 +42,61 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Check in current user
         (CSAPIRequest()).checkCurrentUserInUsingDeviceUUID()
         
+        // Register for notifications: Alert | Badge | Sound
+//        let application = UIApplication.sharedApplication()
+//        if (application.respondsToSelector("registerUserNotificationSettings:")) {
+//            // use registerUserNotificationSettings
+//            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Sound | .Badge, categories: nil))
+//            application.registerForRemoteNotifications()
+//        } else {
+//            application.registerForRemoteNotificationTypes(.Alert | .Sound | .Badge)
+//        }
+
         return true
     }
-
+    
+    private func prepareTabBarViewControllerForReuse(){
+        self.tabBarViewController = UITabBarController()
+        self.tabBarViewController.delegate = self
+        self.tabBarViewController.viewControllers = [self.socialFeedNavigationController, userFeedNavigationController]
+    }
+    
+    private func prepareSocialFeedNavigationControllerForReuse(){
+        let socialFeedViewController = CSSocialPhotoFeedViewController()
+        socialFeedViewController.title = "Social feed"
+        
+        self.socialFeedNavigationController = UINavigationController(rootViewController: socialFeedViewController)
+    }
+    
+    private func prepareUserFeedNavigationControllerForReuse(){
+        let userFeedViewController = CSUserPhotoFeedViewController()
+        userFeedViewController.title = "Your photos"
+        
+        self.userFeedNavigationController = UINavigationController(rootViewController: userFeedViewController)
+    }
+    
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+        if (tabBarController.selectedViewController != viewController){
+            return true
+        }else{
+            return false
+        }
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        println(deviceToken)
+        CSAPIRequest().updateCurrentUserNotificationToken(deviceToken)
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        println("Error on notification stuff")
+    }
+    
+    func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
+        println(notificationSettings)
+    }
+    
+    
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.

@@ -8,40 +8,79 @@
 
 import Foundation
 
-class CSPhotoBrowserViewController: UIViewController, MWPhotoBrowserDelegate, CSCameraDelegate, CSAPIRequestDelegate {
+enum CSPhotoFeedQueryTypes{
+    case CurrentUser
+    case All
+}
+
+class CSPhotoFeedViewController: UIViewController, MWPhotoBrowserDelegate, CSCameraDelegate, CSAPIRequestDelegate {
     
-    var photos : NSMutableArray!
+    var photos : NSMutableArray = NSMutableArray()
     var browser : MWPhotoBrowser!
     var cameraViewController : CSCameraViewController!
     let mealSizesArray = ["small", "medium", "large"]
+    let APIRequest = CSAPIRequest()
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.photos = NSMutableArray()
-        
-        CSAPIRequest().getMealRecords({ (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-            var mealRecords = responseObject as [NSDictionary]
-            
-            for (mealRecord) in mealRecords{
-                
-                let photo = MWPhoto(URL: NSURL(string: mealRecord["photo_original_url"] as String))
-                let mealSize: Int = mealRecord["size"] as Int
-                photo.caption = "Meal size: \(self.mealSizesArray[mealSize - 1])"
-                
-                self.photos.addObject(photo)
-            }
-            
-            self.resetPhotoBrowser()
-        }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-            
-        })
+        self.view.autoresizingMask = .FlexibleBottomMargin | .FlexibleHeight | .FlexibleTopMargin
         
         self.resetPhotoBrowser()
+
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
-        self.openCamera()
+        self.resetPhotoBrowser()
+    }
+    
+    /**
+        Query the database for meal records.
+    
+        :param: queryType Specifies if it should request All meal records or just the ones from t
+    */
+    func getMealRecords(queryType: CSPhotoFeedQueryTypes){
+        switch queryType{
+        case .All:
+            APIRequest.getOthersMealRecords(self.handleRequestSuccessResponse, failure: self.handleRequestFailureResponse)
+        break
+        case .CurrentUser:
+            APIRequest.getUserMealRecords(self.handleRequestSuccessResponse, failure: self.handleRequestFailureResponse)
+        break
+        default:
+            self.getMealRecords(.CurrentUser)
+        }
+    }
+    
+    /**
+        The handler function for success meal records responses.
+        Override to set custom behaviour for this action.
+    */
+    func handleRequestSuccessResponse(operation: AFHTTPRequestOperation!, responseObject: AnyObject!){
+        var mealRecords = responseObject as [NSDictionary]
+        
+        for (mealRecord) in mealRecords{
+            
+            let photo = MWPhoto(URL: NSURL(string: mealRecord["photo_original_url"] as String))
+            let mealSize: Int = mealRecord["size"] as Int
+            photo.caption = "Meal size: \(self.mealSizesArray[mealSize - 1])"
+            
+            self.photos.addObject(photo)
+        }
+        
+        self.resetPhotoBrowser()
+    }
+    
+    /**
+        The handler function for failure meal records responses.
+        Override to set custom behaviour for this action.
+    */
+    func handleRequestFailureResponse(operation: AFHTTPRequestOperation!, error: NSError!){
+        
     }
     
     func resetPhotoBrowser(){
@@ -57,28 +96,32 @@ class CSPhotoBrowserViewController: UIViewController, MWPhotoBrowserDelegate, CS
         self.browser.enableGrid = true // Whether to allow the viewing of all the photo thumbnails on a grid (defaults to YES)
         self.browser.startOnGrid = true // Whether to start on the grid of thumbnails instead of the first photo (defaults to NO)
         
+        self.browser.hidesBottomBarWhenPushed = false
+        self.browser.view.autoresizingMask = .FlexibleBottomMargin | .FlexibleHeight | .FlexibleTopMargin
+
         self.navigationController?.pushViewController(self.browser, animated: false)
-        
+//        self.navigationController?.viewControllers = [self.browser]
+
         self.browser.navigationItem.hidesBackButton = true
         
         var buttonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "openCamera")
         
-        self.browser.navigationItem.rightBarButtonItem = buttonItem
+//        self.browser.navigationItem.rightBarButtonItem = buttonItem
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        
+        println("Do something about memory warnings!")
     }
     
     func didTakePicture(image: UIImage, withSelectionValue selectedValue: AnyObject) {
-
+        
         let photo = MWPhoto(image: image)
         let mealSize = selectedValue as Int
         photo.caption = "Meal size: \(self.mealSizesArray[mealSize - 1])"
         self.photos.addObject(photo)
-        
-//        println("Chosen value \(selectedValue)")
         
         self.resetPhotoBrowser()
     }

@@ -12,7 +12,7 @@ import AdSupport
 class CSAPIRequest: AFHTTPRequestOperationManager {
     
     private let deviceUniqueIdentifier = ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString
-    private let APIEndpoint : NSURL = NSURL(string: "http://murmuring-dusk-8873.herokuapp.com")!
+    private let APIEndpoint : NSURL = NSURL(string: "http://localhost:3000")!
     
     private let APIPathDictionary : [String : String] = [
         "User" : "/users/:id.json",
@@ -106,21 +106,26 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         
     }
     
-    func getMealRecords(success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)) -> [NSDictionary]{
+    func getUserMealRecords(success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)) {
         
-        var array : [NSDictionary] = []
         let userMealRecordPath : String = self.getAPICombinedPath("User", withParentRecordId: self.deviceUniqueIdentifier, andModel: "MealRecord")
 
-        println(userMealRecordPath)
-        self.GET(userMealRecordPath, parameters: [], success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-            success(operation, responseObject)
-        },
-        failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-            failure(operation, error)
-        })
-        
-        return array
+        self.GET(userMealRecordPath, parameters: [], success: success, failure: failure)
+    
     }
+    
+    func getOthersMealRecords(success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        
+        let mealRecordPath : String = self.getAPIPath("MealRecord")
+        let params = [
+            "except_user_id": self.deviceUniqueIdentifier
+        ]
+        
+        self.GET(mealRecordPath, parameters: params, success: success, failure: failure)
+        
+    }
+    
+    
     
     /** 
         Use the device UUID to authenticate the user.
@@ -142,12 +147,20 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
             },
             failure: { (request: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println("Error in api")
-                fatalError("Fix this!")
+//                fatalError("Fix this!")
             }
         )
         
     }
 
+    /**
+        Save the currentUser's remote notification token on the server.
+    
+        :param: deviceToken The token received from the AppDelegate.
+    */
+    func updateCurrentUserNotificationToken(deviceToken : NSData){
+        println(deviceToken)
+    }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

@@ -1,10 +1,23 @@
 # TODO
 
-- Backend for doctor linnea
-- doctor linnea notification
-- Cut rounded pictures (server side?)
+## GROUP: MVP
+- Send notifications when Dr. Linnea updates carbs_count
+
+- Improve backend for Dr. Linnea
+  - Improve UI to check for pictures
+  - Email notification to Dr. Linnea
+  - Add some sort of security?
+
+- Some visualisation of data
+  - Display values in photo feed?
+  - Better display values in photo detail view?
+
+## GROUP: Nice to have
+- Make it work offline too
 - Customize photo browser view (add symbols and values)
-- Display value in photo browser // Do it later
+- Cut rounded pictures (server side?)
+- Add pic from library
+- Basic food category recognition
 
 
 # DONE

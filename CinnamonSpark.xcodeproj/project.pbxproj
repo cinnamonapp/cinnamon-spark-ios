@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A6EF372C3934F2246E6229D3 /* libPods-CinnamonSpark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A51D2CAEBE17904D55F97869 /* libPods-CinnamonSpark.a */; };
-		B007561B1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B007561A1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift */; };
+		B007561B1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */; };
 		B01260561AC326C500351D40 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01260541AC326C500351D40 /* Crashlytics.framework */; };
 		B01260571AC326C500351D40 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01260551AC326C500351D40 /* Fabric.framework */; };
 		B014ECBF1AC5B06900DBD1BD /* CSAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */; };
@@ -16,6 +16,9 @@
 		B056D1A01AC41ABA00D98079 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = B056D19E1AC41ABA00D98079 /* UIDevice+IdentifierAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
 		B0AF66B21AC1754000E23657 /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = B0AF66B11AC1754000E23657 /* TODO.md */; };
+		B0DE33A31ACAA7B5003E8626 /* CSPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DE33A21ACAA7B5003E8626 /* CSPhotoFeedViewController.swift */; };
+		B0DE33A51ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DE33A41ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift */; };
+		B0DE33A71ACAEC2C003E8626 /* CSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */; };
 		B0E3B41C1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E3B41B1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift */; };
 		B0E3B41E1AC4B71700347B91 /* CSBaseDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E3B41D1AC4B71700347B91 /* CSBaseDelegate.swift */; };
 		B0ECE8CA1AC066FA001D00CE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0ECE8C91AC066FA001D00CE /* QuartzCore.framework */; };
@@ -42,7 +45,7 @@
 		06F3B02634BCE54827C8EF09 /* Pods-CinnamonSpark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinnamonSpark.release.xcconfig"; path = "Pods/Target Support Files/Pods-CinnamonSpark/Pods-CinnamonSpark.release.xcconfig"; sourceTree = "<group>"; };
 		3F23AD0B248C3121EC388D81 /* Pods-CinnamonSpark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CinnamonSpark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CinnamonSpark/Pods-CinnamonSpark.debug.xcconfig"; sourceTree = "<group>"; };
 		A51D2CAEBE17904D55F97869 /* libPods-CinnamonSpark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CinnamonSpark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B007561A1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowserViewController.swift; sourceTree = "<group>"; };
+		B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUserPhotoFeedViewController.swift; sourceTree = "<group>"; };
 		B01260541AC326C500351D40 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		B01260551AC326C500351D40 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSAPIRequest.swift; sourceTree = "<group>"; };
@@ -52,6 +55,9 @@
 		B056D19E1AC41ABA00D98079 /* UIDevice+IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+IdentifierAddition.m"; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
 		B0AF66B11AC1754000E23657 /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
+		B0DE33A21ACAA7B5003E8626 /* CSPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoFeedViewController.swift; sourceTree = "<group>"; };
+		B0DE33A41ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSocialPhotoFeedViewController.swift; sourceTree = "<group>"; };
+		B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTabBarController.swift; sourceTree = "<group>"; };
 		B0E3B41B1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSAPIRequestDelegate.swift; sourceTree = "<group>"; };
 		B0E3B41D1AC4B71700347B91 /* CSBaseDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSBaseDelegate.swift; sourceTree = "<group>"; };
 		B0ECE8C91AC066FA001D00CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -115,7 +121,10 @@
 			isa = PBXGroup;
 			children = (
 				B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */,
-				B007561A1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift */,
+				B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */,
+				B0DE33A41ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift */,
+				B0DE33A21ACAA7B5003E8626 /* CSPhotoFeedViewController.swift */,
+				B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -363,12 +372,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0E3B41C1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift in Sources */,
-				B007561B1ABC5D8B00386B03 /* CSPhotoBrowserViewController.swift in Sources */,
+				B007561B1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift in Sources */,
 				B0EDD6A01ABC2A170065644F /* CSCameraViewController.swift in Sources */,
 				B0E3B41E1AC4B71700347B91 /* CSBaseDelegate.swift in Sources */,
+				B0DE33A71ACAEC2C003E8626 /* CSTabBarController.swift in Sources */,
 				B0AF66B21AC1754000E23657 /* TODO.md in Sources */,
 				B0EDD69E1ABC2A170065644F /* CinnamonSpark.xcdatamodeld in Sources */,
+				B0DE33A51ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift in Sources */,
 				B0ECE8CC1AC081CF001D00CE /* CSCameraDelegate.swift in Sources */,
+				B0DE33A31ACAA7B5003E8626 /* CSPhotoFeedViewController.swift in Sources */,
 				B056D1A01AC41ABA00D98079 /* UIDevice+IdentifierAddition.m in Sources */,
 				B074349B1AC062960065403A /* CSTapSelector.swift in Sources */,
 				B056D19F1AC41ABA00D98079 /* NSString+MD5Addition.m in Sources */,
