@@ -12,7 +12,7 @@ import AdSupport
 class CSAPIRequest: AFHTTPRequestOperationManager {
     
     private let deviceUniqueIdentifier = ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString
-    private let APIEndpoint : NSURL = NSURL(string: "http://localhost:3000")!
+    private let APIEndpoint : NSURL = NSURL(string: "http://murmuring-dusk-8873.herokuapp.com")!
     
     private let APIPathDictionary : [String : String] = [
         "User" : "/users/:id.json",

@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     
     var userFeedNavigationController : UINavigationController!
     var socialFeedNavigationController : UINavigationController!
-    var tabBarViewController: UITabBarController!
+    var tabBarViewController: CSTabBarController!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
@@ -56,9 +56,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     private func prepareTabBarViewControllerForReuse(){
-        self.tabBarViewController = UITabBarController()
+        self.tabBarViewController = CSTabBarController()
         self.tabBarViewController.delegate = self
-        self.tabBarViewController.viewControllers = [self.socialFeedNavigationController, userFeedNavigationController]
+        
+        let emptyVC = UIViewController()
+        emptyVC.title = "."
+        
+        self.tabBarViewController.setViewControllers([self.socialFeedNavigationController, UIViewController(), userFeedNavigationController], animated: false)
     }
     
     private func prepareSocialFeedNavigationControllerForReuse(){
@@ -76,12 +80,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-        if (tabBarController.selectedViewController != viewController){
+        if (tabBarController.selectedViewController != viewController && viewController.title != "."){
             return true
         }else{
             return false
         }
     }
+    
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        println("here")
+    }
+    
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         println(deviceToken)

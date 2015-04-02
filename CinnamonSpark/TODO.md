@@ -1,18 +1,32 @@
 # TODO
 
 ## GROUP: MVP
-- Send notifications when Dr. Linnea updates carbs_count
+
+- Community
+  - improve feed for stuff
+  - hashtags
+
+- Some visualisation of data
+  - Display values in photo feed?
+  - Better display values in photo detail view?
+  - day by day view
 
 - Improve backend for Dr. Linnea
   - Improve UI to check for pictures
   - Email notification to Dr. Linnea
   - Add some sort of security?
 
-- Some visualisation of data
-  - Display values in photo feed?
-  - Better display values in photo detail view?
+
+
 
 ## GROUP: Nice to have
+
+- Remote notifications
+  - Send notifications when Dr. Linnea updates carbs_count
+  - Somebody posted something :D
+  - Foursquare location notifications
+  - Timing notification + Sitting notification
+
 - Make it work offline too
 - Customize photo browser view (add symbols and values)
 - Cut rounded pictures (server side?)

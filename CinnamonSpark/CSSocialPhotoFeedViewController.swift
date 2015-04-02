@@ -10,6 +10,16 @@ import Foundation
 
 class CSSocialPhotoFeedViewController: CSPhotoFeedViewController {
 
+    override init(){
+        super.init()
+        
+        self.tabBarItem = UITabBarItem(title: "Community", image: UIImage(named: "Social"), tag: 1)
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    }
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         

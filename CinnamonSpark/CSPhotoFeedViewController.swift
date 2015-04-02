@@ -32,16 +32,16 @@ class CSPhotoFeedViewController: UIViewController, MWPhotoBrowserDelegate, CSCam
 
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewDidAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
+        println("hello")
         self.resetPhotoBrowser()
     }
     
     /**
         Query the database for meal records.
     
-        :param: queryType Specifies if it should request All meal records or just the ones from t
+        :param: queryType Specifies if it should request All meal records or just the ones from the currentUser
     */
     func getMealRecords(queryType: CSPhotoFeedQueryTypes){
         switch queryType{
@@ -95,18 +95,20 @@ class CSPhotoFeedViewController: UIViewController, MWPhotoBrowserDelegate, CSCam
         self.browser.alwaysShowControls = false // Allows to control whether the bars and controls are always visible or whether they fade away to show the photo full (defaults to NO)
         self.browser.enableGrid = true // Whether to allow the viewing of all the photo thumbnails on a grid (defaults to YES)
         self.browser.startOnGrid = true // Whether to start on the grid of thumbnails instead of the first photo (defaults to NO)
-        
+        self.browser.enableSwipeToDismiss = true
         self.browser.hidesBottomBarWhenPushed = false
-        self.browser.view.autoresizingMask = .FlexibleBottomMargin | .FlexibleHeight | .FlexibleTopMargin
-
+        
         self.navigationController?.pushViewController(self.browser, animated: false)
-//        self.navigationController?.viewControllers = [self.browser]
 
         self.browser.navigationItem.hidesBackButton = true
         
         var buttonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Camera, target: self, action: "openCamera")
-        
+
 //        self.browser.navigationItem.rightBarButtonItem = buttonItem
+    }
+    
+    func showGrid(){
+        self.browser.showGridAnimated()
     }
     
     override func didReceiveMemoryWarning() {
@@ -171,5 +173,43 @@ class CSPhotoFeedViewController: UIViewController, MWPhotoBrowserDelegate, CSCam
         }
         return nil
     }
+    
+    func photoBrowserDidHideGrid(photoBrowser: MWPhotoBrowser!) {
+        let button = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "showGrid")
+        self.browser.navigationItem.leftBarButtonItem = button
+    }
+    
+    func photoBrowserDidShowGrid(photoBrowser: MWPhotoBrowser!) {
+        self.browser.navigationItem.leftBarButtonItem = nil
+    }
+    
+    func setTabBarVisible(visible:Bool, animated:Bool) {
+        
+        //* This cannot be called before viewDidLayoutSubviews(), because the frame is not set before this time
+        
+        // bail if the current state matches the desired state
+        if (tabBarIsVisible() == visible) { return }
+        
+        // get a frame calculation ready
+        let frame = self.tabBarController?.tabBar.frame
+        let height = frame?.size.height
+        let offsetY = (visible ? -height! : height)
+        
+        // zero duration means no animation
+        let duration:NSTimeInterval = (animated ? 0.3 : 0.0)
+        
+        //  animate the tabBar
+        if frame != nil {
+            UIView.animateWithDuration(duration) {
+                self.tabBarController?.tabBar.frame = CGRectOffset(frame!, 0, offsetY!)
+                return
+            }
+        }
+    }
+    
+    func tabBarIsVisible() ->Bool {
+        return self.tabBarController?.tabBar.frame.origin.y < CGRectGetMaxY(self.view.frame)
+    }
+
 }
 

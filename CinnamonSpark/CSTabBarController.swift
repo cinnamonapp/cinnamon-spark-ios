@@ -10,6 +10,8 @@ import UIKit
 
 class CSTabBarController: UITabBarController {
     
+    var cameraButton : UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -23,6 +25,31 @@ class CSTabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    override func setViewControllers(viewControllers: [AnyObject], animated: Bool) {
+        super.setViewControllers(viewControllers, animated: animated)
+        
+        self.cameraButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
+        
+        let height = self.tabBar.bounds.size.height + 10.0
+        let x = CGRectGetMidX(self.tabBar.bounds) - (height / 2)
+        let y = self.tabBar.frame.origin.y - 10.0
+        
+        self.cameraButton.frame = CGRectMake(x, y, height, height)
+        
+        self.cameraButton.setImage(UIImage(named: "CameraButton"), forState: UIControlState.Normal)
+        
+        self.cameraButton.addTarget(self, action: "cameraButtonAction:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        self.view.addSubview(self.cameraButton)
+    }
+    
+    func cameraButtonAction(sender: AnyObject){
+        var vc = self.viewControllers?[2] as UINavigationController
+        var vc2 = vc.viewControllers?[0] as CSUserPhotoFeedViewController
+        
+        vc2.openCamera()
+    }
 
     /*
     // MARK: - Navigation
