@@ -16,8 +16,8 @@ class CSTabBarController: UITabBarController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        
+        self.customizeTabBar()
+        self.view.backgroundColor = viewsBackgroundColor
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,15 +25,29 @@ class CSTabBarController: UITabBarController {
         // Dispose of any resources that can be recreated.
     }
     
+    private func customizeTabBar(){
+        self.tabBar.translucent = false
+        self.tabBar.barTintColor = viewsBackgroundColor
+        self.tabBar.tintColor = UIColor(red: 51/255, green: 44/255, blue: 33/255, alpha: 1)
+        
+        let addHeight = CGFloat(5)
+        
+        self.tabBar.frame.size.height = self.tabBar.frame.size.height + addHeight
+        self.tabBar.frame.origin.y = self.tabBar.frame.origin.y - addHeight
+        
+        self.tabBar.backgroundImage = UIImage()
+        self.tabBar.shadowImage = UIImage()
+
+    }
     
     override func setViewControllers(viewControllers: [AnyObject], animated: Bool) {
         super.setViewControllers(viewControllers, animated: animated)
         
         self.cameraButton = UIButton.buttonWithType(UIButtonType.Custom) as UIButton
         
-        let height = self.tabBar.bounds.size.height + 10.0
+        let height = self.tabBar.bounds.size.height + 15
         let x = CGRectGetMidX(self.tabBar.bounds) - (height / 2)
-        let y = self.tabBar.frame.origin.y - 10.0
+        let y = self.tabBar.frame.origin.y - 20.0
         
         self.cameraButton.frame = CGRectMake(x, y, height, height)
         
@@ -47,6 +61,8 @@ class CSTabBarController: UITabBarController {
     func cameraButtonAction(sender: AnyObject){
         var vc = self.viewControllers?[2] as UINavigationController
         var vc2 = vc.viewControllers?[0] as CSUserPhotoFeedViewController
+        
+        self.selectedIndex = 2
         
         vc2.openCamera()
     }

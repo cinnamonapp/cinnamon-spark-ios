@@ -12,6 +12,10 @@ import Fabric
 import Crashlytics
 
 
+let viewsBackgroundColor = UIColor(red: 239/255, green: 242/255, blue: 230/255, alpha: 1)
+let apiEndpoints : (development:String, production: String, local: String) = (development: "http://192.168.1.223:3000", production: "http://murmuring-dusk-8873.herokuapp.com", local: "http://localhost:3000")
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
 
@@ -62,19 +66,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let emptyVC = UIViewController()
         emptyVC.title = "."
         
-        self.tabBarViewController.setViewControllers([self.socialFeedNavigationController, UIViewController(), userFeedNavigationController], animated: false)
+        self.tabBarViewController.setViewControllers([self.socialFeedNavigationController, emptyVC, userFeedNavigationController], animated: false)
     }
     
     private func prepareSocialFeedNavigationControllerForReuse(){
+        //#warning Change view controller here before deploying
         let socialFeedViewController = CSSocialPhotoFeedViewController()
-        socialFeedViewController.title = "Social feed"
+//        let socialFeedViewController = CSPhotoBrowser()
+        socialFeedViewController.title = "Community"
         
         self.socialFeedNavigationController = UINavigationController(rootViewController: socialFeedViewController)
     }
     
     private func prepareUserFeedNavigationControllerForReuse(){
         let userFeedViewController = CSUserPhotoFeedViewController()
-        userFeedViewController.title = "Your photos"
+        userFeedViewController.title = "You"
         
         self.userFeedNavigationController = UINavigationController(rootViewController: userFeedViewController)
     }
@@ -87,13 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         }
     }
     
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        println("here")
-    }
-    
-    
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        println(deviceToken)
         CSAPIRequest().updateCurrentUserNotificationToken(deviceToken)
     }
     

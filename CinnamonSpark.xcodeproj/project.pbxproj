@@ -12,9 +12,14 @@
 		B01260561AC326C500351D40 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01260541AC326C500351D40 /* Crashlytics.framework */; };
 		B01260571AC326C500351D40 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01260551AC326C500351D40 /* Fabric.framework */; };
 		B014ECBF1AC5B06900DBD1BD /* CSAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */; };
+		B02BA6431ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */; };
+		B02BA6451ACECBF500BC46F1 /* CSPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */; };
 		B056D19F1AC41ABA00D98079 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = B056D19C1AC41ABA00D98079 /* NSString+MD5Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B056D1A01AC41ABA00D98079 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = B056D19E1AC41ABA00D98079 /* UIDevice+IdentifierAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
+		B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */; };
+		B0A148E41ACD9BE00019E08F /* CSVerticalImageRowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */; };
+		B0A148E61ACD9C010019E08F /* CSGridImageTagLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */; };
 		B0AF66B21AC1754000E23657 /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = B0AF66B11AC1754000E23657 /* TODO.md */; };
 		B0DE33A31ACAA7B5003E8626 /* CSPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DE33A21ACAA7B5003E8626 /* CSPhotoFeedViewController.swift */; };
 		B0DE33A51ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DE33A41ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift */; };
@@ -49,11 +54,16 @@
 		B01260541AC326C500351D40 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		B01260551AC326C500351D40 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSAPIRequest.swift; sourceTree = "<group>"; };
+		B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowserCell.swift; sourceTree = "<group>"; };
+		B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhoto.swift; sourceTree = "<group>"; };
 		B056D19B1AC41ABA00D98079 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
 		B056D19C1AC41ABA00D98079 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
 		B056D19D1AC41ABA00D98079 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
 		B056D19E1AC41ABA00D98079 /* UIDevice+IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+IdentifierAddition.m"; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
+		B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowser.swift; sourceTree = "<group>"; };
+		B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVerticalImageRowLayout.swift; sourceTree = "<group>"; };
+		B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGridImageTagLayout.swift; sourceTree = "<group>"; };
 		B0AF66B11AC1754000E23657 /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		B0DE33A21ACAA7B5003E8626 /* CSPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoFeedViewController.swift; sourceTree = "<group>"; };
 		B0DE33A41ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSocialPhotoFeedViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +135,7 @@
 				B0DE33A41ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift */,
 				B0DE33A21ACAA7B5003E8626 /* CSPhotoFeedViewController.swift */,
 				B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */,
+				B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -134,6 +145,9 @@
 			children = (
 				B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */,
 				B074349A1AC062960065403A /* CSTapSelector.swift */,
+				B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */,
+				B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */,
+				B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -151,6 +165,7 @@
 		B0E3B41A1AC451E500347B91 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -373,14 +388,19 @@
 			files = (
 				B0E3B41C1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift in Sources */,
 				B007561B1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift in Sources */,
+				B02BA6431ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift in Sources */,
 				B0EDD6A01ABC2A170065644F /* CSCameraViewController.swift in Sources */,
+				B02BA6451ACECBF500BC46F1 /* CSPhoto.swift in Sources */,
+				B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */,
 				B0E3B41E1AC4B71700347B91 /* CSBaseDelegate.swift in Sources */,
 				B0DE33A71ACAEC2C003E8626 /* CSTabBarController.swift in Sources */,
+				B0A148E61ACD9C010019E08F /* CSGridImageTagLayout.swift in Sources */,
 				B0AF66B21AC1754000E23657 /* TODO.md in Sources */,
 				B0EDD69E1ABC2A170065644F /* CinnamonSpark.xcdatamodeld in Sources */,
 				B0DE33A51ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift in Sources */,
 				B0ECE8CC1AC081CF001D00CE /* CSCameraDelegate.swift in Sources */,
 				B0DE33A31ACAA7B5003E8626 /* CSPhotoFeedViewController.swift in Sources */,
+				B0A148E41ACD9BE00019E08F /* CSVerticalImageRowLayout.swift in Sources */,
 				B056D1A01AC41ABA00D98079 /* UIDevice+IdentifierAddition.m in Sources */,
 				B074349B1AC062960065403A /* CSTapSelector.swift in Sources */,
 				B056D19F1AC41ABA00D98079 /* NSString+MD5Addition.m in Sources */,
