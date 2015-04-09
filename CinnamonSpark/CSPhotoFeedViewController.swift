@@ -66,7 +66,12 @@ class CSPhotoFeedViewController: UIViewController, MWPhotoBrowserDelegate, CSCam
         for (mealRecord) in mealRecords{
             
             let photo = MWPhoto(URL: NSURL(string: mealRecord["photo_original_url"] as String))
-            let mealSize: Int = mealRecord["size"] as Int
+            
+            var mealSize: Int = 1
+            if let size = mealRecord["size"] as? Int{
+                mealSize = size
+            }
+            
             photo.caption = "Meal size: \(self.mealSizesArray[mealSize - 1])"
             
             self.photos.addObject(photo)
@@ -123,7 +128,8 @@ class CSPhotoFeedViewController: UIViewController, MWPhotoBrowserDelegate, CSCam
         let photo = MWPhoto(image: image)
         let mealSize = selectedValue as Int
         photo.caption = "Meal size: \(self.mealSizesArray[mealSize - 1])"
-        self.photos.addObject(photo)
+        
+        self.photos.insertObject(photo, atIndex: 0)
         
         self.resetPhotoBrowser()
     }
@@ -131,9 +137,15 @@ class CSPhotoFeedViewController: UIViewController, MWPhotoBrowserDelegate, CSCam
     func didSuccessfullyCreateMealRecord(response: NSDictionary) {
         let thumbUrl    = NSURL(string: response["photo_thumb_url"]     as String)
         let originalUrl = NSURL(string: response["photo_original_url"]  as String)
-        let mealSize    = response["size"] as Int
+        
+        var mealSize    = 0
+        if let size = response["size"] as? Int{
+            mealSize = size
+        }
+        
         let mealSizeName = self.mealSizesArray[mealSize - 1]
 
+        
         self.photos.removeLastObject()
         
         let photo = MWPhoto(URL: originalUrl)
@@ -151,7 +163,7 @@ class CSPhotoFeedViewController: UIViewController, MWPhotoBrowserDelegate, CSCam
         cameraViewController = CSCameraViewController()
         cameraViewController.delegate = self
         let navigationController = UINavigationController(rootViewController: cameraViewController)
-        
+
 //        self.navigationController?.pushViewController(cameraViewController, animated: true)
         presentViewController(navigationController, animated: true, completion: nil)
     }

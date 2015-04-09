@@ -74,14 +74,8 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         :param: delegate (optional) An object that conforms to CSCameraDelegate. To be used to communicate the request success or failure
     */
     
-    func createMealRecord(mealSize: Int, withImageData imageData: NSData, delegate: CSBaseDelegate?){
+    func createMealRecord(params: NSDictionary, withImageData imageData: NSData, delegate: CSBaseDelegate?){
         let userMealRecordPath : String = self.getAPICombinedPath("User", withParentRecordId: self.deviceUniqueIdentifier, andModel: "MealRecord")
-        
-        let params : NSDictionary = [
-            "meal_record": [
-                "size": mealSize
-            ]
-        ]
         
         self.POST(userMealRecordPath,
             parameters: params,

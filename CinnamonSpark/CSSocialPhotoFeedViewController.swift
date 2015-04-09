@@ -12,8 +12,6 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
 
     let APIRequest = CSAPIRequest()
     let mealSizesArray = ["small", "medium", "large"]
-    
-    private var refreshControl : UIRefreshControl?
 
     override init(){
         super.init()
@@ -34,7 +32,6 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
     }
 
     func userRequiredRefreshWithRefreshControl(refreshControl: UIRefreshControl) {
-        self.refreshControl = refreshControl
         self.loadPhotos()
     }
     
@@ -97,7 +94,7 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
         profilePictureView.sd_setImageWithURL(photo.profilePictureURL)
         
         let usernameLabel : UILabel = UILabel(frame: CGRectMake(30, 5, 200, 20))
-        usernameLabel.text = photo.username
+        usernameLabel.text = photo.title
         usernameLabel.font = usernameLabel.font.fontWithSize(10.0)
         
         let timeAgo = UILabel(frame: CGRectMake(0, 5, cell.frame.width - 5, 20))

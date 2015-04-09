@@ -10,6 +10,7 @@ import UIKit
 
 class CSPhoto: NSObject {
     var URL : NSURL!
+    var title : String!
     var username : String!
     var profilePictureURL : NSURL!
     var createdAtDate : NSDate!
@@ -20,6 +21,12 @@ class CSPhoto: NSObject {
         self.URL = NSURL(string: dictionary["photo_original_url"] as String)
         
         self.createdAtDate = self.dateFromString(dictionary["created_at"] as String)
+        
+        if let title = dictionary["title"] as? String{
+            self.title = title
+        }else{
+            self.title = ""
+        }
         
         if let user = dictionary["user"] as NSDictionary!{
             self.username = user["username"] as String

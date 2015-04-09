@@ -3,8 +3,10 @@
 ## GROUP: MVP
 
 - Community
-  - improve feed for stuff
   - hashtags
+    - migration to db *
+    - display hashtags in feed *
+    - display hashtags in backend *
 
 - Some visualisation of data
   - Display values in photo feed?
@@ -36,6 +38,8 @@
 
 # DONE
 
+- code ux to add hashtags ***
+- improve feed for stuff (Community)
 - save and display meal size
 - own your photos and download thumbs
 - Deploy beta app

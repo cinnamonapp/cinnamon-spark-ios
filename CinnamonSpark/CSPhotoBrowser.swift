@@ -14,6 +14,7 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     var photos : [CSPhoto] = []
     var delegate : CSPhotoBrowserDelegate?
+    var refreshControl : UIRefreshControl?
     
     override init(){
         // TODO: - Allow the developer to set this from inheritance
@@ -48,12 +49,12 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
             // Set a refresh control in the collection view if this method has been implemented
             if(delegate.respondsToSelector("userRequiredRefreshWithRefreshControl:")){
                 
-                let refreshControl = UIRefreshControl()
+                self.refreshControl = UIRefreshControl()
                 
-                refreshControl.addTarget(self, action: "userRequiredRefreshWithRefreshControl:", forControlEvents: UIControlEvents.ValueChanged)
+                self.refreshControl?.addTarget(self, action: "userRequiredRefreshWithRefreshControl:", forControlEvents: UIControlEvents.ValueChanged)
                 
                 
-                self.collectionView?.addSubview(refreshControl)
+                self.collectionView?.addSubview(self.refreshControl!)
             }
             
         }
