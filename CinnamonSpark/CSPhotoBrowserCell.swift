@@ -13,6 +13,7 @@ class CSPhotoBrowserCell: UICollectionViewCell {
     var photoBrowser : CSPhotoBrowser?
     var imageView : UIImageView!
     var captionView : UIView!
+    var descriptionView : UIView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -35,6 +36,9 @@ class CSPhotoBrowserCell: UICollectionViewCell {
         
         self.initializeCaptionView()
         self.prepareCaptionViewForReuse()
+
+        self.initializeDescriptionView()
+        self.prepareDescriptionViewForReuse()
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -59,7 +63,7 @@ class CSPhotoBrowserCell: UICollectionViewCell {
         if(self.photoBrowser?.collectionViewLayout is CSVerticalImageRowLayout){
             let y = self.contentView.frame.height - self.contentView.frame.width
             
-            self.imageView.frame = CGRectMake(0, y, self.contentView.frame.width,  self.contentView.frame.width)
+            self.imageView.frame = CGRectMake(0, y / 2, self.contentView.frame.width,  self.contentView.frame.width)
         }
         
         if(self.photoBrowser?.collectionViewLayout is CSGridImageTagLayout){
@@ -75,9 +79,24 @@ class CSPhotoBrowserCell: UICollectionViewCell {
     
     private func prepareCaptionViewForReuse(){
         if(self.photoBrowser?.collectionViewLayout is CSVerticalImageRowLayout){
-            let height = self.contentView.frame.height - self.contentView.frame.width
+            let height = (self.contentView.frame.height - self.contentView.frame.width) / 2
             
             self.captionView.frame = CGRectMake(0, 0, self.contentView.frame.width, height)
+        }
+    }
+    
+    private func initializeDescriptionView(){
+        self.descriptionView?.removeFromSuperview()
+        self.descriptionView = CSPhotoBrowserDescriptionView()
+        self.contentView.addSubview(self.descriptionView)
+    }
+    
+    private func prepareDescriptionViewForReuse(){
+        if(self.photoBrowser?.collectionViewLayout is CSVerticalImageRowLayout){
+            let height = (self.contentView.frame.height - self.contentView.frame.width) / 2
+            let y = self.imageView.frame.height + self.captionView.frame.height
+            
+            self.descriptionView.frame = CGRectMake(0, y, self.contentView.frame.width, height)
         }
     }
     
@@ -98,10 +117,20 @@ class CSPhotoBrowserCell: UICollectionViewCell {
         self.captionView.addSubview(view)
     }
     
+    func addSubviewToDescriptionView(view: UIView){
+        self.descriptionView.addSubview(view)
+    }
+    
 }
 
 
 class CSPhotoBrowserCaptionView : UIView{
+    override func addSubview(view: UIView) {
+        super.addSubview(view)
+    }
+}
+
+class CSPhotoBrowserDescriptionView : UIView{
     override func addSubview(view: UIView) {
         super.addSubview(view)
     }

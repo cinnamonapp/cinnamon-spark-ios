@@ -100,12 +100,17 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         
     }
     
+    func getUserMealRecords(userId: String, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)) {
+        
+        let userMealRecordPath : String = self.getAPICombinedPath("User", withParentRecordId: userId, andModel: "MealRecord")
+        
+        self.GET(userMealRecordPath, parameters: [], success: success, failure: failure)
+        
+    }
+    
     func getUserMealRecords(success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)) {
         
-        let userMealRecordPath : String = self.getAPICombinedPath("User", withParentRecordId: self.deviceUniqueIdentifier, andModel: "MealRecord")
-
-        self.GET(userMealRecordPath, parameters: [], success: success, failure: failure)
-    
+        self.getUserMealRecords(self.deviceUniqueIdentifier, success: success, failure: failure)
     }
     
     func getOthersMealRecords(success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
@@ -118,6 +123,7 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         self.GET(mealRecordPath, parameters: params, success: success, failure: failure)
         
     }
+    
     
     
     

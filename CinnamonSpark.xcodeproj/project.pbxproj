@@ -14,6 +14,10 @@
 		B014ECBF1AC5B06900DBD1BD /* CSAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */; };
 		B02BA6431ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */; };
 		B02BA6451ACECBF500BC46F1 /* CSPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */; };
+		B02F13A71AD7DE7800075E41 /* UILabel+CSTextLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13A61AD7DE7800075E41 /* UILabel+CSTextLink.swift */; };
+		B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AA1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift */; };
+		B02F13AD1AD80C6000075E41 /* CSUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AC1AD80C6000075E41 /* CSUser.swift */; };
+		B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */; };
 		B056D19F1AC41ABA00D98079 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = B056D19C1AC41ABA00D98079 /* NSString+MD5Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B056D1A01AC41ABA00D98079 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = B056D19E1AC41ABA00D98079 /* UIDevice+IdentifierAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
@@ -56,6 +60,10 @@
 		B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSAPIRequest.swift; sourceTree = "<group>"; };
 		B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowserCell.swift; sourceTree = "<group>"; };
 		B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhoto.swift; sourceTree = "<group>"; };
+		B02F13A61AD7DE7800075E41 /* UILabel+CSTextLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+CSTextLink.swift"; sourceTree = "<group>"; };
+		B02F13AA1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSocialFeedNavigationController.swift; sourceTree = "<group>"; };
+		B02F13AC1AD80C6000075E41 /* CSUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUser.swift; sourceTree = "<group>"; };
+		B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFriendPhotoFeedViewController.swift; sourceTree = "<group>"; };
 		B056D19B1AC41ABA00D98079 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
 		B056D19C1AC41ABA00D98079 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
 		B056D19D1AC41ABA00D98079 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
@@ -133,9 +141,11 @@
 				B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */,
 				B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */,
 				B0DE33A41ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift */,
+				B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */,
 				B0DE33A21ACAA7B5003E8626 /* CSPhotoFeedViewController.swift */,
 				B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */,
 				B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */,
+				B02F13AA1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -148,6 +158,7 @@
 				B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */,
 				B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */,
 				B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */,
+				B02F13A61AD7DE7800075E41 /* UILabel+CSTextLink.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -166,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */,
+				B02F13AC1AD80C6000075E41 /* CSUser.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -386,12 +398,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */,
 				B0E3B41C1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift in Sources */,
 				B007561B1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift in Sources */,
+				B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */,
 				B02BA6431ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift in Sources */,
 				B0EDD6A01ABC2A170065644F /* CSCameraViewController.swift in Sources */,
 				B02BA6451ACECBF500BC46F1 /* CSPhoto.swift in Sources */,
 				B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */,
+				B02F13AD1AD80C6000075E41 /* CSUser.swift in Sources */,
 				B0E3B41E1AC4B71700347B91 /* CSBaseDelegate.swift in Sources */,
 				B0DE33A71ACAEC2C003E8626 /* CSTabBarController.swift in Sources */,
 				B0A148E61ACD9C010019E08F /* CSGridImageTagLayout.swift in Sources */,
@@ -401,6 +416,7 @@
 				B0ECE8CC1AC081CF001D00CE /* CSCameraDelegate.swift in Sources */,
 				B0DE33A31ACAA7B5003E8626 /* CSPhotoFeedViewController.swift in Sources */,
 				B0A148E41ACD9BE00019E08F /* CSVerticalImageRowLayout.swift in Sources */,
+				B02F13A71AD7DE7800075E41 /* UILabel+CSTextLink.swift in Sources */,
 				B056D1A01AC41ABA00D98079 /* UIDevice+IdentifierAddition.m in Sources */,
 				B074349B1AC062960065403A /* CSTapSelector.swift in Sources */,
 				B056D19F1AC41ABA00D98079 /* NSString+MD5Addition.m in Sources */,

@@ -3,10 +3,8 @@
 ## GROUP: MVP
 
 - Community
-  - hashtags
-    - migration to db *
-    - display hashtags in feed *
-    - display hashtags in backend *
+  - hashtags below
+  - User profiles
 
 - Some visualisation of data
   - Display values in photo feed?

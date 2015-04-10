@@ -11,8 +11,9 @@ import UIKit
 class CSPhoto: NSObject {
     var URL : NSURL!
     var title : String!
-    var username : String!
-    var profilePictureURL : NSURL!
+    var user : CSUser!
+//    var username : String!
+//    var profilePictureURL : NSURL!
     var createdAtDate : NSDate!
     
     convenience init(dictionary: NSDictionary){
@@ -29,9 +30,8 @@ class CSPhoto: NSObject {
         }
         
         if let user = dictionary["user"] as NSDictionary!{
-            self.username = user["username"] as String
             
-            self.profilePictureURL = NSURL(string: user["profile_picture_nano_url"] as String)
+            self.user = CSUser(dictionary: user)
         }
 
     }

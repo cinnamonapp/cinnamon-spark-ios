@@ -14,9 +14,9 @@ class CSVerticalImageRowLayout: UICollectionViewFlowLayout {
         super.init()
         let mainScreenBounds = UIScreen.mainScreen().bounds
         
-        let itemWidth : CGFloat = mainScreenBounds.width
-        let rowHeight : CGFloat = 30
-        let itemHeight : CGFloat = itemWidth + rowHeight
+        let itemWidth  : CGFloat = mainScreenBounds.width
+        let rowHeight  : CGFloat = 30
+        let itemHeight : CGFloat = itemWidth + rowHeight * 2
         
         self.itemSize = CGSizeMake(itemWidth, itemHeight)
         

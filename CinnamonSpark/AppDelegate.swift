@@ -13,7 +13,7 @@ import Crashlytics
 
 
 let viewsBackgroundColor = UIColor(red: 239/255, green: 242/255, blue: 230/255, alpha: 1)
-let apiEndpoints : (development:String, production: String, local: String) = (development: "http://192.168.1.223:3000", production: "http://murmuring-dusk-8873.herokuapp.com", local: "http://localhost:3000")
+let apiEndpoints : (development:String, production: String, local: String) = (development: "http://192.168.1.12:3000", production: "http://murmuring-dusk-8873.herokuapp.com", local: "http://localhost:3000")
 
 
 @UIApplicationMain
@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     
     
     var userFeedNavigationController : UINavigationController!
-    var socialFeedNavigationController : UINavigationController!
+    var socialFeedNavigationController : CSSocialFeedNavigationController!
     var tabBarViewController: CSTabBarController!
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
@@ -71,11 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     
     private func prepareSocialFeedNavigationControllerForReuse(){
         //#warning Change view controller here before deploying
-        let socialFeedViewController = CSSocialPhotoFeedViewController()
-//        let socialFeedViewController = CSPhotoBrowser()
-        socialFeedViewController.title = "Community"
-        
-        self.socialFeedNavigationController = UINavigationController(rootViewController: socialFeedViewController)
+        self.socialFeedNavigationController = CSSocialFeedNavigationController()
     }
     
     private func prepareUserFeedNavigationControllerForReuse(){

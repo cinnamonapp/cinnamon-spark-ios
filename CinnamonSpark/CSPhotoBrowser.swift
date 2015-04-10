@@ -77,13 +77,24 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     // MARK: UICollectionViewDataSource
 
-    func photosElementsCount() -> Int{
-        var count = self.photos.count
+    private func elementsCountForSection(section: Int) -> Int{
+        var count = 0
         
-        if let delegate = self.delegate?{
-            if(self.wantsCustomizableTopViewInterface()){
-                count = count + 1
-            }
+        // If wants top interface and is the first section
+        if(self.wantsCustomizableTopViewInterface() && section == 0){
+            count = 1
+        }else{
+            count = self.photos.count
+        }
+        
+        return count
+    }
+    
+    private func sectionsCount() -> Int{
+        var count = 1
+        
+        if(self.wantsCustomizableTopViewInterface()){
+            count = 2
         }
         
         return count
@@ -104,6 +115,16 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
         return has
     }
     
+    private func wantsCustomizableTopViewInterfaceWithIndexPath(indexPath: NSIndexPath) -> Bool{
+        var value = false
+        
+        if(self.wantsCustomizableTopViewInterface() && indexPath.section == 0){
+            value = true
+        }
+        
+        return value
+    }
+    
     private func hasDelegate() -> Bool{
         var response = false
         
@@ -116,32 +137,34 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         //#warning Incomplete method implementation -- Return the number of sections
-        return 1
+        return self.sectionsCount()
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //#warning Incomplete method implementation -- Return the number of items in the section
-        return self.photosElementsCount()
+        return self.elementsCountForSection(section)
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as CSPhotoBrowserCell
-    
         
         // If the developer wants a top interface space give him what he wants
-        if(self.wantsCustomizableTopViewInterface() && indexPath.row == 0){
+        if(self.wantsCustomizableTopViewInterfaceWithIndexPath(indexPath)){
+            
             let delegate = self.delegate!
             
             // Initialize a new cell for the top interface
             cell = collectionView.dequeueReusableCellWithReuseIdentifier(topInterfaceReuseIdentifier, forIndexPath: indexPath) as CSPhotoBrowserCell
             cell.setPhotoBrowser(photoBrowser: self)
             cell = delegate.photoBrowser!(self, customizableTopViewInterface: cell)
+            
         }else{
             
             cell.setPhotoBrowser(photoBrowser: self)
 
-            let photo : CSPhoto = self.photos[indexPath.row] as CSPhoto
+            let photo : CSPhoto = self.photos[indexPath.item] as CSPhoto
             
             // Check if there's delegate
             if let delegate = self.delegate?{
@@ -175,15 +198,15 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
         }
         
         // This checks also the presence of the delegate
-        if(self.wantsCustomizableTopViewInterface() && indexPath.row == 0){
+        if(self.wantsCustomizableTopViewInterfaceWithIndexPath(indexPath)){
             
             size = CGSizeMake(collectionView.frame.width, collectionView.frame.width)
             
             // I know delegate is there
             let delegate = self.delegate!
             
-            if(delegate.respondsToSelector("sizeForCustomizableTopViewInterface:")){
-                size = delegate.sizeForCustomizableTopViewInterface!(self)
+            if(delegate.respondsToSelector("sizeForCustomizableTopViewInterface:itemSize:")){
+                size = delegate.sizeForCustomizableTopViewInterface!(self, itemSize: size)
             }
         }
         
@@ -227,6 +250,6 @@ protocol CSPhotoBrowserDelegate : NSObjectProtocol{
     /**
         Override to give custom size to top view interface
     */
-    optional func sizeForCustomizableTopViewInterface(photoBrowser: CSPhotoBrowser) -> CGSize
+    optional func sizeForCustomizableTopViewInterface(photoBrowser: CSPhotoBrowser, itemSize: CGSize) -> CGSize
 }
 

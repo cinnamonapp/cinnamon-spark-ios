@@ -12,10 +12,10 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
 
     let APIRequest = CSAPIRequest()
     let mealSizesArray = ["small", "medium", "large"]
-
+    
     override init(){
         super.init()
-        
+        self.title = "Community"
         self.tabBarItem = UITabBarItem(title: "Community", image: UIImage(named: "Social"), tag: 1)
     }
 
@@ -28,7 +28,7 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
     }
     
     override func loadPhotos() {
-        self.getMealRecords(.All)
+        APIRequest.getOthersMealRecords(self.handleRequestSuccessResponse, failure: self.handleRequestFailureResponse)
     }
 
     func userRequiredRefreshWithRefreshControl(refreshControl: UIRefreshControl) {
@@ -39,7 +39,7 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
     Query the database for meal records.
     
     :param: queryType Specifies if it should request All meal records or just the ones from the currentUser
-    */
+
     private func getMealRecords(queryType: CSPhotoFeedQueryTypes){
         switch queryType{
         case .All:
@@ -52,7 +52,7 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
             self.getMealRecords(.CurrentUser)
         }
     }
-
+    */
     
     /**
     The handler function for success meal records responses.
@@ -82,8 +82,6 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
         self.refreshControl?.endRefreshing()
     }
 
-    
-    
     // MARK: - CSPhotoBrowserDelegate methods
     override func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSPhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSPhotoBrowserCell {
         
@@ -91,31 +89,34 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
         
         // Set profile pic and username label
         let profilePictureView = UIImageView(frame: CGRectMake(5, 5, 20, 20))
-        profilePictureView.sd_setImageWithURL(photo.profilePictureURL)
+        profilePictureView.sd_setImageWithURL(photo.user.microProfilePictureURL)
         
         let usernameLabel : UILabel = UILabel(frame: CGRectMake(30, 5, 200, 20))
-        usernameLabel.text = photo.title
+        usernameLabel.text = photo.user.username
         usernameLabel.font = usernameLabel.font.fontWithSize(10.0)
         
+        if let navController = self.navigationController as? CSSocialFeedNavigationController{
+            usernameLabel.addTarget(navController, action: "openUserProfile:", forControlEvents: UIControlEvents.TouchUpInside, passedValue: photo, superView: cell.captionView)
+        }
+
         let timeAgo = UILabel(frame: CGRectMake(0, 5, cell.frame.width - 5, 20))
         timeAgo.text = photo.createdAtDate.timeAgoSinceNow()
         timeAgo.textAlignment = NSTextAlignment.Right
         timeAgo.font = timeAgo.font.fontWithSize(10.0)
         timeAgo.textColor = UIColor.lightGrayColor()
         
+        let titleLabel : UILabel = UILabel(frame: CGRectMake(5, 5, 200, 20))
+        titleLabel.text = photo.title
+        titleLabel.font = usernameLabel.font.fontWithSize(10.0)
+
         
         cell.addSubviewToCaptionView(profilePictureView)
         cell.addSubviewToCaptionView(usernameLabel)
         cell.addSubviewToCaptionView(timeAgo)
+        cell.addSubviewToDescriptionView(titleLabel)
         
         return cell
     }
     
-    
-    func photoBrowser(photoBrowser: CSPhotoBrowser, customizableTopViewInterface cell: CSPhotoBrowserCell) -> CSPhotoBrowserCell {
-        println("using custom interface")
-        
-        return cell
-    }
 }
 
