@@ -83,6 +83,7 @@ class CSPhotoBrowserCell: UICollectionViewCell {
     
     func setImageWithURL(URL: NSURL){
         
+        // TODO: Improve this temporary hack
         let thumbUrl = NSURL(string: URL.description.stringByReplacingOccurrencesOfString("original", withString: "thumbnail"))
         
         // First load the thumb image

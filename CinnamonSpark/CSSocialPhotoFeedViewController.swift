@@ -110,5 +110,12 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
         
         return cell
     }
+    
+    
+    func photoBrowser(photoBrowser: CSPhotoBrowser, customizableTopViewInterface cell: CSPhotoBrowserCell) -> CSPhotoBrowserCell {
+        println("using custom interface")
+        
+        return cell
+    }
 }
 

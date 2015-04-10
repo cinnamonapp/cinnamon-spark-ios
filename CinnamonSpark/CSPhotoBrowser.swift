@@ -8,6 +8,7 @@
 
 import UIKit
 
+let topInterfaceReuseIdentifier = "TopInterfaceCell"
 let reuseIdentifier = "Cell"
 
 class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLayout, CSPhotoBrowserDelegate {
@@ -36,6 +37,7 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
 
         // Register cell classes
         self.collectionView!.registerClass(CSPhotoBrowserCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.registerClass(CSPhotoBrowserCell.self, forCellWithReuseIdentifier: topInterfaceReuseIdentifier)
         self.collectionView!.backgroundColor = viewsBackgroundColor
 
         self.collectionView?.alwaysBounceVertical = true
@@ -75,6 +77,43 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     // MARK: UICollectionViewDataSource
 
+    func photosElementsCount() -> Int{
+        var count = self.photos.count
+        
+        if let delegate = self.delegate?{
+            if(self.wantsCustomizableTopViewInterface()){
+                count = count + 1
+            }
+        }
+        
+        return count
+    }
+    
+    /**
+    Returns true/false if the developer has/has not implemented some specific methods to delegate
+    */
+    private func wantsCustomizableTopViewInterface() -> Bool{
+        var has = false
+        
+        if let delegate = self.delegate?{
+            if(delegate.respondsToSelector("photoBrowser:customizableTopViewInterface:")){
+                has = true
+            }
+        }
+        
+        return has
+    }
+    
+    private func hasDelegate() -> Bool{
+        var response = false
+        
+        if let delegate = self.delegate?{
+            response = true
+        }
+        
+        return true
+    }
+    
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         //#warning Incomplete method implementation -- Return the number of sections
         return 1
@@ -83,29 +122,73 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //#warning Incomplete method implementation -- Return the number of items in the section
-        return self.photos.count
+        return self.photosElementsCount()
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as CSPhotoBrowserCell
     
-        cell.setPhotoBrowser(photoBrowser: self)
         
-        // Configure the cell
-        
-        let photo : CSPhoto = self.photos[indexPath.row] as CSPhoto
-        
-        // Check if there's delegate
-        if let delegate = self.delegate?{
-            // If the function has been implemented
-            if(delegate.respondsToSelector("photoBrowser:customizablePhotoBrowserCell:atIndexPath:withPhoto:")){
-                cell = delegate.photoBrowser!(self, customizablePhotoBrowserCell: cell, atIndexPath: indexPath, withPhoto: photo)
+        // If the developer wants a top interface space give him what he wants
+        if(self.wantsCustomizableTopViewInterface() && indexPath.row == 0){
+            let delegate = self.delegate!
+            
+            // Initialize a new cell for the top interface
+            cell = collectionView.dequeueReusableCellWithReuseIdentifier(topInterfaceReuseIdentifier, forIndexPath: indexPath) as CSPhotoBrowserCell
+            cell.setPhotoBrowser(photoBrowser: self)
+            cell = delegate.photoBrowser!(self, customizableTopViewInterface: cell)
+        }else{
+            
+            cell.setPhotoBrowser(photoBrowser: self)
+
+            let photo : CSPhoto = self.photos[indexPath.row] as CSPhoto
+            
+            // Check if there's delegate
+            if let delegate = self.delegate?{
+                // If the function has been implemented
+                if(delegate.respondsToSelector("photoBrowser:customizablePhotoBrowserCell:atIndexPath:withPhoto:")){
+                    cell = delegate.photoBrowser!(self, customizablePhotoBrowserCell: cell, atIndexPath: indexPath, withPhoto: photo)
+                }
             }
+            
         }
-    
+            
         return cell
     }
 
+    
+    // MARK: - UICollectionViewDelegateFlowLayout methods
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        var size : CGSize!
+        
+        if let layout = collectionViewLayout as? UICollectionViewFlowLayout{
+            size = layout.itemSize
+        }
+        
+        if let layout = collectionViewLayout as? CSVerticalImageRowLayout{
+            size = layout.itemSize
+        }
+        
+        if let layout = collectionViewLayout as? CSGridImageTagLayout{
+            size = layout.itemSize
+        }
+        
+        // This checks also the presence of the delegate
+        if(self.wantsCustomizableTopViewInterface() && indexPath.row == 0){
+            
+            size = CGSizeMake(collectionView.frame.width, collectionView.frame.width)
+            
+            // I know delegate is there
+            let delegate = self.delegate!
+            
+            if(delegate.respondsToSelector("sizeForCustomizableTopViewInterface:")){
+                size = delegate.sizeForCustomizableTopViewInterface!(self)
+            }
+        }
+        
+        return size
+    }
     
     // MARK: - CSPhotoBrowserDelegate methods
     func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSPhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSPhotoBrowserCell {
@@ -132,5 +215,18 @@ protocol CSPhotoBrowserDelegate : NSObjectProtocol{
         :param: photo The photo from the array
     */
     optional func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSPhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSPhotoBrowserCell
+    
+    /**
+        When overridden, this method allows you to customize a special cell that will stay always on top of your collection view where you will be able to add custom UI. Commonly used for defining custom actions, custom headers etc.
+    
+        :param: photoBrowser The photoBrowser instance in use
+        :param: cell The cell that needs customization
+    */
+    optional func photoBrowser(photoBrowser: CSPhotoBrowser, customizableTopViewInterface cell: CSPhotoBrowserCell) -> CSPhotoBrowserCell
+    
+    /**
+        Override to give custom size to top view interface
+    */
+    optional func sizeForCustomizableTopViewInterface(photoBrowser: CSPhotoBrowser) -> CGSize
 }
 
