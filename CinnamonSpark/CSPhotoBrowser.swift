@@ -178,6 +178,14 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
             
         return cell
     }
+    
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        
+        let reusableView = UICollectionReusableView()
+        println("hello there!!!")
+        
+        return reusableView
+    }
 
     
     // MARK: - UICollectionViewDelegateFlowLayout methods

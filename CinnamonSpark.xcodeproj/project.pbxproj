@@ -24,8 +24,6 @@
 		B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */; };
 		B0A148E41ACD9BE00019E08F /* CSVerticalImageRowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */; };
 		B0A148E61ACD9C010019E08F /* CSGridImageTagLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */; };
-		B0AF66B21AC1754000E23657 /* TODO.md in Sources */ = {isa = PBXBuildFile; fileRef = B0AF66B11AC1754000E23657 /* TODO.md */; };
-		B0DE33A31ACAA7B5003E8626 /* CSPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DE33A21ACAA7B5003E8626 /* CSPhotoFeedViewController.swift */; };
 		B0DE33A51ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DE33A41ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift */; };
 		B0DE33A71ACAEC2C003E8626 /* CSTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */; };
 		B0E3B41C1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E3B41B1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift */; };
@@ -144,7 +142,6 @@
 				B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */,
 				B0DE33A21ACAA7B5003E8626 /* CSPhotoFeedViewController.swift */,
 				B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */,
-				B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */,
 				B02F13AA1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift */,
 			);
 			name = Controllers;
@@ -153,6 +150,7 @@
 		B0AF66B41AC1764300E23657 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */,
 				B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */,
 				B074349A1AC062960065403A /* CSTapSelector.swift */,
 				B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */,
@@ -410,11 +408,9 @@
 				B0E3B41E1AC4B71700347B91 /* CSBaseDelegate.swift in Sources */,
 				B0DE33A71ACAEC2C003E8626 /* CSTabBarController.swift in Sources */,
 				B0A148E61ACD9C010019E08F /* CSGridImageTagLayout.swift in Sources */,
-				B0AF66B21AC1754000E23657 /* TODO.md in Sources */,
 				B0EDD69E1ABC2A170065644F /* CinnamonSpark.xcdatamodeld in Sources */,
 				B0DE33A51ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift in Sources */,
 				B0ECE8CC1AC081CF001D00CE /* CSCameraDelegate.swift in Sources */,
-				B0DE33A31ACAA7B5003E8626 /* CSPhotoFeedViewController.swift in Sources */,
 				B0A148E41ACD9BE00019E08F /* CSVerticalImageRowLayout.swift in Sources */,
 				B02F13A71AD7DE7800075E41 /* UILabel+CSTextLink.swift in Sources */,
 				B056D1A01AC41ABA00D98079 /* UIDevice+IdentifierAddition.m in Sources */,

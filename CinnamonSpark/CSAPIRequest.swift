@@ -19,6 +19,10 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         "MealRecord" : "/meal_records/:id.json"
     ]
 
+    func uniqueIdentifier() -> String{
+        return self.deviceUniqueIdentifier
+    }
+    
     // default initiator with default base url
     init(){
         super.init(baseURL: self.APIEndpoint)

@@ -138,8 +138,11 @@ class CSTapSelector: UIView {
         // Get the contextRef
         let contextRef = UIGraphicsGetCurrentContext();
         
+        let lineWidth : CGFloat = 3
+        let borderRect = CGRectInset(rect, lineWidth * 0.5, lineWidth * 0.5);
+        
         // Set the border width
-        CGContextSetLineWidth(contextRef, 1.0)
+        CGContextSetLineWidth(contextRef, lineWidth)
         
         // Set the circle fill color to GREEN
 //        CGContextSetRGBFillColor(contextRef, 255.0, 255.0, 255.0, 0.2)
@@ -151,7 +154,7 @@ class CSTapSelector: UIView {
 //        CGContextFillEllipseInRect(contextRef, rect)
         
         // Draw the circle border
-        CGContextStrokeEllipseInRect(contextRef, rect)
+        CGContextStrokeEllipseInRect(contextRef, borderRect)
     }
 
 }

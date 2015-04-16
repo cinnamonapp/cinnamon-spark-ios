@@ -10,7 +10,7 @@ import Foundation
 
 class CSFriendPhotoFeedViewController: CSSocialPhotoFeedViewController {
     
-    // Optional: if it's there the query will be excecuted for one user only
+    // Optional: if it's there the query will be executed for one user only
     var mealRecordsForUser : CSUser?
 
     override init(){
