@@ -33,6 +33,8 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
     override func viewDidLoad(){
         super.viewDidLoad()
         
+        self.view.backgroundColor = viewsBackgroundColor
+        
         // Add web view
         var webframe = self.view.frame
         let navigationBarHeight = self.navigationController?.navigationBar.frame.height as CGFloat!

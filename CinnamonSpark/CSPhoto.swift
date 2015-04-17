@@ -8,13 +8,25 @@
 
 import UIKit
 
+enum CSPhotoMealSize{
+    case Small
+    case Medium
+    case Large
+}
+
+enum CSPhotoMealCarbsEstimate{
+    case Low
+    case Medium
+    case High
+}
+
 class CSPhoto: NSObject {
     var URL : NSURL!
     var title : String!
     var user : CSUser!
-//    var username : String!
-//    var profilePictureURL : NSURL!
     var createdAtDate : NSDate!
+    var size : CSPhotoMealSize!
+    var carbsEstimate : CSPhotoMealCarbsEstimate?
     
     convenience init(dictionary: NSDictionary){
         self.init()
@@ -22,6 +34,13 @@ class CSPhoto: NSObject {
         self.URL = NSURL(string: dictionary["photo_original_url"] as String)
         
         self.createdAtDate = self.dateFromString(dictionary["created_at"] as String)
+        
+        self.size = self.evaluateSize(dictionary["size"] as Int)
+        
+        if let carbs = dictionary["carbs_estimate"] as? Int{
+            self.carbsEstimate = self.evaluateCarbsEstimate(carbs)
+        }
+        
         
         if let title = dictionary["title"] as? String{
             self.title = title
@@ -36,6 +55,48 @@ class CSPhoto: NSObject {
 
     }
     
+    
+    private func evaluateSize(intSize : Int) -> CSPhotoMealSize{
+        var size = CSPhotoMealSize.Small
+        
+        switch intSize{
+        case 1:
+            size = .Small
+            break
+        case 2:
+            size = .Medium
+            break
+        case 3:
+            size = .Large
+            break
+        default:
+            size = .Small
+        }
+    
+        return size
+    }
+
+    private func evaluateCarbsEstimate(intEstimate: Int) -> CSPhotoMealCarbsEstimate{
+        var estimate = CSPhotoMealCarbsEstimate.Medium
+        
+        switch intEstimate{
+        case 1:
+            estimate = .Low
+            break
+        case 2:
+            estimate = .Medium
+            break
+        case 3:
+            estimate = .High
+            break
+        default:
+            estimate = .Medium
+        }
+        
+        
+        return estimate
+    }
+
     private func dateFromString(string: String) -> NSDate{
         var count = countElements(string) - 5
         var dateString = (string as NSString).stringByReplacingCharactersInRange(NSMakeRange(count, 5), withString: "")

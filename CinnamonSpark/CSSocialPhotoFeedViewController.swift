@@ -85,6 +85,7 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
     // MARK: - CSPhotoBrowserDelegate methods
     override func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSPhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSPhotoBrowserCell {
         
+        // TODO: - All this stuff must be translated into xib file for the cell
         cell.setImageWithURL(photo.URL)
         
         // Set profile pic and username label
@@ -109,7 +110,13 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
         titleLabel.text = photo.title
         titleLabel.font = usernameLabel.font.fontWithSize(10.0)
 
-        
+        let images = ["CarbsLow", "CarbsMedium", "CarbsHigh"]
+        if let carbs = photo.carbsEstimate{
+            let carbsImageView : UIImageView = UIImageView(image: UIImage(named: images[carbs.hashValue]))
+            carbsImageView.frame = CGRectMake(cell.frame.width - 40.0, 40, 30, 30)
+            
+            cell.addSubviewToCaptionView(carbsImageView)
+        }
         cell.addSubviewToCaptionView(profilePictureView)
         cell.addSubviewToCaptionView(usernameLabel)
         cell.addSubviewToCaptionView(timeAgo)

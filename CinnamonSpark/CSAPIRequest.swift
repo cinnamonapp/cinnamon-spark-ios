@@ -121,7 +121,8 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         
         let mealRecordPath : String = self.getAPIPath("MealRecord")
         let params = [
-            "except_user_id": self.deviceUniqueIdentifier
+            "except_user_id": self.deviceUniqueIdentifier,
+            "limit": 30
         ]
         
         self.GET(mealRecordPath, parameters: params, success: success, failure: failure)
