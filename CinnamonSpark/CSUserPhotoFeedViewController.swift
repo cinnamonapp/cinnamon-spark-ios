@@ -25,11 +25,15 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        self.webView.reload()
+    }
+    
 //    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
 //        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
 //    }
-    
-    
+        
     override func viewDidLoad(){
         super.viewDidLoad()
         
@@ -58,7 +62,19 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
     func didTakePicture(image: UIImage, withSelectionValue selectedValue: AnyObject) {
         // Save image to photo album
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+        
+        // Alert of what's gonna happen
+        let alert = UIAlertController(title: "Crunching your data O.o", message: "YEAH! Your dish has been saved. We are now crunching your data. You'll be notified when the carbs estimation is ready!", preferredStyle: UIAlertControllerStyle.Alert)
+        let mainAction = UIAlertAction(title: "Great!", style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+            
+            self.cameraViewController.closeViewController()
+                        
+        }
+        
+        alert.addAction(mainAction)
+        self.cameraViewController.presentViewController(alert, animated: true, completion: nil)
     }
+    
     
     func didSuccessfullyCreateMealRecord(response: NSDictionary) {
         self.webView.reload()

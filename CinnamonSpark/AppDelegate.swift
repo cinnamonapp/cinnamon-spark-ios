@@ -45,17 +45,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         
         // Check in current user
         (CSAPIRequest()).checkCurrentUserInUsingDeviceUUID()
-        
-        // Register for notifications: Alert | Badge | Sound
-//        let application = UIApplication.sharedApplication()
-//        if (application.respondsToSelector("registerUserNotificationSettings:")) {
-//            // use registerUserNotificationSettings
-//            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Sound | .Badge, categories: nil))
-//            application.registerForRemoteNotifications()
-//        } else {
-//            application.registerForRemoteNotificationTypes(.Alert | .Sound | .Badge)
-//        }
 
+        UIApplication.sharedApplication().registerForRemoteNotificationsAllAtOnce()
+        
         return true
     }
     
@@ -82,23 +74,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-        if (tabBarController.selectedViewController != viewController && viewController.title != "."){
+        if (viewController.title != "."){
             return true
         }else{
             return false
         }
     }
     
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        // Call this method
+        viewController.willAppearAfterTabBarViewControllerSelection()
+    }
+    
+    // MARK: - Push notifications
+    
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         CSAPIRequest().updateCurrentUserNotificationToken(deviceToken)
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        println("Error on notification stuff")
+        println(error)
     }
     
     func application(application: UIApplication, didRegisterUserNotificationSettings notificationSettings: UIUserNotificationSettings) {
-        println(notificationSettings)
+        application.registerForRemoteNotifications()
     }
     
     
@@ -189,5 +188,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         }
     }
 
+}
+
+
+extension UIViewController{
+    func willAppearAfterTabBarViewControllerSelection(){
+        
+    }
+}
+
+extension UIApplication{
+    func registerForRemoteNotificationsAllAtOnce(){
+        let application = UIApplication.sharedApplication()
+        if (application.respondsToSelector("registerUserNotificationSettings:")) {
+            // use registerUserNotificationSettings
+            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: .Alert | .Sound | .Badge, categories: nil))
+        } else {
+            application.registerForRemoteNotificationTypes(.Alert | .Sound | .Badge)
+        }
+    }
 }
 

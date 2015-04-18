@@ -78,14 +78,14 @@
 		B0E3B41D1AC4B71700347B91 /* CSBaseDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSBaseDelegate.swift; sourceTree = "<group>"; };
 		B0ECE8C91AC066FA001D00CE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B0ECE8CB1AC081CF001D00CE /* CSCameraDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSCameraDelegate.swift; sourceTree = "<group>"; };
-		B0EDD6951ABC2A170065644F /* CinnamonSpark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CinnamonSpark.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0EDD6951ABC2A170065644F /* Cinnamon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cinnamon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0EDD6991ABC2A170065644F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0EDD69A1ABC2A170065644F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B0EDD69D1ABC2A170065644F /* CinnamonSpark.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CinnamonSpark.xcdatamodel; sourceTree = "<group>"; };
 		B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CSCameraViewController.swift; sourceTree = "<group>"; };
 		B0EDD6A41ABC2A170065644F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B0EDD6A71ABC2A170065644F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		B0EDD6AD1ABC2A170065644F /* CinnamonSparkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinnamonSparkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0EDD6AD1ABC2A170065644F /* CinnamonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinnamonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0EDD6B21ABC2A170065644F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0EDD6B31ABC2A170065644F /* CinnamonSparkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonSparkTests.swift; sourceTree = "<group>"; };
 		B0EDD6BE1ABC31C90065644F /* CinnamonSpark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CinnamonSpark-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -195,8 +195,8 @@
 		B0EDD6961ABC2A170065644F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B0EDD6951ABC2A170065644F /* CinnamonSpark.app */,
-				B0EDD6AD1ABC2A170065644F /* CinnamonSparkTests.xctest */,
+				B0EDD6951ABC2A170065644F /* Cinnamon.app */,
+				B0EDD6AD1ABC2A170065644F /* CinnamonTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -250,9 +250,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B0EDD6941ABC2A170065644F /* CinnamonSpark */ = {
+		B0EDD6941ABC2A170065644F /* Cinnamon */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B0EDD6B71ABC2A170065644F /* Build configuration list for PBXNativeTarget "CinnamonSpark" */;
+			buildConfigurationList = B0EDD6B71ABC2A170065644F /* Build configuration list for PBXNativeTarget "Cinnamon" */;
 			buildPhases = (
 				2F7C0FF80B110260D41D2A19 /* Check Pods Manifest.lock */,
 				B0EDD6911ABC2A170065644F /* Sources */,
@@ -265,14 +265,14 @@
 			);
 			dependencies = (
 			);
-			name = CinnamonSpark;
+			name = Cinnamon;
 			productName = CinnamonSpark;
-			productReference = B0EDD6951ABC2A170065644F /* CinnamonSpark.app */;
+			productReference = B0EDD6951ABC2A170065644F /* Cinnamon.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B0EDD6AC1ABC2A170065644F /* CinnamonSparkTests */ = {
+		B0EDD6AC1ABC2A170065644F /* CinnamonTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B0EDD6BA1ABC2A170065644F /* Build configuration list for PBXNativeTarget "CinnamonSparkTests" */;
+			buildConfigurationList = B0EDD6BA1ABC2A170065644F /* Build configuration list for PBXNativeTarget "CinnamonTests" */;
 			buildPhases = (
 				B0EDD6A91ABC2A170065644F /* Sources */,
 				B0EDD6AA1ABC2A170065644F /* Frameworks */,
@@ -283,9 +283,9 @@
 			dependencies = (
 				B0EDD6AF1ABC2A170065644F /* PBXTargetDependency */,
 			);
-			name = CinnamonSparkTests;
+			name = CinnamonTests;
 			productName = CinnamonSparkTests;
-			productReference = B0EDD6AD1ABC2A170065644F /* CinnamonSparkTests.xctest */;
+			productReference = B0EDD6AD1ABC2A170065644F /* CinnamonTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -307,7 +307,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B0EDD6901ABC2A170065644F /* Build configuration list for PBXProject "CinnamonSpark" */;
+			buildConfigurationList = B0EDD6901ABC2A170065644F /* Build configuration list for PBXProject "Cinnamon" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -320,8 +320,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B0EDD6941ABC2A170065644F /* CinnamonSpark */,
-				B0EDD6AC1ABC2A170065644F /* CinnamonSparkTests */,
+				B0EDD6941ABC2A170065644F /* Cinnamon */,
+				B0EDD6AC1ABC2A170065644F /* CinnamonTests */,
 			);
 		};
 /* End PBXProject section */
@@ -434,7 +434,7 @@
 /* Begin PBXTargetDependency section */
 		B0EDD6AF1ABC2A170065644F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B0EDD6941ABC2A170065644F /* CinnamonSpark */;
+			target = B0EDD6941ABC2A170065644F /* Cinnamon */;
 			targetProxy = B0EDD6AE1ABC2A170065644F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -534,7 +534,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alessio Santo (6P6N72AZ6H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -543,8 +543,8 @@
 				INFOPLIST_FILE = CinnamonSpark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = Cinnamon;
+				PROVISIONING_PROFILE = "acc4945c-e8e5-4e2c-8225-cf17fed08edf";
 				SWIFT_OBJC_BRIDGING_HEADER = "CinnamonSpark-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -556,7 +556,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Alessio Santo (6P6N72AZ6H)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -565,8 +565,8 @@
 				INFOPLIST_FILE = CinnamonSpark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PRODUCT_NAME = Cinnamon;
+				PROVISIONING_PROFILE = "acc4945c-e8e5-4e2c-8225-cf17fed08edf";
 				SWIFT_OBJC_BRIDGING_HEADER = "CinnamonSpark-Bridging-Header.h";
 			};
 			name = Release;
@@ -585,7 +585,7 @@
 				);
 				INFOPLIST_FILE = CinnamonSparkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CinnamonTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CinnamonSpark.app/CinnamonSpark";
 			};
 			name = Debug;
@@ -600,7 +600,7 @@
 				);
 				INFOPLIST_FILE = CinnamonSparkTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = CinnamonTests;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CinnamonSpark.app/CinnamonSpark";
 			};
 			name = Release;
@@ -608,7 +608,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B0EDD6901ABC2A170065644F /* Build configuration list for PBXProject "CinnamonSpark" */ = {
+		B0EDD6901ABC2A170065644F /* Build configuration list for PBXProject "Cinnamon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B0EDD6B51ABC2A170065644F /* Debug */,
@@ -617,7 +617,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B0EDD6B71ABC2A170065644F /* Build configuration list for PBXNativeTarget "CinnamonSpark" */ = {
+		B0EDD6B71ABC2A170065644F /* Build configuration list for PBXNativeTarget "Cinnamon" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B0EDD6B81ABC2A170065644F /* Debug */,
@@ -626,7 +626,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B0EDD6BA1ABC2A170065644F /* Build configuration list for PBXNativeTarget "CinnamonSparkTests" */ = {
+		B0EDD6BA1ABC2A170065644F /* Build configuration list for PBXNativeTarget "CinnamonTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B0EDD6BB1ABC2A170065644F /* Debug */,

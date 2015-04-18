@@ -79,7 +79,7 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
     */
     
     func createMealRecord(params: NSDictionary, withImageData imageData: NSData, delegate: CSBaseDelegate?){
-        let userMealRecordPath : String = self.getAPICombinedPath("User", withParentRecordId: self.deviceUniqueIdentifier, andModel: "MealRecord")
+        let userMealRecordPath : String = self.getAPICombinedPath("User", withParentRecordId: self.uniqueIdentifier(), andModel: "MealRecord")
         
         self.POST(userMealRecordPath,
             parameters: params,
@@ -114,14 +114,14 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
     
     func getUserMealRecords(success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)) {
         
-        self.getUserMealRecords(self.deviceUniqueIdentifier, success: success, failure: failure)
+        self.getUserMealRecords(self.uniqueIdentifier(), success: success, failure: failure)
     }
     
     func getOthersMealRecords(success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
         
         let mealRecordPath : String = self.getAPIPath("MealRecord")
         let params = [
-            "except_user_id": self.deviceUniqueIdentifier,
+            "except_user_id": self.uniqueIdentifier(),
             "limit": 30
         ]
         
@@ -141,7 +141,7 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         
         let params : NSDictionary = [
             "user": [
-                "device_uuid": self.deviceUniqueIdentifier
+                "device_uuid": self.uniqueIdentifier()
             ]
         ]
         
@@ -164,7 +164,28 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         :param: deviceToken The token received from the AppDelegate.
     */
     func updateCurrentUserNotificationToken(deviceToken : NSData){
-        println(deviceToken)
+        var plainToken = deviceToken.description.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
+        plainToken = plainToken.stringByReplacingOccurrencesOfString(" ", withString: "")
+        
+        let userPath : String = self.getAPIPath("User", withRecordId: self.uniqueIdentifier())
+        
+        let params : NSDictionary = [
+            "user": [
+                "push_notification_token": plainToken
+            ]
+        ]
+        
+        self.PUT(userPath,
+            parameters: params,
+            success: { (request: AFHTTPRequestOperation!, sender: AnyObject!) -> Void in
+                println("Token has been updated")
+            },
+            failure: { (request: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("Token has not been updated. Error: \(error)")
+            }
+        )
+        
+
     }
 
     required init(coder aDecoder: NSCoder) {

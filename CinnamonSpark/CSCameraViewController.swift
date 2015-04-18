@@ -199,7 +199,6 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate, UITextView
             cameraDelegate.didTakePicture!(image, withSelectionValue: self.tapSelector.selectedValue())
         }
         
-        self.closeViewController()
     }
     
     // MARK: - Retake button

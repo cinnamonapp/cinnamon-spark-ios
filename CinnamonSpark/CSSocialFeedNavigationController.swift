@@ -34,8 +34,7 @@ class CSSocialFeedNavigationController: UINavigationController {
         self.userFeedViewController.mealRecordsForUser = photo.user
         self.pushViewController(userFeedViewController, animated: true)
     }
-    
-    
+        
     /*
     // MARK: - Navigation
 

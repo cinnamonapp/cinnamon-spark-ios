@@ -90,7 +90,10 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
         
         // Set profile pic and username label
         let profilePictureView = UIImageView(frame: CGRectMake(5, 5, 20, 20))
-        profilePictureView.sd_setImageWithURL(photo.user.microProfilePictureURL)
+        if let pic = photo.user.microProfilePictureURL{
+            profilePictureView.sd_setImageWithURL(pic)
+        }
+        
         
         let usernameLabel : UILabel = UILabel(frame: CGRectMake(30, 5, 200, 20))
         usernameLabel.text = photo.user.username

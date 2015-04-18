@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B0EDD6941ABC2A170065644F"
-               BuildableName = "CinnamonSpark.app"
-               BlueprintName = "CinnamonSpark"
-               ReferencedContainer = "container:CinnamonSpark.xcodeproj">
+               BuildableName = "Cinnamon.app"
+               BlueprintName = "Cinnamon"
+               ReferencedContainer = "container:Cinnamon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B0EDD6AC1ABC2A170065644F"
-               BuildableName = "CinnamonSparkTests.xctest"
-               BlueprintName = "CinnamonSparkTests"
-               ReferencedContainer = "container:CinnamonSpark.xcodeproj">
+               BuildableName = "CinnamonTests.xctest"
+               BlueprintName = "CinnamonTests"
+               ReferencedContainer = "container:Cinnamon.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B0EDD6AC1ABC2A170065644F"
-               BuildableName = "CinnamonSparkTests.xctest"
-               BlueprintName = "CinnamonSparkTests"
-               ReferencedContainer = "container:CinnamonSpark.xcodeproj">
+               BuildableName = "CinnamonTests.xctest"
+               BlueprintName = "CinnamonTests"
+               ReferencedContainer = "container:Cinnamon.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -57,9 +57,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B0EDD6941ABC2A170065644F"
-            BuildableName = "CinnamonSpark.app"
-            BlueprintName = "CinnamonSpark"
-            ReferencedContainer = "container:CinnamonSpark.xcodeproj">
+            BuildableName = "Cinnamon.app"
+            BlueprintName = "Cinnamon"
+            ReferencedContainer = "container:Cinnamon.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -72,13 +72,14 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B0EDD6941ABC2A170065644F"
-            BuildableName = "CinnamonSpark.app"
-            BlueprintName = "CinnamonSpark"
-            ReferencedContainer = "container:CinnamonSpark.xcodeproj">
+            BuildableName = "Cinnamon.app"
+            BlueprintName = "Cinnamon"
+            ReferencedContainer = "container:Cinnamon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -90,13 +91,14 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B0EDD6941ABC2A170065644F"
-            BuildableName = "CinnamonSpark.app"
-            BlueprintName = "CinnamonSpark"
-            ReferencedContainer = "container:CinnamonSpark.xcodeproj">
+            BuildableName = "Cinnamon.app"
+            BlueprintName = "Cinnamon"
+            ReferencedContainer = "container:Cinnamon.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
