@@ -18,7 +18,11 @@ class CSSocialFeedNavigationController: UINavigationController {
 
         // Do any additional setup after loading the view.
         self.socialFeedViewController = CSSocialPhotoFeedViewController()
-        self.setViewControllers([socialFeedViewController], animated: false)
+//        self.setViewControllers([socialFeedViewController], animated: false)
+        
+        
+        let detailView = CSMealRecordDetailView()
+        self.setViewControllers([detailView], animated: true)
     }
 
     override func didReceiveMemoryWarning() {
