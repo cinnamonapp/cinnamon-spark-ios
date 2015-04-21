@@ -11,10 +11,16 @@ import Foundation
 class CSFriendPhotoFeedViewController: CSSocialPhotoFeedViewController {
     
     // Optional: if it's there the query will be executed for one user only
-    var mealRecordsForUser : CSUser?
+    var mealRecordsForUser : CSUser!
 
     override init(){
         super.init()
+    }
+    
+    convenience init(user: CSUser){
+        self.init()
+        
+        self.mealRecordsForUser = user
     }
 
     required init(coder aDecoder: NSCoder) {

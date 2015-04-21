@@ -8,3 +8,4 @@
 #import "UIDevice+IdentifierAddition.h"
 #import "UIImageView+WebCache.h"
 #import "DateTools.h"
+#import "UINavigationBar+CustomHeight.h"

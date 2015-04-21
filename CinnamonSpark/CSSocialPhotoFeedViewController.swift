@@ -83,47 +83,38 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
     }
 
     // MARK: - CSPhotoBrowserDelegate methods
-    override func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSPhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSPhotoBrowserCell {
+    override func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSRepeatablePhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSRepeatablePhotoBrowserCell {
         
         // TODO: - All this stuff must be translated into xib file for the cell
-        cell.setImageWithURL(photo.URL)
+        
+        cell.setPhotoWithThumbURL(photo.URL, originalURL: photo.URL)
+        cell.photo.userInteractionEnabled = true
+        
+        // Add tap gesture to photo by uncommenting these lines
+//        let tapGesture = UITapGestureRecognizer(target: self.navigationController!, action: "openMealDetailViewControllerWithPhotoInGestureRecognizer:")
+//        tapGesture.passedValue = photo
+//        
+//        cell.photo.addGestureRecognizer(tapGesture)
         
         // Set profile pic and username label
-        let profilePictureView = UIImageView(frame: CGRectMake(5, 5, 20, 20))
         if let pic = photo.user.microProfilePictureURL{
-            profilePictureView.sd_setImageWithURL(pic)
+            cell.userProfilePicture.sd_setImageWithURL(pic)
         }
         
-        
-        let usernameLabel : UILabel = UILabel(frame: CGRectMake(30, 5, 200, 20))
-        usernameLabel.text = photo.user.username
-        usernameLabel.font = usernameLabel.font.fontWithSize(10.0)
-        
+        cell.userProfileName.text = photo.user.username
+
         if let navController = self.navigationController as? CSSocialFeedNavigationController{
-            usernameLabel.addTarget(navController, action: "openUserProfile:", forControlEvents: UIControlEvents.TouchUpInside, passedValue: photo, superView: cell.captionView)
+            cell.userProfileName.addTarget(navController, action: "openUserProfile:", forControlEvents: UIControlEvents.TouchUpInside, passedValue: photo)
         }
-
-        let timeAgo = UILabel(frame: CGRectMake(0, 5, cell.frame.width - 5, 20))
-        timeAgo.text = photo.createdAtDate.timeAgoSinceNow()
-        timeAgo.textAlignment = NSTextAlignment.Right
-        timeAgo.font = timeAgo.font.fontWithSize(10.0)
-        timeAgo.textColor = UIColor.lightGrayColor()
         
-        let titleLabel : UILabel = UILabel(frame: CGRectMake(5, 5, 200, 20))
-        titleLabel.text = photo.title
-        titleLabel.font = usernameLabel.font.fontWithSize(10.0)
+        cell.timeAgoLabel.text = photo.createdAtDate.timeAgoSinceNow()
+        
+        cell.titleAndHashtags.text = photo.title
 
-        let images = ["CarbsLow", "CarbsMedium", "CarbsHigh"]
+        
         if let carbs = photo.carbsEstimate{
-            let carbsImageView : UIImageView = UIImageView(image: UIImage(named: images[carbs.hashValue]))
-            carbsImageView.frame = CGRectMake(cell.frame.width - 40.0, 40, 30, 30)
-            
-            cell.addSubviewToCaptionView(carbsImageView)
+            cell.setCarbsEstimateToValue(carbs)
         }
-        cell.addSubviewToCaptionView(profilePictureView)
-        cell.addSubviewToCaptionView(usernameLabel)
-        cell.addSubviewToCaptionView(timeAgo)
-        cell.addSubviewToDescriptionView(titleLabel)
         
         return cell
     }

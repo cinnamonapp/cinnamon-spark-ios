@@ -21,6 +21,7 @@
 		B056D19F1AC41ABA00D98079 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = B056D19C1AC41ABA00D98079 /* NSString+MD5Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B056D1A01AC41ABA00D98079 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = B056D19E1AC41ABA00D98079 /* UIDevice+IdentifierAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
+		B087ACCE1AE64D1800BEBB15 /* UINavigationBar+CustomHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = B087ACCD1AE64D1800BEBB15 /* UINavigationBar+CustomHeight.m */; };
 		B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */; };
 		B0A148E41ACD9BE00019E08F /* CSVerticalImageRowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */; };
 		B0A148E61ACD9C010019E08F /* CSGridImageTagLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */; };
@@ -74,6 +75,8 @@
 		B056D19D1AC41ABA00D98079 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
 		B056D19E1AC41ABA00D98079 /* UIDevice+IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+IdentifierAddition.m"; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
+		B087ACCD1AE64D1800BEBB15 /* UINavigationBar+CustomHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+CustomHeight.m"; sourceTree = "<group>"; };
+		B087ACCF1AE64D1D00BEBB15 /* UINavigationBar+CustomHeight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+CustomHeight.h"; sourceTree = "<group>"; };
 		B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowser.swift; sourceTree = "<group>"; };
 		B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVerticalImageRowLayout.swift; sourceTree = "<group>"; };
 		B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGridImageTagLayout.swift; sourceTree = "<group>"; };
@@ -238,6 +241,8 @@
 		B0EDD6981ABC2A170065644F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B087ACCF1AE64D1D00BEBB15 /* UINavigationBar+CustomHeight.h */,
+				B087ACCD1AE64D1800BEBB15 /* UINavigationBar+CustomHeight.m */,
 				B056D19B1AC41ABA00D98079 /* NSString+MD5Addition.h */,
 				B056D19C1AC41ABA00D98079 /* NSString+MD5Addition.m */,
 				B056D19D1AC41ABA00D98079 /* UIDevice+IdentifierAddition.h */,
@@ -422,6 +427,7 @@
 				B007561B1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift in Sources */,
 				B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */,
 				B02BA6431ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift in Sources */,
+				B087ACCE1AE64D1800BEBB15 /* UINavigationBar+CustomHeight.m in Sources */,
 				B0EDD6A01ABC2A170065644F /* CSCameraViewController.swift in Sources */,
 				B02BA6451ACECBF500BC46F1 /* CSPhoto.swift in Sources */,
 				B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */,
@@ -507,10 +513,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos8.2;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -543,9 +549,9 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = iphoneos;
+				SDKROOT = iphoneos8.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -556,14 +562,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alessio Santo (6P6N72AZ6H)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = CinnamonSpark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Cinnamon;
 				PROVISIONING_PROFILE = "acc4945c-e8e5-4e2c-8225-cf17fed08edf";
@@ -578,14 +584,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Alessio Santo (6P6N72AZ6H)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = CinnamonSpark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = Cinnamon;
 				PROVISIONING_PROFILE = "acc4945c-e8e5-4e2c-8225-cf17fed08edf";

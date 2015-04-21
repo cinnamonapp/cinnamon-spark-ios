@@ -8,10 +8,9 @@
 
 import Foundation
 
-class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequestDelegate {
+class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequestDelegate, UIWebViewDelegate {
     
     var cameraViewController : CSCameraViewController!
-    let mealSizesArray = ["small", "medium", "large"]
     
     var webView : UIWebView!
     
@@ -47,8 +46,9 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
         webframe.size.height = webframe.size.height - tabBarHeight
         
         self.webView = UIWebView(frame: webframe)
+        self.webView.delegate = self
         self.webView.backgroundColor = viewsBackgroundColor
-        let url = NSURL(string: "\(apiEndpoints.production)/users/\(CSAPIRequest().uniqueIdentifier())/meals")
+        let url = NSURL(string: "\(apiEndpoints.development)/users/\(CSAPIRequest().uniqueIdentifier())/meals")
         webView.loadRequest(NSURLRequest(URL: url!))
         self.view.addSubview(webView)
         
@@ -89,6 +89,27 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
         //        self.navigationController?.pushViewController(cameraViewController, animated: true)
         presentViewController(navigationController, animated: true, completion: nil)
     }
+    
+    
+    
+    // MARK: - Webview delegate methods
+    
+    func webView(webView: UIWebView, shouldStartLoadWithRequest request: NSURLRequest, navigationType: UIWebViewNavigationType) -> Bool {
 
+        // Assuming fragment is the id of a meal_record
+        if let fragment = request.URL.fragment{
+            self.openMealDetailViewControllerWithPhotoId(fragment)
+            
+            return false
+        }
+        
+        return true
+    }
+    
+    func openMealDetailViewControllerWithPhotoId(photoId: String){
+        let mealDetailViewController = CSMealRecordDetailView(photoId: photoId)
+        self.navigationController?.pushViewController(mealDetailViewController, animated: true)
+    }
+    
 }
 

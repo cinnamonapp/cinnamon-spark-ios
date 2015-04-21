@@ -12,7 +12,7 @@ import AdSupport
 class CSAPIRequest: AFHTTPRequestOperationManager {
     
     private let deviceUniqueIdentifier = ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString
-    private let APIEndpoint : NSURL = NSURL(string: apiEndpoints.production)!
+    private let APIEndpoint : NSURL = NSURL(string: apiEndpoints.development)!
     
     private let APIPathDictionary : [String : String] = [
         "User" : "/users/:id.json",
@@ -130,6 +130,12 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
     }
     
     
+    func getMealRecordWithId(id: String, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        let mealRecordPath : String = self.getAPIPath("MealRecord", withRecordId: id)
+        
+        self.GET(mealRecordPath, parameters: [], success: success, failure: failure)
+
+    }
     
     
     /** 

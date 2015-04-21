@@ -12,11 +12,24 @@ let mealRecordDetailViewReuseIdentifier = "repeatablePhotoBrowserCell"
 
 class CSMealRecordDetailView: UICollectionViewController {
     
+    var photo : CSPhoto!
+    
     override init(){
         // TODO: - Allow the developer to set this from inheritance
         super.init(collectionViewLayout: CSVerticalImageRowLayout() )
     }
 
+    convenience init(photo: CSPhoto){
+        self.init()
+        
+        self.photo = photo
+    }
+    
+    convenience init(photoId: String){
+        self.init()
+        
+        CSAPIRequest().getMealRecordWithId(photoId, self.handleRequestSuccessResponse, self.handleRequestFailureResponse)
+    }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -50,6 +63,28 @@ class CSMealRecordDetailView: UICollectionViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    // MARK: CSAPIRequest methods
+    
+    /**
+    The handler function for success meal records responses.
+    Override to set custom behaviour for this action.
+    */
+    func handleRequestSuccessResponse(operation: AFHTTPRequestOperation!, responseObject: AnyObject!){
+        var mealRecord = responseObject as NSDictionary
+        
+        self.photo = CSPhoto(dictionary: mealRecord)
+        
+        self.collectionView?.reloadData()
+    }
+    
+    /**
+    The handler function for failure meal records responses.
+    Override to set custom behaviour for this action.
+    */
+    func handleRequestFailureResponse(operation: AFHTTPRequestOperation!, error: NSError!){
+
+    }
 
     // MARK: UICollectionViewDataSource
 
@@ -61,17 +96,36 @@ class CSMealRecordDetailView: UICollectionViewController {
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //#warning Incomplete method implementation -- Return the number of items in the section
-        return 1
+        if(self.photo != nil){
+            return 1
+        }else{
+            return 0
+        }
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(mealRecordDetailViewReuseIdentifier, forIndexPath: indexPath) as CSRepeatablePhotoBrowserCell
     
         // Configure the cell
-        cell.photo.sd_setImageWithURL(NSURL(string: "http://s3.amazonaws.com/cinnamon-spark-beta/meal_records/photos/000/000/408/medium/meal_photo.jpeg?1429530443"))
-        cell.photo.frame.size.height = cell.photo.frame.width
+        if(indexPath.section == 0){
+            if(indexPath.item == 0){
+                
+                cell.setPhotoWithThumbURL(self.photo.URL, originalURL: self.photo.URL)
+                
+                cell.userProfileName.hidden = true
+                
+                cell.timeAgoLabel.text = self.photo.createdAtDate.timeAgoSinceNow()
+                
+                cell.titleAndHashtags.text = photo.title
+                
+                if let carbs = photo.carbsEstimate{
+                    cell.setCarbsEstimateToValue(carbs)
+                }
+
+            }
+        }
+
         
-        cell.userProfileName.hidden = true
     
         return cell
     }

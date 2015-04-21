@@ -3,8 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -17,6 +16,7 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pxl-ej-bpa">
                         <rect key="frame" x="5" y="5" width="20" height="20"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="0E2-Ec-Cx2"/>
                             <constraint firstAttribute="width" constant="20" id="7jE-o5-GQg"/>
@@ -32,10 +32,11 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fWL-Bp-qcr">
+                    <imageView autoresizesSubviews="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fWL-Bp-qcr">
                         <rect key="frame" x="0.0" y="30" width="365" height="365"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="365" placeholder="YES" id="L07-L2-LDA"/>
+                            <constraint firstAttribute="width" secondItem="fWL-Bp-qcr" secondAttribute="height" multiplier="1:1" id="I6B-cK-Oqp"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time ago in words" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7j-9H-xzO">
@@ -70,28 +71,28 @@
                 <constraint firstAttribute="trailing" secondItem="Z7j-9H-xzO" secondAttribute="trailing" constant="5" id="JFy-xE-hnK"/>
                 <constraint firstItem="pxl-ej-bpa" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="NhT-iV-8yE"/>
                 <constraint firstItem="a9E-It-Wyl" firstAttribute="top" secondItem="fWL-Bp-qcr" secondAttribute="bottom" constant="5" id="Syh-61-poJ"/>
-                <constraint firstAttribute="trailing" secondItem="fWL-Bp-qcr" secondAttribute="trailing" id="XPK-jQ-Oy7"/>
+                <constraint firstAttribute="trailing" secondItem="fWL-Bp-qcr" secondAttribute="trailing" id="cz2-Re-gAt"/>
                 <constraint firstItem="4VE-Sx-USP" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="gBB-SF-Fzh"/>
+                <constraint firstItem="fWL-Bp-qcr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="gGu-RJ-qwa"/>
+                <constraint firstItem="a9E-It-Wyl" firstAttribute="top" secondItem="fWL-Bp-qcr" secondAttribute="bottom" constant="5" id="gfO-AG-gYi"/>
                 <constraint firstItem="Z7j-9H-xzO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="hMa-Qq-JL3"/>
                 <constraint firstAttribute="trailing" secondItem="a9E-It-Wyl" secondAttribute="trailing" constant="5" id="hed-Db-rmO"/>
                 <constraint firstItem="a9E-It-Wyl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="mqH-iP-f2J"/>
-                <constraint firstItem="fWL-Bp-qcr" firstAttribute="top" secondItem="lDI-JS-EbG" secondAttribute="bottom" constant="10" id="naj-TH-aRn"/>
-                <constraint firstItem="lDI-JS-EbG" firstAttribute="top" secondItem="Z7j-9H-xzO" secondAttribute="bottomMargin" constant="10" id="nrK-P4-BWb"/>
                 <constraint firstAttribute="trailing" secondItem="lDI-JS-EbG" secondAttribute="trailing" constant="10" id="rmx-z3-Rpc"/>
-                <constraint firstItem="fWL-Bp-qcr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="t00-v3-5AX"/>
                 <constraint firstItem="4VE-Sx-USP" firstAttribute="leading" secondItem="pxl-ej-bpa" secondAttribute="trailing" constant="5" id="thG-S9-W6m"/>
-                <constraint firstItem="fWL-Bp-qcr" firstAttribute="top" secondItem="pxl-ej-bpa" secondAttribute="bottom" constant="5" id="wux-Tz-Wto"/>
+                <constraint firstItem="fWL-Bp-qcr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="30" id="uct-wE-x0Z"/>
             </constraints>
             <size key="customSize" width="365" height="478"/>
             <variation key="default">
                 <mask key="constraints">
-                    <exclude reference="naj-TH-aRn"/>
-                    <exclude reference="nrK-P4-BWb"/>
+                    <exclude reference="Syh-61-poJ"/>
                 </mask>
             </variation>
             <connections>
+                <outlet property="carbsEstimate" destination="lDI-JS-EbG" id="bnA-Y1-J2u"/>
                 <outlet property="photo" destination="fWL-Bp-qcr" id="EZY-aE-xYc"/>
                 <outlet property="timeAgoLabel" destination="Z7j-9H-xzO" id="fxW-8m-Qgf"/>
+                <outlet property="titleAndHashtags" destination="a9E-It-Wyl" id="A4b-jq-Weq"/>
                 <outlet property="userProfileName" destination="4VE-Sx-USP" id="yA6-vY-Ysc"/>
                 <outlet property="userProfilePicture" destination="pxl-ej-bpa" id="iR0-61-kfr"/>
             </connections>

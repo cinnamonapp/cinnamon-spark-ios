@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 
     var window: UIWindow?
     
-    
+    var userFeedViewController : CSUserPhotoFeedViewController!
     var userFeedNavigationController : UINavigationController!
     var socialFeedNavigationController : CSSocialFeedNavigationController!
     var tabBarViewController: CSTabBarController!
@@ -46,7 +46,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         // Check in current user
         (CSAPIRequest()).checkCurrentUserInUsingDeviceUUID()
 
-        UIApplication.sharedApplication().registerForRemoteNotificationsAllAtOnce()
+        application.registerForRemoteNotificationsAllAtOnce()
+        
+        
+        if let options = launchOptions{
+            if let userInfo = options[UIApplicationLaunchOptionsRemoteNotificationKey] as? [NSObject : AnyObject]{
+                self.processRemoteNotificationForApplication(application, withNotification: userInfo)
+            }
+        }
         
         return true
     }
@@ -67,10 +74,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     private func prepareUserFeedNavigationControllerForReuse(){
-        let userFeedViewController = CSUserPhotoFeedViewController()
-        userFeedViewController.title = "You"
+        self.userFeedViewController = CSUserPhotoFeedViewController()
+        self.userFeedViewController.title = "You"
         
-        self.userFeedNavigationController = UINavigationController(rootViewController: userFeedViewController)
+        self.userFeedNavigationController = UINavigationController(rootViewController: self.userFeedViewController)
     }
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
@@ -87,6 +94,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     // MARK: - Push notifications
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        
+        self.processRemoteNotificationForApplication(application, withNotification: userInfo)
+
+    }
+    
+    func processRemoteNotificationForApplication(application: UIApplication,  withNotification userInfo: [NSObject : AnyObject]){
+        let aps = userInfo["aps"] as NSDictionary
+        
+        if let photoId = userInfo["meal_record_id"] as? Int{
+            self.tabBarViewController.selectedIndex = 2
+            self.userFeedViewController.openMealDetailViewControllerWithPhotoId(photoId.description)
+        }
+    }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
         CSAPIRequest().updateCurrentUserNotificationToken(deviceToken)

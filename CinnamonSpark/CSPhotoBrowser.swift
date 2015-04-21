@@ -36,7 +36,7 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.registerClass(CSPhotoBrowserCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        self.collectionView!.registerNib(UINib(nibName: "CSRepeatablePhotoBrowserCell", bundle: nil), forCellWithReuseIdentifier:  mealRecordDetailViewReuseIdentifier)
         self.collectionView!.registerClass(CSPhotoBrowserCell.self, forCellWithReuseIdentifier: topInterfaceReuseIdentifier)
         self.collectionView!.backgroundColor = viewsBackgroundColor
 
@@ -148,7 +148,7 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as CSPhotoBrowserCell
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(mealRecordDetailViewReuseIdentifier, forIndexPath: indexPath) as CSRepeatablePhotoBrowserCell
         
         // If the developer wants a top interface space give him what he wants
         if(self.wantsCustomizableTopViewInterfaceWithIndexPath(indexPath)){
@@ -156,13 +156,14 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
             let delegate = self.delegate!
             
             // Initialize a new cell for the top interface
-            cell = collectionView.dequeueReusableCellWithReuseIdentifier(topInterfaceReuseIdentifier, forIndexPath: indexPath) as CSPhotoBrowserCell
-            cell.setPhotoBrowser(photoBrowser: self)
-            cell = delegate.photoBrowser!(self, customizableTopViewInterface: cell)
+            var newcell = collectionView.dequeueReusableCellWithReuseIdentifier(topInterfaceReuseIdentifier, forIndexPath: indexPath) as CSPhotoBrowserCell
+            newcell.setPhotoBrowser(photoBrowser: self)
+            newcell = delegate.photoBrowser!(self, customizableTopViewInterface: newcell)
             
+            return newcell
         }else{
             
-            cell.setPhotoBrowser(photoBrowser: self)
+//            cell.setPhotoBrowser(photoBrowser: self)
 
             let photo : CSPhoto = self.photos[indexPath.item] as CSPhoto
             
@@ -222,7 +223,7 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     // MARK: - CSPhotoBrowserDelegate methods
-    func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSPhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSPhotoBrowserCell {
+    func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSRepeatablePhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSRepeatablePhotoBrowserCell {
         return cell
     }
 
@@ -245,7 +246,7 @@ protocol CSPhotoBrowserDelegate : NSObjectProtocol{
         :param: indexPath The index path of the customizable cell
         :param: photo The photo from the array
     */
-    optional func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSPhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSPhotoBrowserCell
+    optional func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSRepeatablePhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSRepeatablePhotoBrowserCell
     
     /**
         When overridden, this method allows you to customize a special cell that will stay always on top of your collection view where you will be able to add custom UI. Commonly used for defining custom actions, custom headers etc.

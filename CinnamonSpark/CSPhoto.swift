@@ -44,8 +44,10 @@ class CSPhoto: NSObject {
         
         if let title = dictionary["title"] as? String{
             self.title = title
+            
+            if(self.title == ""){self.title = "No hashtags added"}
         }else{
-            self.title = ""
+            self.title = "No hashtags added"
         }
         
         if let user = dictionary["user"] as NSDictionary!{

@@ -18,11 +18,10 @@ class CSSocialFeedNavigationController: UINavigationController {
 
         // Do any additional setup after loading the view.
         self.socialFeedViewController = CSSocialPhotoFeedViewController()
-//        self.setViewControllers([socialFeedViewController], animated: false)
-        
+        self.setViewControllers([socialFeedViewController], animated: false)
         
         let detailView = CSMealRecordDetailView()
-        self.setViewControllers([detailView], animated: true)
+//        self.setViewControllers([detailView], animated: true)
     }
 
     override func didReceiveMemoryWarning() {
@@ -31,12 +30,18 @@ class CSSocialFeedNavigationController: UINavigationController {
     }
     
     func openUserProfile(sender: AnyObject){
-        let button = sender as UIButton
-        let photo = button.passedValue as CSPhoto
+        let gesture = sender as UITapGestureRecognizer
+        let photo = gesture.passedValue as CSPhoto
 
-        self.userFeedViewController = CSFriendPhotoFeedViewController()
-        self.userFeedViewController.mealRecordsForUser = photo.user
-        self.pushViewController(userFeedViewController, animated: true)
+        self.userFeedViewController = CSFriendPhotoFeedViewController(user: photo.user)
+        self.pushViewController(self.userFeedViewController, animated: true)
+    }
+    
+    func openMealDetailViewControllerWithPhotoInGestureRecognizer(gesture: UITapGestureRecognizer){
+        let photo = gesture.passedValue as CSPhoto
+        
+        let detailView = CSMealRecordDetailView(photo: photo)
+        self.pushViewController(detailView, animated: true)
     }
         
     /*
