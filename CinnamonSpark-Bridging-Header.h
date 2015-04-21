@@ -5,7 +5,7 @@
 #import "FastttCamera.h"
 #import "MWPhotoBrowser.h"
 #import "AFNetworking.h"
-#import "UIDevice+IdentifierAddition.h"
 #import "UIImageView+WebCache.h"
 #import "DateTools.h"
 #import "UINavigationBar+CustomHeight.h"
+#import "OnboardingViewController.h"

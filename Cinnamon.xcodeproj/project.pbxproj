@@ -18,8 +18,6 @@
 		B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AA1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift */; };
 		B02F13AD1AD80C6000075E41 /* CSUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AC1AD80C6000075E41 /* CSUser.swift */; };
 		B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */; };
-		B056D19F1AC41ABA00D98079 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = B056D19C1AC41ABA00D98079 /* NSString+MD5Addition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		B056D1A01AC41ABA00D98079 /* UIDevice+IdentifierAddition.m in Sources */ = {isa = PBXBuildFile; fileRef = B056D19E1AC41ABA00D98079 /* UIDevice+IdentifierAddition.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
 		B087ACCE1AE64D1800BEBB15 /* UINavigationBar+CustomHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = B087ACCD1AE64D1800BEBB15 /* UINavigationBar+CustomHeight.m */; };
 		B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */; };
@@ -70,10 +68,6 @@
 		B02F13AA1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSocialFeedNavigationController.swift; sourceTree = "<group>"; };
 		B02F13AC1AD80C6000075E41 /* CSUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUser.swift; sourceTree = "<group>"; };
 		B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFriendPhotoFeedViewController.swift; sourceTree = "<group>"; };
-		B056D19B1AC41ABA00D98079 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
-		B056D19C1AC41ABA00D98079 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
-		B056D19D1AC41ABA00D98079 /* UIDevice+IdentifierAddition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+IdentifierAddition.h"; sourceTree = "<group>"; };
-		B056D19E1AC41ABA00D98079 /* UIDevice+IdentifierAddition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+IdentifierAddition.m"; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
 		B087ACCD1AE64D1800BEBB15 /* UINavigationBar+CustomHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+CustomHeight.m"; sourceTree = "<group>"; };
 		B087ACCF1AE64D1D00BEBB15 /* UINavigationBar+CustomHeight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+CustomHeight.h"; sourceTree = "<group>"; };
@@ -243,10 +237,6 @@
 			children = (
 				B087ACCF1AE64D1D00BEBB15 /* UINavigationBar+CustomHeight.h */,
 				B087ACCD1AE64D1800BEBB15 /* UINavigationBar+CustomHeight.m */,
-				B056D19B1AC41ABA00D98079 /* NSString+MD5Addition.h */,
-				B056D19C1AC41ABA00D98079 /* NSString+MD5Addition.m */,
-				B056D19D1AC41ABA00D98079 /* UIDevice+IdentifierAddition.h */,
-				B056D19E1AC41ABA00D98079 /* UIDevice+IdentifierAddition.m */,
 				B0EDD6991ABC2A170065644F /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -440,10 +430,8 @@
 				B0ECE8CC1AC081CF001D00CE /* CSCameraDelegate.swift in Sources */,
 				B0A148E41ACD9BE00019E08F /* CSVerticalImageRowLayout.swift in Sources */,
 				B02F13A71AD7DE7800075E41 /* UILabel+CSTextLink.swift in Sources */,
-				B056D1A01AC41ABA00D98079 /* UIDevice+IdentifierAddition.m in Sources */,
 				B0DCEF371AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.swift in Sources */,
 				B074349B1AC062960065403A /* CSTapSelector.swift in Sources */,
-				B056D19F1AC41ABA00D98079 /* NSString+MD5Addition.m in Sources */,
 				B014ECBF1AC5B06900DBD1BD /* CSAPIRequest.swift in Sources */,
 				B0EDD69B1ABC2A170065644F /* AppDelegate.swift in Sources */,
 			);
