@@ -38,7 +38,7 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
         // Register cell classes
         self.collectionView!.registerNib(UINib(nibName: "CSRepeatablePhotoBrowserCell", bundle: nil), forCellWithReuseIdentifier:  mealRecordDetailViewReuseIdentifier)
         self.collectionView!.registerClass(CSPhotoBrowserCell.self, forCellWithReuseIdentifier: topInterfaceReuseIdentifier)
-        self.collectionView!.backgroundColor = viewsBackgroundColor
+        self.collectionView!.backgroundColor = viewsInsideBackgroundColor
 
         self.collectionView?.alwaysBounceVertical = true
         

@@ -60,11 +60,22 @@ class CSTabBarController: UITabBarController {
     
     func cameraButtonAction(sender: AnyObject){
         var vc = self.viewControllers?[2] as UINavigationController
-        var vc2 = vc.viewControllers?[0] as CSUserPhotoFeedViewController
         
         self.selectedIndex = 2
         
-        vc2.openCamera()
+        if let viewControllers = vc.viewControllers{
+            if viewControllers.count > 1{
+                let userFeedController = viewControllers[1] as CSUserPhotoFeedViewController
+                userFeedController.openCamera()
+            }else{
+                let userWeekViewController = viewControllers[0] as CSUserWeekPhotoFeedViewController
+                
+                userWeekViewController.openDayViewController()
+                
+                userWeekViewController.userPhotoFeedViewController.openCamera()
+            }
+        }
+
     }
 
     /*

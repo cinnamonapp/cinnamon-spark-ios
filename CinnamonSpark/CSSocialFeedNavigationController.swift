@@ -20,8 +20,7 @@ class CSSocialFeedNavigationController: UINavigationController {
         self.socialFeedViewController = CSSocialPhotoFeedViewController()
         self.setViewControllers([socialFeedViewController], animated: false)
         
-        let detailView = CSMealRecordDetailView()
-//        self.setViewControllers([detailView], animated: true)
+        self.appendMisterCinnamon()
     }
 
     override func didReceiveMemoryWarning() {

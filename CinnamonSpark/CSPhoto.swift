@@ -21,6 +21,7 @@ enum CSPhotoMealCarbsEstimate{
 }
 
 class CSPhoto: NSObject {
+    var id : String!
     var URL : NSURL!
     var title : String!
     var user : CSUser!
@@ -31,9 +32,15 @@ class CSPhoto: NSObject {
     convenience init(dictionary: NSDictionary){
         self.init()
         
+        self.id = (dictionary["id"] as Int).description
+        
         self.URL = NSURL(string: dictionary["photo_original_url"] as String)
         
-        self.createdAtDate = self.dateFromString(dictionary["created_at"] as String)
+        if(self.id != "-1"){
+            self.createdAtDate = self.dateFromString(dictionary["created_at"] as String)
+        }else{
+
+        }
         
         self.size = self.evaluateSize(dictionary["size"] as Int)
         
@@ -44,10 +51,8 @@ class CSPhoto: NSObject {
         
         if let title = dictionary["title"] as? String{
             self.title = title
-            
-            if(self.title == ""){self.title = "No hashtags added"}
         }else{
-            self.title = "No hashtags added"
+            self.title = ""
         }
         
         if let user = dictionary["user"] as NSDictionary!{

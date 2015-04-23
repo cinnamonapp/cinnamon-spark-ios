@@ -12,7 +12,7 @@ import AdSupport
 class CSAPIRequest: AFHTTPRequestOperationManager {
     
     private let deviceUniqueIdentifier = ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString
-    private let APIEndpoint : NSURL = NSURL(string: apiEndpoints.development)!
+    private let APIEndpoint : NSURL = NSURL(string: primaryAPIEndpoint)!
     
     private let APIPathDictionary : [String : String] = [
         "User" : "/users/:id.json",
@@ -89,7 +89,7 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
             success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 let responseDictionary = responseObject as NSDictionary
                 
-                
+                println("Meal record uploaded.")
                 if let apiRequestDelegate = delegate as? CSAPIRequestDelegate{
                     apiRequestDelegate.didSuccessfullyCreateMealRecord!(responseDictionary)
                 }
@@ -97,8 +97,10 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
             },
             failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println("Error uploading the file")
+                println(error)
                 
-                // TODO: - Add delegate methods to inform of failure
+                // Try again until it works :D
+                self.createMealRecord(params, withImageData: imageData, delegate: delegate)
             }
         )
         

@@ -15,18 +15,31 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
     
     override init(){
         super.init()
-        self.title = "Community"
+
         self.tabBarItem = UITabBarItem(title: "Community", image: UIImage(named: "Social"), tag: 1)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Temporary fix for custom navbar
+        self.collectionView?.frame.origin.y += 30
+        self.collectionView?.frame.size.height -= 30
+        // End
+        
+        self.collectionView?.backgroundColor = viewsBackgroundColor
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setQuirkyMessage(SocialFeedQuirkyMessages.sample())
     }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-        
-    override func viewDidLoad(){
-        super.viewDidLoad()
-    }
-    
+
     override func loadPhotos() {
         APIRequest.getOthersMealRecords(self.handleRequestSuccessResponse, failure: self.handleRequestFailureResponse)
     }
@@ -90,6 +103,8 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
         cell.setPhotoWithThumbURL(photo.URL, originalURL: photo.URL)
         cell.photo.userInteractionEnabled = true
         
+        cell.backgroundColor = viewsInsideBackgroundColor
+        
         // Add tap gesture to photo by uncommenting these lines
 //        let tapGesture = UITapGestureRecognizer(target: self.navigationController!, action: "openMealDetailViewControllerWithPhotoInGestureRecognizer:")
 //        tapGesture.passedValue = photo
@@ -107,13 +122,19 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
             cell.userProfileName.addTarget(navController, action: "openUserProfile:", forControlEvents: UIControlEvents.TouchUpInside, passedValue: photo)
         }
         
-        cell.timeAgoLabel.text = photo.createdAtDate.timeAgoSinceNow()
+        if(photo.createdAtDate != nil){
+            cell.timeAgoLabel.text = photo.createdAtDate.timeAgoSinceNow()
+        }else{
+            cell.timeAgoLabel.text = "Smart alert"
+        }
         
         cell.titleAndHashtags.text = photo.title
 
         
         if let carbs = photo.carbsEstimate{
             cell.setCarbsEstimateToValue(carbs)
+        }else{
+            cell.hideCarbsEstimate()
         }
         
         return cell

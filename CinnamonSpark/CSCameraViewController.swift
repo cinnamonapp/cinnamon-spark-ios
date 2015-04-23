@@ -29,7 +29,7 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate, UITextView
     var takenPicture : FastttCapturedImage!
     
     // UIViews
-    var tapSelector : CSTapSelector!
+    var tapSelector : CSMealSizeSelector!
     var retakeButton : UIBarButtonItem!
     var stillImageView : UIImageView!
     var cameraButton : UIButton!
@@ -79,10 +79,7 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate, UITextView
     func initiateTapSelector(){
         let mainScreen = UIScreen.mainScreen().bounds
         
-        tapSelector = CSTapSelector(values: [1, 2, 3],
-            origin: CGPointMake(CGRectGetMidX(self.fastCamera.view.frame), CGRectGetMidY(self.fastCamera.view.frame)),
-            minimumRadius: nil,
-            maximumRadius: Float(mainScreen.size.width / 2.0) - 20.0)
+        tapSelector = CSMealSizeSelector(mirrorView: self.fastCamera.view)
     }
     
     func displayTapSelector(){

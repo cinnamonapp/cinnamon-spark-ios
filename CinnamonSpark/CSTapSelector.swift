@@ -22,7 +22,7 @@ class CSTapSelector: UIView {
     // Init the view with a set of values
     convenience init(values: NSArray, origin: CGPoint, minimumRadius: Float?, maximumRadius: Float?){
         self.init()
-        
+
         // Set the minimum radius from the user if it's present
         if(minimumRadius != nil){
             self.minRadius = minimumRadius!
@@ -130,6 +130,7 @@ class CSTapSelector: UIView {
     
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
+    
     override func drawRect(rect: CGRect) {
         // Drawing code
         super.drawRect(rect)

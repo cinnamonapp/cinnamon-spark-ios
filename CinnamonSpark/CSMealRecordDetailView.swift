@@ -41,10 +41,19 @@ class CSMealRecordDetailView: UICollectionViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
+        if(self.photo != nil){
+            self.setQuirkyMessageWithPhoto(self.photo)
+        }
+        
+        // Temporary fix for custom navbar
+        self.collectionView?.frame.origin.y += 30
+        self.collectionView?.frame.size.height -= 30
+        // End
+        
         // Register cell classes
         self.collectionView!.registerNib(UINib(nibName: "CSRepeatablePhotoBrowserCell", bundle: nil), forCellWithReuseIdentifier: mealRecordDetailViewReuseIdentifier)
 
-        self.collectionView?.backgroundColor = viewsBackgroundColor
+        self.collectionView?.backgroundColor = viewsInsideBackgroundColor
         
         // Do any additional setup after loading the view.
     }
@@ -54,6 +63,22 @@ class CSMealRecordDetailView: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    func setQuirkyMessageWithPhoto(photo: CSPhoto){
+        if let carbs = photo.carbsEstimate{
+            switch carbs{
+            case .High:
+                self.setQuirkyMessage("I hope it was\n delicious at least.")
+                break
+            case .Medium:
+                self.setQuirkyMessage("Quite good my friend,\n quite good.")
+                break
+            default: // .Low
+                self.setQuirkyMessage("This looks like you\n finally learned something.")
+            }
+        }
+
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -74,6 +99,8 @@ class CSMealRecordDetailView: UICollectionViewController {
         var mealRecord = responseObject as NSDictionary
         
         self.photo = CSPhoto(dictionary: mealRecord)
+        
+        self.setQuirkyMessageWithPhoto(self.photo)
         
         self.collectionView?.reloadData()
     }
@@ -113,6 +140,7 @@ class CSMealRecordDetailView: UICollectionViewController {
                 cell.setPhotoWithThumbURL(self.photo.URL, originalURL: self.photo.URL)
                 
                 cell.userProfileName.hidden = true
+                cell.userProfilePicture.hidden = true
                 
                 cell.timeAgoLabel.text = self.photo.createdAtDate.timeAgoSinceNow()
                 

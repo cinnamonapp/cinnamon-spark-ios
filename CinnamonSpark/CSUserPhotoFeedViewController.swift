@@ -24,9 +24,10 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        self.webView.reload()
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.setQuirkyMessage(UserFeedQuirkyMessages.sample())
     }
     
 //    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -36,22 +37,24 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        self.view.backgroundColor = viewsBackgroundColor
+        
+        self.navigationController?.appendMisterCinnamon()
+        
+        self.view.backgroundColor = viewsInsideBackgroundColor
         
         // Add web view
         var webframe = self.view.frame
-        let navigationBarHeight = self.navigationController?.navigationBar.frame.height as CGFloat!
-        let tabBarHeight = self.tabBarController?.tabBar.frame.height as CGFloat!
-        webframe.origin.y = (webframe.origin.y + navigationBarHeight)
-        webframe.size.height = webframe.size.height - tabBarHeight
+        let tabBarHeight = 50 as CGFloat!
+        
+        webframe.origin.y += 10
+        webframe.size.height = webframe.size.height - tabBarHeight - 50
         
         self.webView = UIWebView(frame: webframe)
         self.webView.delegate = self
-        self.webView.backgroundColor = viewsBackgroundColor
-        let url = NSURL(string: "\(apiEndpoints.development)/users/\(CSAPIRequest().uniqueIdentifier())/meals")
+        self.webView.backgroundColor = viewsInsideBackgroundColor
+        let url = NSURL(string: "\(primaryAPIEndpoint)/users/\(CSAPIRequest().uniqueIdentifier())/meals")
         webView.loadRequest(NSURLRequest(URL: url!))
         self.view.addSubview(webView)
-        
         
     }
     

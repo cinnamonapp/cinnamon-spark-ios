@@ -11,9 +11,16 @@ import CoreData
 import Fabric
 import Crashlytics
 
+// APIEndpoints constant
+let apiEndpoints : (local: String, development: String, staging: String, production: String) = (
+    local:          "http://localhost:3000",
+    development:    "http://192.168.1.12:3000",
+    staging:        "http://cinnamon-staging.herokuapp.com",
+    production:     "http://cinnamon-production.herokuapp.com"
+)
 
-let viewsBackgroundColor = UIColor(red: 239/255, green: 242/255, blue: 230/255, alpha: 1)
-let apiEndpoints : (development:String, production: String, local: String) = (development: "http://192.168.1.12:3000", production: "http://murmuring-dusk-8873.herokuapp.com", local: "http://localhost:3000")
+// Change this constant to change the endpoint for entire app
+let primaryAPIEndpoint = apiEndpoints.development
 
 
 @UIApplicationMain
@@ -22,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     var window: UIWindow?
     
     var userFeedViewController : CSUserPhotoFeedViewController!
+    var userWeeklyFeedViewController : CSUserWeekPhotoFeedViewController!
     var userFeedNavigationController : UINavigationController!
     var socialFeedNavigationController : CSSocialFeedNavigationController!
     var tabBarViewController: CSTabBarController!
@@ -139,7 +147,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         self.userFeedViewController = CSUserPhotoFeedViewController()
         self.userFeedViewController.title = "You"
         
-        self.userFeedNavigationController = UINavigationController(rootViewController: self.userFeedViewController)
+        self.userWeeklyFeedViewController = CSUserWeekPhotoFeedViewController()
+        self.userWeeklyFeedViewController.title = "You"
+        
+        self.userFeedNavigationController = UINavigationController(rootViewController: self.userWeeklyFeedViewController)
+        
+        self.userFeedNavigationController.pushViewController(userFeedViewController, animated: false)
     }
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
