@@ -11,17 +11,7 @@ import CoreData
 import Fabric
 import Crashlytics
 
-// APIEndpoints constant
-let apiEndpoints : (local: String, development: String, staging: String, production: String) = (
-    local:          "http://localhost:3000",
-    development:    "http://192.168.1.12:3000",
-    staging:        "http://cinnamon-staging.herokuapp.com",
-    production:     "http://cinnamon-production.herokuapp.com"
-)
-
-// Change this constant to change the endpoint for entire app
-let primaryAPIEndpoint = apiEndpoints.production
-
+var userDishCount = 0
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
@@ -34,13 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     var socialFeedNavigationController : CSSocialFeedNavigationController!
     var tabBarViewController: CSTabBarController!
 
-    let userHasOnboardedKey = "user_has_onboarded"
+    let userHasOnboardedKey = "final_user_has_onboarded"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
         self.window?.backgroundColor = UIColor.blackColor()
+        
         
         var userHasOnboardedAlready = NSUserDefaults.standardUserDefaults().boolForKey(userHasOnboardedKey)
         
@@ -53,9 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         self.window?.makeKeyAndVisible()
         
         Fabric.with([Crashlytics()])
-        
-        // Check in current user
-        (CSAPIRequest()).checkCurrentUserInUsingDeviceUUID()
+
 
         application.registerForRemoteNotificationsAllAtOnce()
         
@@ -70,27 +59,96 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
     }
     
     private func generateOnboardingViewController() -> OnboardingViewController {
+        
+        let screenBounds = UIScreen.mainScreen().bounds
+        
+        // The original image is 960 * 1684
+        let estimatedImageHeight = 1684 * screenBounds.width / 960
+        let estimatedTopPadding = estimatedImageHeight * 0.584
+        
+        
+        // Create the onboarding controller with the pages and return it.
+        let onboardingVC: OnboardingViewController = OnboardingViewController(backgroundImage: UIImage(named: "OnboardingBackground"), contents: [])
+        
+        
         // Generate the first page...
-        let firstPage: OnboardingContentViewController = OnboardingContentViewController(title: "What A Beautiful Photo", body: "This city background image is so beautiful", image: UIImage(named:
-            "blue"), buttonText: "Enable Location Services") {
-                println("Do something here...");
+        let firstPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "Hi I am Mr. Cinnamon and I want\nto make a deal with you about\nyour health. ", image: UIImage(named:
+            "blue"), buttonText: "Yeah") {
+                onboardingVC.moveNextPage()
         }
         
         // Generate the second page...
-        let secondPage: OnboardingContentViewController = OnboardingContentViewController(title: "I'm So Sorry", body: "I can't get over the nice blurry background photo.", image: UIImage(named:
-            "red"), buttonText: "Connect With Facebook") {
-                println("Do something else here...");
+        let secondPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "You take a picture of your\nfood & drinks, I tell you about\nyour carbs.", image: nil, buttonText: "Ok, but why carbs? ") {
+            onboardingVC.moveNextPage()
         }
         
-        // Generate the third page, and when the user hits the button we want to handle that the onboarding
-        // process has been completed.
-        let thirdPage: OnboardingContentViewController = OnboardingContentViewController(title: "Seriously Though", body: "Kudos to the photographer.", image: UIImage(named:
-            "yellow"), buttonText: "Let's Get Started") {
-                self.handleOnboardingCompletion()
+        // Generate the third page...
+        let thirdPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "Carbs = Sugar\nMuch sugar = Not good for you\n\nIt’s more complicated than that,\nbut let’s keep it simple for now. ", image: nil, buttonText: "Alright, and how?") {
+            onboardingVC.moveNextPage()
         }
         
-        // Create the onboarding controller with the pages and return it.
-        let onboardingVC: OnboardingViewController = OnboardingViewController(backgroundImage: UIImage(named: "street"), contents: [firstPage, secondPage, thirdPage])
+        // Generate the fourth page
+        let fourthPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "For each dish I give you a carb level:", image: UIImage(named: "Balls"), buttonText: "Fine") {
+            onboardingVC.moveNextPage()
+        }
+        
+        let fifthPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "And for each meal a range indicator:", image: UIImage(named: "Rects"), buttonText: "Ok") {
+            onboardingVC.moveNextPage()
+        }
+        
+        
+        let sixthPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "Let’s try to keep our carbs low, together.\n30-50g per meal would be awesome!", image: nil, buttonText: "Sure, but what’s in for me?") {
+            onboardingVC.moveNextPage()
+        }
+        
+        let seventhPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "You learn about your food.\nYou become aware of your habits.\nAnd I will inspire you to eat healthier.", image: nil, buttonText: "Count. Me. In.") {
+            onboardingVC.moveNextPage()
+        }
+        
+        let eightPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "There is one more thing:\nYour friends are also here!", image: nil, buttonText: "You had me at 'friends'") {
+            self.handleOnboardingCompletion()
+        }
+        
+        onboardingVC.viewControllers = [firstPage, secondPage, thirdPage, fourthPage, fifthPage, sixthPage, seventhPage, eightPage]
+        
+        
+        onboardingVC.topPadding = 250
+        onboardingVC.underBodyPadding = 5
+        onboardingVC.iconHeight = 60
+        onboardingVC.iconWidth = 150
+        
+        onboardingVC.bodyFontSize = 15
+        onboardingVC.titleTextColor = UIColor.blackColor()
+        onboardingVC.bodyTextColor = UIColor.blackColor()
+        onboardingVC.buttonTextColor = UIColor.blackColor()
+        onboardingVC.swipingEnabled = false
+        onboardingVC.shouldMaskBackground = false
+        onboardingVC.shouldBlurBackground = false
+        onboardingVC.hidePageControl = true
+        
+        onboardingVC.underTitlePadding = 0
+        
+        let hardware = UIDeviceHardware().platform()
+        
+        // The iPhone 4
+        if(startsWith(hardware, "iPhone4")){
+            onboardingVC.topPadding = estimatedTopPadding - 50
+            onboardingVC.bottomPadding = 0
+            // The iphone 5c/s
+        }else if(startsWith(hardware, "iPhone5") || startsWith(hardware, "iPhone6")){
+            onboardingVC.topPadding = estimatedTopPadding
+            onboardingVC.bottomPadding = 45
+            // The iPhone 6 and the other stuff
+        }else{
+            onboardingVC.topPadding = estimatedTopPadding
+            onboardingVC.bottomPadding = 55
+        }
+        
+        thirdPage.topPadding = thirdPage.topPadding - 10
+        fourthPage.topPadding = fourthPage.topPadding - 10
+        
+        sixthPage.topPadding = sixthPage.topPadding + 10
+        eightPage.topPadding = eightPage.topPadding + 10
         
         return onboardingVC
     }

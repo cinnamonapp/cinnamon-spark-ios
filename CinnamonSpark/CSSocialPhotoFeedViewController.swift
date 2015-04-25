@@ -35,6 +35,15 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser {
         
         self.setQuirkyMessage(SocialFeedQuirkyMessages.sample())
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // Check in current user
+        CSAPIRequest().checkCurrentUserInUsingDeviceUUID { (request: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+            self.setDishCount(userDishCount.description)
+        }
+    }
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

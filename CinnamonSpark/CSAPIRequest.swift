@@ -144,7 +144,7 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         Use the device UUID to authenticate the user.
         It will create a new user if the UUID is not found.
     */
-    func checkCurrentUserInUsingDeviceUUID(){
+    func checkCurrentUserInUsingDeviceUUID(success: (AFHTTPRequestOperation!, AnyObject!) -> Void){
         let userPath : String = self.getAPIPath("User")
         
         let params : NSDictionary = [
@@ -155,12 +155,23 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         
         self.POST(userPath,
             parameters: params,
-            success: { (request: AFHTTPRequestOperation!, sender: AnyObject!) -> Void in
+            success: { (request: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 println("User has been created/retrieved")
+                
+                let userDictionary = responseObject as NSDictionary
+                
+                if let dishCount = userDictionary["meal_records_count"] as? Int{
+                    // Set the global variable
+                    userDishCount = dishCount
+                }
+                
+                success(request, responseObject)
+                
             },
             failure: { (request: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println("Error in api")
-//                fatalError("Fix this!")
+                // Repeat once again
+                self.checkCurrentUserInUsingDeviceUUID(success)
             }
         )
         

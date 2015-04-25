@@ -67,15 +67,29 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         
         // Alert of what's gonna happen
-        let alert = UIAlertController(title: "Crunching your data O.o", message: "YEAH! Your dish has been saved. We are now crunching your data. You'll be notified when the carbs estimation is ready!", preferredStyle: UIAlertControllerStyle.Alert)
-        let mainAction = UIAlertAction(title: "Great!", style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
-            
-            self.cameraViewController.closeViewController()
-                        
-        }
+//        let alert = UIAlertController(title: "Crunching your data O.o", message: "YEAH! Your dish has been saved. We are now crunching your data. You'll be notified when the carbs estimation is ready!", preferredStyle: UIAlertControllerStyle.Alert)
+//        
+//        let mainAction = UIAlertAction(title: "Great!", style: UIAlertActionStyle.Default) { (action: UIAlertAction!) -> Void in
+//            
+//            self.cameraViewController.closeViewController()
+//                        
+//        }
+//        
+//        alert.addAction(mainAction)
+//        self.cameraViewController.presentViewController(alert, animated: true, completion: nil)
+
+        userDishCount += 1
         
-        alert.addAction(mainAction)
-        self.cameraViewController.presentViewController(alert, animated: true, completion: nil)
+        var s = (userDishCount > 1) ? "s" : ""
+        
+        var alertview = JSSAlertView().show(self.cameraViewController, title: "Awesome", text: "You are awesome my friend, \(userDishCount) meal\(s) already and going straight! Now hold on, we know you can't wait to see your carb result. We will notify you.", buttonText: "Whoa", color: mainActionColor, iconImage: UIImage(named: "MonsterCircle"))
+        
+        alertview.setTextTheme(.Light)
+        alertview.addAction { () -> Void in
+            self.cameraViewController.closeViewController()
+        }
+
+        
     }
     
     

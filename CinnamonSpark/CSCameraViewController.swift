@@ -63,6 +63,7 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate, UITextView
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.alpha = 0
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.tintColor = mainActionColor
         
     }
     

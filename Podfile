@@ -7,7 +7,6 @@ target 'Cinnamon' do
     pod "AFNetworking", "~> 2.0"
     pod "Fabric", "~> 1.2"
     pod "DateTools"
-    pod "Onboard"
 end
 
 target 'CinnamonTests' do

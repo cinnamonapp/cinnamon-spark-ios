@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		21CDA050D9882F91510919EF /* libPods-Cinnamon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7ABA3DDD64BD29F6E546F5 /* libPods-Cinnamon.a */; };
 		B007561B1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */; };
+		B00C45501AEA9EF40023520C /* OnboardingContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B00C454D1AEA9EF40023520C /* OnboardingContentViewController.m */; };
+		B00C45511AEA9EF40023520C /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B00C454F1AEA9EF40023520C /* OnboardingViewController.m */; };
 		B01260561AC326C500351D40 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01260541AC326C500351D40 /* Crashlytics.framework */; };
 		B01260571AC326C500351D40 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01260551AC326C500351D40 /* Fabric.framework */; };
 		B014ECBF1AC5B06900DBD1BD /* CSAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */; };
@@ -19,6 +21,7 @@
 		B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AA1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift */; };
 		B02F13AD1AD80C6000075E41 /* CSUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AC1AD80C6000075E41 /* CSUser.swift */; };
 		B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */; };
+		B045436A1AEA16E900D46522 /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04543691AEA16E900D46522 /* JSSAlertView.swift */; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
 		B087ACD11AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */; };
 		B087ACD71AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */; };
@@ -44,6 +47,7 @@
 		B0EDD6A51ABC2A170065644F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0EDD6A41ABC2A170065644F /* Images.xcassets */; };
 		B0EDD6A81ABC2A170065644F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0EDD6A61ABC2A170065644F /* LaunchScreen.xib */; };
 		B0EDD6B41ABC2A170065644F /* CinnamonSparkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EDD6B31ABC2A170065644F /* CinnamonSparkTests.swift */; };
+		B0FFC33E1AEB70E2008CE15D /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FFC33D1AEB70E2008CE15D /* UIDeviceHardware.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +67,10 @@
 		664C352E3714CB5744E6C067 /* Pods-Cinnamon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinnamon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cinnamon/Pods-Cinnamon.debug.xcconfig"; sourceTree = "<group>"; };
 		A51D2CAEBE17904D55F97869 /* libPods-CinnamonSpark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CinnamonSpark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUserPhotoFeedViewController.swift; sourceTree = "<group>"; };
+		B00C454C1AEA9EF40023520C /* OnboardingContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingContentViewController.h; sourceTree = "<group>"; };
+		B00C454D1AEA9EF40023520C /* OnboardingContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingContentViewController.m; sourceTree = "<group>"; };
+		B00C454E1AEA9EF40023520C /* OnboardingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingViewController.h; sourceTree = "<group>"; };
+		B00C454F1AEA9EF40023520C /* OnboardingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingViewController.m; sourceTree = "<group>"; };
 		B01260541AC326C500351D40 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		B01260551AC326C500351D40 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSAPIRequest.swift; sourceTree = "<group>"; };
@@ -73,6 +81,7 @@
 		B02F13AA1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSocialFeedNavigationController.swift; sourceTree = "<group>"; };
 		B02F13AC1AD80C6000075E41 /* CSUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUser.swift; sourceTree = "<group>"; };
 		B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFriendPhotoFeedViewController.swift; sourceTree = "<group>"; };
+		B04543691AEA16E900D46522 /* JSSAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSAlertView.swift; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
 		B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+CSMisterCinnamon.swift"; sourceTree = "<group>"; };
 		B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+EmptyBackButton.m"; sourceTree = "<group>"; };
@@ -103,6 +112,8 @@
 		B0EDD6B21ABC2A170065644F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0EDD6B31ABC2A170065644F /* CinnamonSparkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonSparkTests.swift; sourceTree = "<group>"; };
 		B0EDD6BE1ABC31C90065644F /* CinnamonSpark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CinnamonSpark-Bridging-Header.h"; sourceTree = "<group>"; };
+		B0FFC33D1AEB70E2008CE15D /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
+		B0FFC33F1AEB70E9008CE15D /* UIDeviceHardware.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIDeviceHardware.h; sourceTree = "<group>"; };
 		FC7ABA3DDD64BD29F6E546F5 /* libPods-Cinnamon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cinnamon.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -149,6 +160,17 @@
 				FC7ABA3DDD64BD29F6E546F5 /* libPods-Cinnamon.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B00C45521AEA9EF80023520C /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				B00C454C1AEA9EF40023520C /* OnboardingContentViewController.h */,
+				B00C454D1AEA9EF40023520C /* OnboardingContentViewController.m */,
+				B00C454E1AEA9EF40023520C /* OnboardingViewController.h */,
+				B00C454F1AEA9EF40023520C /* OnboardingViewController.m */,
+			);
+			name = Onboarding;
 			sourceTree = "<group>";
 		};
 		B0AF66B31AC1763E00E23657 /* Controllers */ = {
@@ -244,6 +266,10 @@
 		B0EDD6981ABC2A170065644F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B0FFC33D1AEB70E2008CE15D /* UIDeviceHardware.m */,
+				B0FFC33F1AEB70E9008CE15D /* UIDeviceHardware.h */,
+				B00C45521AEA9EF80023520C /* Onboarding */,
+				B04543691AEA16E900D46522 /* JSSAlertView.swift */,
 				B0EDD6991ABC2A170065644F /* Info.plist */,
 				B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */,
 				B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */,
@@ -421,13 +447,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B00C45501AEA9EF40023520C /* OnboardingContentViewController.m in Sources */,
 				B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */,
 				B0DCEF3B1AE5342100068B79 /* CSMealRecordDetailView.swift in Sources */,
+				B00C45511AEA9EF40023520C /* OnboardingViewController.m in Sources */,
 				B0E3B41C1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift in Sources */,
 				B007561B1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift in Sources */,
 				B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */,
 				B02BA6431ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift in Sources */,
 				B0EDD6A01ABC2A170065644F /* CSCameraViewController.swift in Sources */,
+				B0FFC33E1AEB70E2008CE15D /* UIDeviceHardware.m in Sources */,
 				B02BA6451ACECBF500BC46F1 /* CSPhoto.swift in Sources */,
 				B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */,
 				B02F13AD1AD80C6000075E41 /* CSUser.swift in Sources */,
@@ -441,6 +470,7 @@
 				B0DE33A51ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift in Sources */,
 				B0ECE8CC1AC081CF001D00CE /* CSCameraDelegate.swift in Sources */,
 				B0A148E41ACD9BE00019E08F /* CSVerticalImageRowLayout.swift in Sources */,
+				B045436A1AEA16E900D46522 /* JSSAlertView.swift in Sources */,
 				B02F13A71AD7DE7800075E41 /* UILabel+CSTextLink.swift in Sources */,
 				B022479B1AE7738F0031DADC /* CSMealSizeSelector.swift in Sources */,
 				B0DCEF371AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.swift in Sources */,

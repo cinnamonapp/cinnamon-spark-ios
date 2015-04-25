@@ -46,14 +46,19 @@ extension UIViewController{
     func setQuirkyMessage(message: String){
         self.navigationController?.navigationBar.setQuirkyMessage(message)
     }
+    
+    func setDishCount(value: String){
+        self.navigationController?.navigationBar.setDishCount(value)
+    }
+
 }
 
 
-private var quirkySentenceAssociationKey: UInt8 = 0
-private let navigationBarIncreaseValue : CGFloat = 30
+private var quirkySentenceAssociationKey    : UInt8     = 0
+private var dishCountLabelAssociationKey    : UInt8     = 0
+private let navigationBarIncreaseValue      : CGFloat   = 30
+
 extension UINavigationBar{
-    
-    
     
     var quirkySentence : UILabel? {
         get{
@@ -65,8 +70,22 @@ extension UINavigationBar{
         }
     }
     
+    var dishCountLabel : UILabel? {
+        get{
+            return objc_getAssociatedObject(self, &dishCountLabelAssociationKey) as UILabel?
+        }
+        
+        set(newValue){
+            objc_setAssociatedObject(self, &dishCountLabelAssociationKey, newValue, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
+        }
+    }
+    
     func setQuirkyMessage(message: String){
-        quirkySentence?.text = message
+        self.quirkySentence?.text = message
+    }
+    
+    func setDishCount(value: String){
+        self.dishCountLabel?.text = value
     }
     
     private func newHeight() -> CGFloat{
@@ -92,6 +111,10 @@ extension UINavigationBar{
         let color = viewsBackgroundColor
         self.translucent = false
         self.barTintColor = color
+
+        if(UINavigationBar.conformsToProtocol(UIAppearanceContainer)){
+            UINavigationBar.appearance().tintColor = UIColor.blackColor()
+        }
         
         additionalSpace.backgroundColor = color
         
@@ -120,9 +143,29 @@ extension UINavigationBar{
         characterImage.frame.origin.y = 0
         characterImage.image = UIImage(named: "MrCinnamon")
         
+        let dishCountView = UIView()
+        let width : CGFloat = 30
+        let height : CGFloat = 30
+        let xpos = quirkySentenceLabel.frame.origin.x - width
+        let ypos = quirkySentenceLabel.frame.origin.y + 5
+        dishCountView.frame = CGRectMake(xpos, ypos, width, height)
+        
+        let notificationBubble = UIImageView(image: UIImage(named: "NotificationBubble"))
+        notificationBubble.frame = dishCountView.frame
+        notificationBubble.frame.origin = CGPointMake(0, 0)
+        
+        self.dishCountLabel = UILabel(frame: notificationBubble.frame)
+        self.dishCountLabel?.text = userDishCount.description
+        self.dishCountLabel?.font = self.dishCountLabel?.font.fontWithSize(12)
+        self.dishCountLabel?.textAlignment = NSTextAlignment.Center
+
+        dishCountView.addSubview(notificationBubble)
+        dishCountView.addSubview(self.dishCountLabel!)
+        
         self.addSubview(additionalSpace)
         self.addSubview(characterImage)
         self.addSubview(quirkySentenceLabel)
+//        self.addSubview(dishCountView)
         
     }
     
