@@ -182,7 +182,7 @@ class JSSAlertView: UIViewController {
         if self.textView != nil {
             let textString = textView.text! as NSString
             let textAttr = [NSFontAttributeName:textView.font]
-            let textSize = CGSize(width: contentWidth, height: 90)
+            let textSize = CGSize(width: contentWidth, height: 100)
             let textRect = textString.boundingRectWithSize(textSize, options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: textAttr, context: nil)
             self.textView.frame = CGRect(x: self.padding, y: yPos, width: self.alertWidth - (self.padding*2), height: ceil(textRect.size.height)*2)
             yPos += ceil(textRect.size.height) + padding/2

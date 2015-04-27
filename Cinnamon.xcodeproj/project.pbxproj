@@ -14,6 +14,8 @@
 		B01260561AC326C500351D40 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01260541AC326C500351D40 /* Crashlytics.framework */; };
 		B01260571AC326C500351D40 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B01260551AC326C500351D40 /* Fabric.framework */; };
 		B014ECBF1AC5B06900DBD1BD /* CSAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */; };
+		B01B2BDC1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2BDA1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift */; };
+		B01B2BDD1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B01B2BDB1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib */; };
 		B022479B1AE7738F0031DADC /* CSMealSizeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022479A1AE7738F0031DADC /* CSMealSizeSelector.swift */; };
 		B02BA6431ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */; };
 		B02BA6451ACECBF500BC46F1 /* CSPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */; };
@@ -74,6 +76,8 @@
 		B01260541AC326C500351D40 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		B01260551AC326C500351D40 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSAPIRequest.swift; sourceTree = "<group>"; };
+		B01B2BDA1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSmartAlertPhotoBrowserCell.swift; sourceTree = "<group>"; };
+		B01B2BDB1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSSmartAlertPhotoBrowserCell.xib; sourceTree = "<group>"; };
 		B022479A1AE7738F0031DADC /* CSMealSizeSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMealSizeSelector.swift; sourceTree = "<group>"; };
 		B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowserCell.swift; sourceTree = "<group>"; };
 		B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhoto.swift; sourceTree = "<group>"; };
@@ -94,7 +98,6 @@
 		B0DCEF351AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSRepeatablePhotoBrowserCell.swift; sourceTree = "<group>"; };
 		B0DCEF361AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSRepeatablePhotoBrowserCell.xib; sourceTree = "<group>"; };
 		B0DCEF391AE5342100068B79 /* CSMealRecordDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMealRecordDetailView.swift; sourceTree = "<group>"; };
-		B0DE33A21ACAA7B5003E8626 /* CSPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoFeedViewController.swift; sourceTree = "<group>"; };
 		B0DE33A41ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSocialPhotoFeedViewController.swift; sourceTree = "<group>"; };
 		B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTabBarController.swift; sourceTree = "<group>"; };
 		B0E3B41B1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSAPIRequestDelegate.swift; sourceTree = "<group>"; };
@@ -173,18 +176,33 @@
 			name = Onboarding;
 			sourceTree = "<group>";
 		};
-		B0AF66B31AC1763E00E23657 /* Controllers */ = {
+		B01B2BDF1AEEA6780017919A /* UserMealRecords */ = {
 			isa = PBXGroup;
 			children = (
 				B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */,
 				B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */,
 				B0AF55151AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift */,
+			);
+			name = UserMealRecords;
+			sourceTree = "<group>";
+		};
+		B01B2BE01AEEA6990017919A /* SocialMealRecords */ = {
+			isa = PBXGroup;
+			children = (
+				B02F13AA1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift */,
 				B0DE33A41ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift */,
 				B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */,
-				B0DE33A21ACAA7B5003E8626 /* CSPhotoFeedViewController.swift */,
-				B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */,
-				B02F13AA1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift */,
+			);
+			name = SocialMealRecords;
+			sourceTree = "<group>";
+		};
+		B0AF66B31AC1763E00E23657 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				B01B2BE01AEEA6990017919A /* SocialMealRecords */,
+				B01B2BDF1AEEA6780017919A /* UserMealRecords */,
 				B0DCEF391AE5342100068B79 /* CSMealRecordDetailView.swift */,
+				B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -202,6 +220,8 @@
 				B02F13A61AD7DE7800075E41 /* UILabel+CSTextLink.swift */,
 				B0DCEF351AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.swift */,
 				B0DCEF361AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.xib */,
+				B01B2BDA1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift */,
+				B01B2BDB1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -379,6 +399,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B01B2BDD1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib in Resources */,
 				B0EDD6A81ABC2A170065644F /* LaunchScreen.xib in Resources */,
 				B0EDD6A51ABC2A170065644F /* Images.xcassets in Resources */,
 				B0CE45B71AE543BB0045C3BF /* (null) in Resources */,
@@ -447,6 +468,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B01B2BDC1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift in Sources */,
 				B00C45501AEA9EF40023520C /* OnboardingContentViewController.m in Sources */,
 				B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */,
 				B0DCEF3B1AE5342100068B79 /* CSMealRecordDetailView.swift in Sources */,

@@ -11,6 +11,7 @@ import AdSupport
 
 class CSAPIRequest: AFHTTPRequestOperationManager {
     
+    // MARK: - Constants and Variables
     private let deviceUniqueIdentifier = ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString
     private let APIEndpoint : NSURL = NSURL(string: primaryAPIEndpoint)!
     
@@ -18,6 +19,8 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         "User" : "/users/:id.json",
         "MealRecord" : "/meal_records/:id.json"
     ]
+    
+//    private var retrialHandler = CSRetrialHandler()
 
     func uniqueIdentifier() -> String{
         return self.deviceUniqueIdentifier
@@ -35,6 +38,27 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
     func getAPIPath(model: String) -> String{
         return self.getAPIPath(model, withRecordId: nil)
     }
+    
+    
+    // MARK: - Overrides from AFHTTPRequestOperationManager
+    
+//    override func POST(URLString: String!, parameters: AnyObject!, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)!, failure: ((AFHTTPRequestOperation!, NSError!) -> Void)!) -> AFHTTPRequestOperation! {
+//
+//        var returnOperation : AFHTTPRequestOperation!
+//        
+//        let redefinedSuccess = { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+//            
+//        }
+//        
+//        let redefinedFailure = { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+//            
+//        }
+//        
+//        return returnOperation
+//    }
+    
+    
+    // MARK: - URL helpers
     
     // Retrieves stuff from the dictionary and parses it
     func getAPIPath(model: String, withRecordId recordId: String?) -> String{
@@ -110,7 +134,15 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         
         let userMealRecordPath : String = self.getAPICombinedPath("User", withParentRecordId: userId, andModel: "MealRecord")
         
-        self.GET(userMealRecordPath, parameters: [], success: success, failure: failure)
+        self.GET(userMealRecordPath, parameters: ["page": 1], success: success, failure: failure)
+        
+    }
+    
+    func getUserMealRecords(userId: String, page: Int, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)) {
+        
+        let userMealRecordPath : String = self.getAPICombinedPath("User", withParentRecordId: userId, andModel: "MealRecord")
+        
+        self.GET(userMealRecordPath, parameters: ["page": page], success: success, failure: failure)
         
     }
     
@@ -119,12 +151,28 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         self.getUserMealRecords(self.uniqueIdentifier(), success: success, failure: failure)
     }
     
+    /**
+        Fetch MealRecords first page. Default page size from server is 25
+    */
     func getOthersMealRecords(success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
         
         let mealRecordPath : String = self.getAPIPath("MealRecord")
         let params = [
-            "except_user_id": self.uniqueIdentifier(),
-            "limit": 30
+            "page": 1
+        ]
+        
+        self.GET(mealRecordPath, parameters: params, success: success, failure: failure)
+        
+    }
+    
+    /**
+        Fetch MealRecords with page number. Default page size from server is 25
+    */
+    func getOthersMealRecordsWithPage(page: Int, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        
+        let mealRecordPath : String = self.getAPIPath("MealRecord")
+        let params = [
+            "page": page
         ]
         
         self.GET(mealRecordPath, parameters: params, success: success, failure: failure)
@@ -211,3 +259,16 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+
+
+//class CSRetrialHandler{
+//    
+//    private var handlers : [(id: Int, count: Int)]!
+//    private let DefaultRetryForCount = 3
+//    
+//    init(){
+//        
+//    }
+//    
+//}

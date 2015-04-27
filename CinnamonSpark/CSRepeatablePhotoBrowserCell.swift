@@ -21,7 +21,8 @@ class CSRepeatablePhotoBrowserCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         self.photo.frame.size.height = self.photo.frame.width
-        self.carbsEstimate.hidden = true
+        
+        self.carbsEstimate?.hidden = true
     }
 
     
@@ -47,9 +48,9 @@ class CSRepeatablePhotoBrowserCell: UICollectionViewCell {
 
     
     func showCarbsEstimate(){
-        self.carbsEstimate.hidden = false
+        self.carbsEstimate?.hidden = false
     }
     func hideCarbsEstimate(){
-        self.carbsEstimate.hidden = true
+        self.carbsEstimate?.hidden = true
     }
 }

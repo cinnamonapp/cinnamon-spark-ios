@@ -3,7 +3,6 @@
 
 target 'Cinnamon' do
     pod "FastttCamera"
-    pod "MWPhotoBrowser", "~> 1.4"
     pod "AFNetworking", "~> 2.0"
     pod "Fabric", "~> 1.2"
     pod "DateTools"

@@ -44,46 +44,20 @@ class CSFriendPhotoFeedViewController: CSSocialPhotoFeedViewController {
         if(self.mealRecordsForUser == nil){
             super.loadPhotos()
         }else{
-            if let user = self.mealRecordsForUser{
-                APIRequest.getUserMealRecords(user.id, success: self.handleRequestSuccessResponse, failure: self.handleRequestFailureResponse)
-            }else{
-                APIRequest.getUserMealRecords(self.handleRequestSuccessResponse, failure: self.handleRequestFailureResponse)
-            }
+            let user = self.mealRecordsForUser
+            APIRequest.getUserMealRecords(user.id, success: self.handleRequestSuccessResponse, failure: self.handleRequestFailureResponse)
         }
     }
-        
-//    func photoBrowser(photoBrowser: CSPhotoBrowser, customizableTopViewInterface cell: CSPhotoBrowserCell) -> CSPhotoBrowserCell {
-//        
-//        if let user = self.mealRecordsForUser{
-//            
-//            // Profile pic
-//            let width  : CGFloat = 100
-//            let height : CGFloat = width
-//            let userImageView = UIImageView(frame: CGRectMake(10, 10, width, height))
-//
-//            userImageView.sd_setImageWithURL(user.profilePictureURL)
-//            cell.addSubview(userImageView)
-//            
-//            // Username
-//            let labelWidth : CGFloat = 200
-//            let labelX : CGFloat = userImageView.frame.width + userImageView.frame.origin.x + 10
-//            let usernameLabel = UILabel(frame: CGRectMake(labelX, 10, labelWidth, userImageView.frame.height))
-//            
-//            usernameLabel.text = user.username
-//            
-//            cell.addSubview(usernameLabel)
-//
-//        }
-//        
-//        return cell
-//    }
-//    
-//    func sizeForCustomizableTopViewInterface(photoBrowser: CSPhotoBrowser, itemSize: CGSize) -> CGSize{
-//        var size = itemSize
-//        size.height = 120
-//        
-//        return size
-//    }
+    
+    override func loadPhotosWithPage(page: Int) {
+        if(self.mealRecordsForUser == nil){
+            super.loadPhotosWithPage(page)
+        }else{
+            let user = self.mealRecordsForUser
+            
+            APIRequest.getUserMealRecords(user.id, page: page, success: self.handleRequestSuccessResponsePaginated, failure: self.handleRequestFailureResponse)
+        }
+    }
     
 }
 

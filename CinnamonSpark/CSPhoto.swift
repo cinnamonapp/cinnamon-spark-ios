@@ -32,6 +32,12 @@ class CSPhoto: NSObject {
     convenience init(dictionary: NSDictionary){
         self.init()
         
+        
+        // Init default values
+        self.title = ""
+        self.size = CSPhotoMealSize.Small
+        
+        
         self.id = (dictionary["id"] as Int).description
         
         self.URL = NSURL(string: dictionary["photo_original_url"] as String)
@@ -42,7 +48,10 @@ class CSPhoto: NSObject {
 
         }
         
-        self.size = self.evaluateSize(dictionary["size"] as Int)
+        if let size = dictionary["size"] as? Int{
+            self.size = self.evaluateSize(size)
+        }
+        
         
         if let carbs = dictionary["carbs_estimate"] as? Int{
             self.carbsEstimate = self.evaluateCarbsEstimate(carbs)
@@ -51,12 +60,9 @@ class CSPhoto: NSObject {
         
         if let title = dictionary["title"] as? String{
             self.title = title
-        }else{
-            self.title = ""
         }
         
         if let user = dictionary["user"] as NSDictionary!{
-            
             self.user = CSUser(dictionary: user)
         }
 

@@ -9,7 +9,8 @@
 import UIKit
 
 let topInterfaceReuseIdentifier = "TopInterfaceCell"
-let reuseIdentifier = "Cell"
+let mealRecordFeedItemReuseIdentifier = "feedItemRepeatablePhotoBrowserCell"
+
 
 class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLayout, CSPhotoBrowserDelegate {
 
@@ -36,7 +37,7 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.registerNib(UINib(nibName: "CSRepeatablePhotoBrowserCell", bundle: nil), forCellWithReuseIdentifier:  mealRecordDetailViewReuseIdentifier)
+        self.collectionView!.registerNib(UINib(nibName: "CSRepeatablePhotoBrowserCell", bundle: nil), forCellWithReuseIdentifier:  mealRecordFeedItemReuseIdentifier)
         self.collectionView!.registerClass(CSPhotoBrowserCell.self, forCellWithReuseIdentifier: topInterfaceReuseIdentifier)
         self.collectionView!.backgroundColor = viewsInsideBackgroundColor
 
@@ -148,7 +149,7 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(mealRecordDetailViewReuseIdentifier, forIndexPath: indexPath) as CSRepeatablePhotoBrowserCell
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(mealRecordFeedItemReuseIdentifier, forIndexPath: indexPath) as CSRepeatablePhotoBrowserCell
         
         // If the developer wants a top interface space give him what he wants
         if(self.wantsCustomizableTopViewInterfaceWithIndexPath(indexPath)){
@@ -170,8 +171,8 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
             // Check if there's delegate
             if let delegate = self.delegate?{
                 // If the function has been implemented
-                if(delegate.respondsToSelector("photoBrowser:customizablePhotoBrowserCell:atIndexPath:withPhoto:")){
-                    cell = delegate.photoBrowser!(self, customizablePhotoBrowserCell: cell, atIndexPath: indexPath, withPhoto: photo)
+                if(delegate.respondsToSelector("photoBrowser:forCollectionView:customizablePhotoBrowserCell:atIndexPath:withPhoto:")){
+                    cell = delegate.photoBrowser!(self, forCollectionView: collectionView, customizablePhotoBrowserCell: cell, atIndexPath: indexPath, withPhoto: photo)
                 }
             }
             
@@ -223,7 +224,7 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     // MARK: - CSPhotoBrowserDelegate methods
-    func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSRepeatablePhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSRepeatablePhotoBrowserCell {
+    func photoBrowser(photoBrowser: CSPhotoBrowser, forCollectionView collectionView: UICollectionView, customizablePhotoBrowserCell cell: CSRepeatablePhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSRepeatablePhotoBrowserCell {
         return cell
     }
 
@@ -246,7 +247,11 @@ protocol CSPhotoBrowserDelegate : NSObjectProtocol{
         :param: indexPath The index path of the customizable cell
         :param: photo The photo from the array
     */
-    optional func photoBrowser(photoBrowser: CSPhotoBrowser, customizablePhotoBrowserCell cell: CSRepeatablePhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSRepeatablePhotoBrowserCell
+    optional func photoBrowser( photoBrowser:                       CSPhotoBrowser,
+                                forCollectionView collectionView:   UICollectionView,
+                                customizablePhotoBrowserCell cell:  CSRepeatablePhotoBrowserCell,
+                                atIndexPath indexPath:              NSIndexPath,
+                                withPhoto photo:                    CSPhoto) -> CSRepeatablePhotoBrowserCell
     
     /**
         When overridden, this method allows you to customize a special cell that will stay always on top of your collection view where you will be able to add custom UI. Commonly used for defining custom actions, custom headers etc.
