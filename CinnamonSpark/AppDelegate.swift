@@ -18,21 +18,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 
     var window: UIWindow?
     
-    var userFeedViewController : CSUserPhotoFeedViewController!
-    var userWeeklyFeedViewController : CSUserWeekPhotoFeedViewController!
-    var userFeedNavigationController : UINavigationController!
-    var socialFeedNavigationController : CSSocialFeedNavigationController!
     var tabBarViewController: CSTabBarController!
 
     let userHasOnboardedKey = "final_user_has_onboarded"
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.backgroundColor = UIColor.blackColor()
+        self.window?.backgroundColor = UIColor.whiteColor()
         
+        // Override point for customization after application launch.
         
+        // Fabric with crashalitics
+        Fabric.with([Crashlytics()])
+        
+        // Onboarding or rootViewController
         var userHasOnboardedAlready = NSUserDefaults.standardUserDefaults().boolForKey(userHasOnboardedKey)
         
         if userHasOnboardedAlready {
@@ -41,19 +41,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
             self.window!.rootViewController = self.generateOnboardingViewController()
         }
         
-        self.window?.makeKeyAndVisible()
-        
-        Fabric.with([Crashlytics()])
-
-
+        // Register for remote notifications
         application.registerForRemoteNotificationsAllAtOnce()
         
-        
+        // Handle notifications
         if let options = launchOptions{
             if let userInfo = options[UIApplicationLaunchOptionsRemoteNotificationKey] as? [NSObject : AnyObject]{
                 self.processRemoteNotificationForApplication(application, withNotification: userInfo)
             }
         }
+        
+        // Make window visible
+        self.window?.makeKeyAndVisible()
         
         return true
     }
@@ -165,8 +164,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
 
     func setupNormalRootVC(animated : Bool) {
         // Here I'm just creating a generic view controller to represent the root of my application.
-        self.prepareSocialFeedNavigationControllerForReuse()
-        self.prepareUserFeedNavigationControllerForReuse()
+//        self.prepareSocialFeedNavigationControllerForReuse()
+//        self.prepareUserPhotoFeedNavigationControllerForReuse()
         self.prepareTabBarViewControllerForReuse()
         
         
@@ -185,33 +184,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         }
     }
 
-    
+    // Setup the tabBarViewController
     private func prepareTabBarViewControllerForReuse(){
-        self.tabBarViewController = CSTabBarController()
-        self.tabBarViewController.delegate = self
-        
-        let emptyVC = UIViewController()
-        emptyVC.title = "."
-        
-        self.tabBarViewController.setViewControllers([self.socialFeedNavigationController, emptyVC, userFeedNavigationController], animated: false)
+        self.tabBarViewController = CSTabBarController(delegate: self)
     }
     
-    private func prepareSocialFeedNavigationControllerForReuse(){
-        //#warning Change view controller here before deploying
-        self.socialFeedNavigationController = CSSocialFeedNavigationController()
-    }
-    
-    private func prepareUserFeedNavigationControllerForReuse(){
-        self.userFeedViewController = CSUserPhotoFeedViewController()
-        self.userFeedViewController.title = "You"
-        
-        self.userWeeklyFeedViewController = CSUserWeekPhotoFeedViewController()
-        self.userWeeklyFeedViewController.title = "You"
-        
-        self.userFeedNavigationController = UINavigationController(rootViewController: self.userWeeklyFeedViewController)
-        
-        self.userFeedNavigationController.pushViewController(userFeedViewController, animated: false)
-    }
+    // MARK: - UITabBarController delegate methods
     
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         if (viewController.title != "."){
@@ -226,6 +204,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         viewController.willAppearAfterTabBarViewControllerSelection()
     }
     
+    
+    
+    
     // MARK: - Push notifications
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
@@ -238,8 +219,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let aps = userInfo["aps"] as NSDictionary
         
         if let photoId = userInfo["meal_record_id"] as? Int{
-            self.tabBarViewController.selectedIndex = 2
-            self.userFeedViewController.openMealDetailViewControllerWithPhotoId(photoId.description)
+            self.tabBarViewController.selectedViewController = self.tabBarViewController.userPhotoFeedNavigationController
+            self.tabBarViewController.userPhotoFeedNavigationController.openMealDetailViewControllerWithPhotoId(photoId.description, animated: false)
         }
     }
     

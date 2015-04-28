@@ -10,7 +10,7 @@ import Foundation
 
 class CSUserWeekPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequestDelegate, UIWebViewDelegate {
     
-    var userPhotoFeedViewController : CSUserPhotoFeedViewController!
+//    var userPhotoFeedViewController : CSUserPhotoFeedViewController!
     
     var cameraViewController : CSCameraViewController!
     
@@ -18,8 +18,7 @@ class CSUserWeekPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPI
     
     override init(){
         super.init()
-        self.title = "You"
-        self.tabBarItem = UITabBarItem(title: "You", image: UIImage(named: "Meals"), tag: 1)
+        self.title = "Week"
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -64,7 +63,7 @@ class CSUserWeekPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPI
 
         // Assuming fragment is the id of a meal_record
         if let fragment = request.URL.fragment{
-            self.openDayViewController()
+            self.openMealViewController()
             
             return false
         }
@@ -72,22 +71,11 @@ class CSUserWeekPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPI
         return true
     }
     
-    func openDayViewController(){
+    func openMealViewController(){
         // TODO: - Improve this code please with a custom navigation controller for user's needs
-        self.userPhotoFeedViewController = CSUserPhotoFeedViewController()
-        self.userPhotoFeedViewController.title = "You"
-        
-        self.navigationController?.pushViewController(userPhotoFeedViewController, animated: true)
-    }
-    
-    func openDayViewControllerWithCamera(){
-        // TODO: - Improve this code please with a custom navigation controller for user's needs
-        self.userPhotoFeedViewController = CSUserPhotoFeedViewController()
-        self.userPhotoFeedViewController.title = "You"
-        
-        self.navigationController?.popToRootViewControllerAnimated(false)
-        self.navigationController?.pushViewController(userPhotoFeedViewController, animated: true)
-        self.userPhotoFeedViewController.openCamera()
+        if let navigation = self.navigationController as? CSUserPhotoFeedNavigationController{
+            navigation.openUserPhotoFeedViewControllerAnimated(true)
+        }
     }
     
     

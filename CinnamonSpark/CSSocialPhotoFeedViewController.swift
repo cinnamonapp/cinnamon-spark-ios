@@ -21,12 +21,6 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
     var queryPage = 1
     var continueLoadingPhotos = true
     
-    override init(){
-        super.init()
-
-        self.tabBarItem = UITabBarItem(title: "Community", image: UIImage(named: "Social"), tag: 1)
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,10 +48,6 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
         CSAPIRequest().checkCurrentUserInUsingDeviceUUID { (request: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
             self.setDishCount(userDishCount.description)
         }
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 
     override func loadPhotos() {

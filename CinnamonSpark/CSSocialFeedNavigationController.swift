@@ -10,15 +10,33 @@ import UIKit
 
 class CSSocialFeedNavigationController: UINavigationController {
     
-    var socialFeedViewController : CSSocialPhotoFeedViewController!
-    var userFeedViewController : CSFriendPhotoFeedViewController!
+    // The social feed
+    var socialPhotoFeedViewController : CSSocialPhotoFeedViewController!
     
+    // The friend feed
+    var friendPhotoFeedViewController : CSFriendPhotoFeedViewController!
+    
+
+    override init() {
+        super.init()
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        self.tabBarItem = UITabBarItem(title: "Community", image: UIImage(named: "Social"), tag: 1)
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.socialFeedViewController = CSSocialPhotoFeedViewController()
-        self.setViewControllers([socialFeedViewController], animated: false)
+        self.socialPhotoFeedViewController = CSSocialPhotoFeedViewController()
+        self.setViewControllers([self.socialPhotoFeedViewController], animated: false)
         
         self.appendMisterCinnamon()
     }
@@ -32,8 +50,8 @@ class CSSocialFeedNavigationController: UINavigationController {
         let gesture = sender as UITapGestureRecognizer
         let photo = gesture.passedValue as CSPhoto
 
-        self.userFeedViewController = CSFriendPhotoFeedViewController(user: photo.user)
-        self.pushViewController(self.userFeedViewController, animated: true)
+        self.friendPhotoFeedViewController = CSFriendPhotoFeedViewController(user: photo.user)
+        self.pushViewController(self.friendPhotoFeedViewController, animated: true)
     }
     
     func openMealDetailViewControllerWithPhotoInGestureRecognizer(gesture: UITapGestureRecognizer){

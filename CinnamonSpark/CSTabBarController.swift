@@ -12,12 +12,35 @@ class CSTabBarController: UITabBarController {
     
     var cameraButton : UIButton!
     
+    // Main controllers
+    // they have specific actions to control their part of the app regardless of the active view controller
+    var userPhotoFeedNavigationController : CSUserPhotoFeedNavigationController!
+    var socialFeedNavigationController : CSSocialFeedNavigationController!
+
+    // Initializers
+    
+    convenience init(delegate: UITabBarControllerDelegate){
+        self.init()
+        
+        self.delegate = delegate
+        
+        let emptyVC = UIViewController()
+        emptyVC.title = "."
+        
+        self.userPhotoFeedNavigationController  = CSUserPhotoFeedNavigationController()
+        self.socialFeedNavigationController     = CSSocialFeedNavigationController()
+        
+        // Set these view controllers by default
+        self.setViewControllers([self.socialFeedNavigationController, emptyVC, self.userPhotoFeedNavigationController], animated: false)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         self.customizeTabBar()
         self.view.backgroundColor = viewsBackgroundColor
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,23 +82,8 @@ class CSTabBarController: UITabBarController {
     }
     
     func cameraButtonAction(sender: AnyObject){
-        var vc = self.viewControllers?[2] as UINavigationController
-        
-        self.selectedIndex = 2
-        
-        if let viewControllers = vc.viewControllers{
-            if viewControllers.count > 1{
-                let userFeedController = viewControllers[1] as CSUserPhotoFeedViewController
-                userFeedController.openCamera()
-            }else{
-                let userWeekViewController = viewControllers[0] as CSUserWeekPhotoFeedViewController
-                
-                userWeekViewController.openDayViewController()
-                
-                userWeekViewController.userPhotoFeedViewController.openCamera()
-            }
-        }
-
+        self.selectedViewController = self.userPhotoFeedNavigationController
+        self.userPhotoFeedNavigationController.openCameraViewController(true)
     }
 
     /*

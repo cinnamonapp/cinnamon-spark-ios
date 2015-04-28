@@ -16,6 +16,7 @@
 		B014ECBF1AC5B06900DBD1BD /* CSAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */; };
 		B01B2BDC1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2BDA1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift */; };
 		B01B2BDD1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B01B2BDB1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib */; };
+		B01B2BE61AEEBC4C0017919A /* CSUserPhotoFeedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2BE51AEEBC4C0017919A /* CSUserPhotoFeedNavigationController.swift */; };
 		B022479B1AE7738F0031DADC /* CSMealSizeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022479A1AE7738F0031DADC /* CSMealSizeSelector.swift */; };
 		B02BA6431ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */; };
 		B02BA6451ACECBF500BC46F1 /* CSPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */; };
@@ -78,6 +79,7 @@
 		B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSAPIRequest.swift; sourceTree = "<group>"; };
 		B01B2BDA1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSSmartAlertPhotoBrowserCell.swift; sourceTree = "<group>"; };
 		B01B2BDB1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSSmartAlertPhotoBrowserCell.xib; sourceTree = "<group>"; };
+		B01B2BE51AEEBC4C0017919A /* CSUserPhotoFeedNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUserPhotoFeedNavigationController.swift; sourceTree = "<group>"; };
 		B022479A1AE7738F0031DADC /* CSMealSizeSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMealSizeSelector.swift; sourceTree = "<group>"; };
 		B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowserCell.swift; sourceTree = "<group>"; };
 		B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhoto.swift; sourceTree = "<group>"; };
@@ -179,9 +181,10 @@
 		B01B2BDF1AEEA6780017919A /* UserMealRecords */ = {
 			isa = PBXGroup;
 			children = (
-				B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */,
-				B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */,
+				B01B2BE51AEEBC4C0017919A /* CSUserPhotoFeedNavigationController.swift */,
 				B0AF55151AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift */,
+				B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */,
+				B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */,
 			);
 			name = UserMealRecords;
 			sourceTree = "<group>";
@@ -194,6 +197,44 @@
 				B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */,
 			);
 			name = SocialMealRecords;
+			sourceTree = "<group>";
+		};
+		B01B2BE11AEEA7670017919A /* Layouts */ = {
+			isa = PBXGroup;
+			children = (
+				B0DCEF351AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.swift */,
+				B0DCEF361AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.xib */,
+				B01B2BDA1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift */,
+				B01B2BDB1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib */,
+			);
+			name = Layouts;
+			sourceTree = "<group>";
+		};
+		B01B2BE21AEEA7740017919A /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B02F13A61AD7DE7800075E41 /* UILabel+CSTextLink.swift */,
+				B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */,
+				B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
+		B01B2BE31AEEA7940017919A /* UIDeviceHardware */ = {
+			isa = PBXGroup;
+			children = (
+				B0FFC33D1AEB70E2008CE15D /* UIDeviceHardware.m */,
+				B0FFC33F1AEB70E9008CE15D /* UIDeviceHardware.h */,
+			);
+			name = UIDeviceHardware;
+			sourceTree = "<group>";
+		};
+		B01B2BE41AEEA7AA0017919A /* JSSAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				B04543691AEA16E900D46522 /* JSSAlertView.swift */,
+			);
+			name = JSSAlertView;
 			sourceTree = "<group>";
 		};
 		B0AF66B31AC1763E00E23657 /* Controllers */ = {
@@ -210,6 +251,7 @@
 		B0AF66B41AC1764300E23657 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				B01B2BE11AEEA7670017919A /* Layouts */,
 				B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */,
 				B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */,
 				B074349A1AC062960065403A /* CSTapSelector.swift */,
@@ -217,11 +259,6 @@
 				B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */,
 				B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */,
 				B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */,
-				B02F13A61AD7DE7800075E41 /* UILabel+CSTextLink.swift */,
-				B0DCEF351AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.swift */,
-				B0DCEF361AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.xib */,
-				B01B2BDA1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift */,
-				B01B2BDB1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -286,13 +323,11 @@
 		B0EDD6981ABC2A170065644F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				B0FFC33D1AEB70E2008CE15D /* UIDeviceHardware.m */,
-				B0FFC33F1AEB70E9008CE15D /* UIDeviceHardware.h */,
+				B01B2BE21AEEA7740017919A /* Extensions */,
+				B01B2BE31AEEA7940017919A /* UIDeviceHardware */,
 				B00C45521AEA9EF80023520C /* Onboarding */,
-				B04543691AEA16E900D46522 /* JSSAlertView.swift */,
+				B01B2BE41AEEA7AA0017919A /* JSSAlertView */,
 				B0EDD6991ABC2A170065644F /* Info.plist */,
-				B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */,
-				B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */,
 				B0A81B8B1AE91D570006F4B4 /* Constants.swift */,
 			);
 			name = "Supporting Files";
@@ -473,6 +508,7 @@
 				B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */,
 				B0DCEF3B1AE5342100068B79 /* CSMealRecordDetailView.swift in Sources */,
 				B00C45511AEA9EF40023520C /* OnboardingViewController.m in Sources */,
+				B01B2BE61AEEBC4C0017919A /* CSUserPhotoFeedNavigationController.swift in Sources */,
 				B0E3B41C1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift in Sources */,
 				B007561B1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift in Sources */,
 				B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */,

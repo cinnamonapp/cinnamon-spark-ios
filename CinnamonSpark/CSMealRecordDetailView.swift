@@ -8,7 +8,7 @@
 
 import UIKit
 
-let mealRecordDetailViewReuseIdentifier = "detailRepeatablePhotoBrowserCell"
+let mealRecordDetailViewReuseIdentifier = "feedItemRepeatablePhotoBrowserCell"
 
 class CSMealRecordDetailView: UICollectionViewController {
     
