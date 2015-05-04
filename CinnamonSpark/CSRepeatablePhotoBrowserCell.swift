@@ -21,7 +21,7 @@ class CSRepeatablePhotoBrowserCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        self.photo.frame.size.height = self.photo.frame.width
+//        self.photo.frame.size.height = self.photo.frame.width
         
         // Disable user interaction on carbs grams label
         self.carbsEstimateGrams?.userInteractionEnabled = false
@@ -31,6 +31,13 @@ class CSRepeatablePhotoBrowserCell: UICollectionViewCell {
         let gesture = UITapGestureRecognizer(target: self, action: "toggleCarbsEstimateGramsVisibility")
         self.carbsEstimate?.userInteractionEnabled = true
         self.carbsEstimate?.addGestureRecognizer(gesture)
+        
+        
+        
+        let cellWidth = (UIScreen.mainScreen().bounds.width);
+        self.photo.addConstraint(NSLayoutConstraint(item: self.photo, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.LessThanOrEqual, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: cellWidth))
+//        self.titleAndHashtags.addConstraint(NSLayoutConstraint(item: self.titleAndHashtags, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1.0, constant: cellWidth - 10))
+        
     }
 
     

@@ -165,7 +165,7 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
         
         // If the id is -1 it means that is a smart alert
         if (photo.id == "-1"){
-            finalcell = collectionView.dequeueReusableCellWithReuseIdentifier(smartAlertReuseIdentifier, forIndexPath: indexPath) as CSSmartAlertPhotoBrowserCell
+//            finalcell = collectionView.dequeueReusableCellWithReuseIdentifier(smartAlertReuseIdentifier, forIndexPath: indexPath) as CSSmartAlertPhotoBrowserCell
         }else{
             // Set the photo
             finalcell.setPhotoWithThumbURL(photo.URL, originalURL: photo.URL)
