@@ -50,10 +50,10 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="CarbsMedium" translatesAutoresizingMaskIntoConstraints="NO" id="lDI-JS-EbG">
-                        <rect key="frame" x="325" y="40" width="30" height="30"/>
+                        <rect key="frame" x="315" y="40" width="40" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="gT1-ZS-1Hr"/>
-                            <constraint firstAttribute="width" constant="30" id="hk4-59-kjq"/>
+                            <constraint firstAttribute="height" constant="40" id="gT1-ZS-1Hr"/>
+                            <constraint firstAttribute="width" constant="40" id="hk4-59-kjq"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title and #hashtags" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9E-It-Wyl">
@@ -62,10 +62,22 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00g" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ruI-57-oVu">
+                        <rect key="frame" x="315" y="49" width="40" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="1oe-TV-yCD"/>
+                            <constraint firstAttribute="height" constant="21" id="tZC-NZ-EEu"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
             <constraints>
+                <constraint firstItem="lDI-JS-EbG" firstAttribute="top" secondItem="ruI-57-oVu" secondAttribute="bottom" constant="-30" id="An5-wH-Zbd"/>
+                <constraint firstItem="lDI-JS-EbG" firstAttribute="width" secondItem="ruI-57-oVu" secondAttribute="width" id="Hzm-0Z-BcH"/>
                 <constraint firstItem="lDI-JS-EbG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="40" id="J1J-G0-J6I"/>
                 <constraint firstItem="pxl-ej-bpa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="J9D-Yz-ss4"/>
                 <constraint firstAttribute="trailing" secondItem="Z7j-9H-xzO" secondAttribute="trailing" constant="5" id="JFy-xE-hnK"/>
@@ -78,6 +90,7 @@
                 <constraint firstItem="Z7j-9H-xzO" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="5" id="hMa-Qq-JL3"/>
                 <constraint firstAttribute="trailing" secondItem="a9E-It-Wyl" secondAttribute="trailing" constant="5" id="hed-Db-rmO"/>
                 <constraint firstItem="a9E-It-Wyl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="5" id="mqH-iP-f2J"/>
+                <constraint firstItem="lDI-JS-EbG" firstAttribute="leading" secondItem="ruI-57-oVu" secondAttribute="trailing" constant="-40" id="rN7-Pv-Uym"/>
                 <constraint firstAttribute="trailing" secondItem="lDI-JS-EbG" secondAttribute="trailing" constant="10" id="rmx-z3-Rpc"/>
                 <constraint firstItem="4VE-Sx-USP" firstAttribute="leading" secondItem="pxl-ej-bpa" secondAttribute="trailing" constant="5" id="thG-S9-W6m"/>
                 <constraint firstItem="fWL-Bp-qcr" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="30" id="uct-wE-x0Z"/>
@@ -90,6 +103,7 @@
             </variation>
             <connections>
                 <outlet property="carbsEstimate" destination="lDI-JS-EbG" id="bnA-Y1-J2u"/>
+                <outlet property="carbsEstimateGrams" destination="ruI-57-oVu" id="IcP-y5-8iA"/>
                 <outlet property="photo" destination="fWL-Bp-qcr" id="EZY-aE-xYc"/>
                 <outlet property="timeAgoLabel" destination="Z7j-9H-xzO" id="fxW-8m-Qgf"/>
                 <outlet property="titleAndHashtags" destination="a9E-It-Wyl" id="A4b-jq-Weq"/>

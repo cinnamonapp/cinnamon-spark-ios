@@ -15,6 +15,7 @@ class CSRepeatablePhotoBrowserCell: UICollectionViewCell {
     @IBOutlet var userProfilePicture: UIImageView!
     @IBOutlet var userProfileName: UILabel!
     @IBOutlet var carbsEstimate: UIImageView!
+    @IBOutlet var carbsEstimateGrams: UILabel!
     @IBOutlet var titleAndHashtags: UILabel!
     
     override func awakeFromNib() {
@@ -22,7 +23,14 @@ class CSRepeatablePhotoBrowserCell: UICollectionViewCell {
         // Initialization code
         self.photo.frame.size.height = self.photo.frame.width
         
+        // Disable user interaction on carbs grams label
+        self.carbsEstimateGrams?.userInteractionEnabled = false
+        
         self.carbsEstimate?.hidden = true
+        
+        let gesture = UITapGestureRecognizer(target: self, action: "toggleCarbsEstimateGramsVisibility")
+        self.carbsEstimate?.userInteractionEnabled = true
+        self.carbsEstimate?.addGestureRecognizer(gesture)
     }
 
     
@@ -38,19 +46,35 @@ class CSRepeatablePhotoBrowserCell: UICollectionViewCell {
         
     }
     
+    func toggleCarbsEstimateGramsVisibility(){
+        self.carbsEstimateGrams.hidden = !self.carbsEstimateGrams.hidden
+    }
+    
     func setCarbsEstimateToValue(value: CSPhotoMealCarbsEstimate){
         let images = ["CarbsLow", "CarbsMedium", "CarbsHigh"]
         let image = UIImage(named: images[value.hashValue])
         
-        self.showCarbsEstimate()
         self.carbsEstimate.image = image
+        
+        self.showCarbsEstimate()
     }
-
+    
+    func setCarbsEstimateToValue(value: CSPhotoMealCarbsEstimate, grams: Int?){
+        self.setCarbsEstimateToValue(value)
+        
+        if let g = grams{
+            self.carbsEstimateGrams.text = "\(g)g"
+        }else{
+            self.carbsEstimateGrams.text = ""
+        }
+    }
     
     func showCarbsEstimate(){
         self.carbsEstimate?.hidden = false
+        self.carbsEstimateGrams?.hidden = true
     }
     func hideCarbsEstimate(){
         self.carbsEstimate?.hidden = true
+        self.carbsEstimateGrams?.hidden = true
     }
 }

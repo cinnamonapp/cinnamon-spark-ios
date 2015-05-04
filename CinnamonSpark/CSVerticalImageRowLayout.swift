@@ -23,6 +23,8 @@ class CSVerticalImageRowLayout: UICollectionViewFlowLayout {
         self.minimumInteritemSpacing = 1.0
         self.minimumLineSpacing = 0
 
+        
+//        self.estimatedItemSize = CGSizeMake(itemWidth - 100, itemHeight)
 //        self.sectionInset = UIEdgeInsetsMake(20, 0, 20, 0)
     }
 

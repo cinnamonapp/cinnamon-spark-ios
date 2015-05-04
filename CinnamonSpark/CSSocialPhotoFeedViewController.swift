@@ -166,12 +166,12 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
         // If the id is -1 it means that is a smart alert
         if (photo.id == "-1"){
             finalcell = collectionView.dequeueReusableCellWithReuseIdentifier(smartAlertReuseIdentifier, forIndexPath: indexPath) as CSSmartAlertPhotoBrowserCell
+        }else{
+            // Set the photo
+            finalcell.setPhotoWithThumbURL(photo.URL, originalURL: photo.URL)
         }
         
         finalcell.backgroundColor = viewsInsideBackgroundColor
-        
-        // Set the photo
-        finalcell.setPhotoWithThumbURL(photo.URL, originalURL: photo.URL)
         
         // Add tap gesture to photo by uncommenting these lines
 //        finalcell.photo.userInteractionEnabled = true
@@ -208,7 +208,7 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
 
         // Set the carbs value
         if let carbs = photo.carbsEstimate{
-            finalcell.setCarbsEstimateToValue(carbs)
+            finalcell.setCarbsEstimateToValue(carbs, grams: photo.carbsEstimateGrams)
         }else{
             finalcell.hideCarbsEstimate()
         }
@@ -216,5 +216,18 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
         return finalcell
     }
     
+    
+    // Auto size height when smart alert
+//    override func photoBrowser(photoBrowser: CSPhotoBrowser, forCollectionView collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForPhoto photo: CSPhoto, atIndexPath indexPath: NSIndexPath) -> CGSize {
+//        var size = super.photoBrowser(photoBrowser, forCollectionView: collectionView, layout: collectionViewLayout, sizeForPhoto: photo, atIndexPath: indexPath)
+////
+////        // If the id is -1 it means that is a smart alert
+//        if (photo.id == "-1"){
+//            var cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier(smartAlertReuseIdentifier, forIndexPath: indexPath) as CSSmartAlertPhotoBrowserCell
+////            println(cell.titleAndHashtags.frame)
+//        }
+//
+//        return size
+//    }
 }
 

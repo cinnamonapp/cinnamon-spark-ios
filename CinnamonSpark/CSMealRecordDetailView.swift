@@ -147,7 +147,7 @@ class CSMealRecordDetailView: UICollectionViewController {
                 cell.titleAndHashtags.text = photo.title
                 
                 if let carbs = photo.carbsEstimate{
-                    cell.setCarbsEstimateToValue(carbs)
+                    cell.setCarbsEstimateToValue(carbs, grams: photo.carbsEstimateGrams)
                 }
 
             }

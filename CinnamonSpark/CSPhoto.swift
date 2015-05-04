@@ -28,6 +28,7 @@ class CSPhoto: NSObject {
     var createdAtDate : NSDate!
     var size : CSPhotoMealSize!
     var carbsEstimate : CSPhotoMealCarbsEstimate?
+    var carbsEstimateGrams : Int?
     
     convenience init(dictionary: NSDictionary){
         self.init()
@@ -55,6 +56,14 @@ class CSPhoto: NSObject {
         
         if let carbs = dictionary["carbs_estimate"] as? Int{
             self.carbsEstimate = self.evaluateCarbsEstimate(carbs)
+        }
+        
+        if let carbsGrams = dictionary["carbs_estimate_grams"] as? Int{
+            if(carbsGrams == 0){
+                self.carbsEstimateGrams = nil
+            }else{
+                self.carbsEstimateGrams = carbsGrams
+            }
         }
         
         

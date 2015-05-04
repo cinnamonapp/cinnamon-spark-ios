@@ -24,6 +24,7 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
         
         // By default set the delegate to self
         self.delegate = self
+        
     }
 
     required init(coder aDecoder: NSCoder) {
@@ -218,6 +219,17 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
             if(delegate.respondsToSelector("sizeForCustomizableTopViewInterface:itemSize:")){
                 size = delegate.sizeForCustomizableTopViewInterface!(self, itemSize: size)
             }
+            
+            
+        }else if let delegate = self.delegate{
+            
+            if(delegate.respondsToSelector("photoBrowser:forCollectionView:layout:sizeForPhoto:atIndexPath:")){
+                var photo : CSPhoto
+                photo = self.photos[indexPath.item]
+                
+                size = delegate.photoBrowser!(self, forCollectionView: collectionView, layout: collectionViewLayout, sizeForPhoto: photo, atIndexPath: indexPath)
+            }
+            
         }
         
         return size
@@ -227,7 +239,26 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
     func photoBrowser(photoBrowser: CSPhotoBrowser, forCollectionView collectionView: UICollectionView, customizablePhotoBrowserCell cell: CSRepeatablePhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSRepeatablePhotoBrowserCell {
         return cell
     }
-
+    
+    
+    func photoBrowser(photoBrowser: CSPhotoBrowser, forCollectionView collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForPhoto photo: CSPhoto, atIndexPath indexPath: NSIndexPath) -> CGSize{
+        var size : CGSize!
+        
+        if let layout = collectionViewLayout as? UICollectionViewFlowLayout{
+            size = layout.itemSize
+        }
+        
+        if let layout = collectionViewLayout as? CSVerticalImageRowLayout{
+            size = layout.itemSize
+        }
+        
+        if let layout = collectionViewLayout as? CSGridImageTagLayout{
+            size = layout.itemSize
+        }
+        
+        return size
+    }
+    
 }
 
 @objc
@@ -265,5 +296,15 @@ protocol CSPhotoBrowserDelegate : NSObjectProtocol{
         Override to give custom size to top view interface
     */
     optional func sizeForCustomizableTopViewInterface(photoBrowser: CSPhotoBrowser, itemSize: CGSize) -> CGSize
+    
+    /**
+        Customize cell size at indexPath with photo
+    */
+    optional func photoBrowser( photoBrowser: CSPhotoBrowser,
+                                forCollectionView collectionView: UICollectionView,
+                                layout collectionViewLayout: UICollectionViewLayout,
+                                sizeForPhoto photo: CSPhoto,
+                                atIndexPath indexPath: NSIndexPath) -> CGSize
+    
 }
 
