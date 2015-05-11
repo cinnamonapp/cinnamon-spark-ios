@@ -50,6 +50,7 @@
 		B0EDD6A51ABC2A170065644F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0EDD6A41ABC2A170065644F /* Images.xcassets */; };
 		B0EDD6A81ABC2A170065644F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0EDD6A61ABC2A170065644F /* LaunchScreen.xib */; };
 		B0EDD6B41ABC2A170065644F /* CinnamonSparkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EDD6B31ABC2A170065644F /* CinnamonSparkTests.swift */; };
+		B0F1A80D1AF908D0006B3996 /* ASAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F1A80C1AF908D0006B3996 /* ASAPIRequest.swift */; };
 		B0FFC33E1AEB70E2008CE15D /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FFC33D1AEB70E2008CE15D /* UIDeviceHardware.m */; };
 /* End PBXBuildFile section */
 
@@ -117,6 +118,7 @@
 		B0EDD6B21ABC2A170065644F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0EDD6B31ABC2A170065644F /* CinnamonSparkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonSparkTests.swift; sourceTree = "<group>"; };
 		B0EDD6BE1ABC31C90065644F /* CinnamonSpark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CinnamonSpark-Bridging-Header.h"; sourceTree = "<group>"; };
+		B0F1A80C1AF908D0006B3996 /* ASAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPIRequest.swift; sourceTree = "<group>"; };
 		B0FFC33D1AEB70E2008CE15D /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
 		B0FFC33F1AEB70E9008CE15D /* UIDeviceHardware.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIDeviceHardware.h; sourceTree = "<group>"; };
 		FC7ABA3DDD64BD29F6E546F5 /* libPods-Cinnamon.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cinnamon.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -254,6 +256,7 @@
 				B01B2BE11AEEA7670017919A /* Layouts */,
 				B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */,
 				B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */,
+				B0F1A80C1AF908D0006B3996 /* ASAPIRequest.swift */,
 				B074349A1AC062960065403A /* CSTapSelector.swift */,
 				B022479A1AE7738F0031DADC /* CSMealSizeSelector.swift */,
 				B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */,
@@ -505,6 +508,7 @@
 			files = (
 				B01B2BDC1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift in Sources */,
 				B00C45501AEA9EF40023520C /* OnboardingContentViewController.m in Sources */,
+				B0F1A80D1AF908D0006B3996 /* ASAPIRequest.swift in Sources */,
 				B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */,
 				B0DCEF3B1AE5342100068B79 /* CSMealRecordDetailView.swift in Sources */,
 				B00C45511AEA9EF40023520C /* OnboardingViewController.m in Sources */,
