@@ -11,7 +11,7 @@ import Foundation
 // APIEndpoints constant
 let apiEndpoints : (local: String, development: String, staging: String, production: String) = (
     local:          "http://localhost:3000",
-    development:    "http://192.168.1.4:3000",
+    development:    "http://192.168.1.223:3000",
     staging:        "http://cinnamon-staging.herokuapp.com",
     production:     "http://cinnamon-production.herokuapp.com"
 )

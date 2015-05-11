@@ -46,6 +46,14 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
         
         // Check in current user
         CSAPIRequest().checkCurrentUserInUsingDeviceUUID { (request: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+            
+            let userDictionary = responseObject as NSDictionary
+            
+            if let dishCount = userDictionary["meal_records_count"] as? Int{
+                // Set the global variable
+                userDishCount = dishCount
+            }
+            
             self.setDishCount(userDishCount.description)
         }
     }
@@ -218,16 +226,16 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
     
     
     // Auto size height when smart alert
-//    override func photoBrowser(photoBrowser: CSPhotoBrowser, forCollectionView collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForPhoto photo: CSPhoto, atIndexPath indexPath: NSIndexPath) -> CGSize {
-//        var size = super.photoBrowser(photoBrowser, forCollectionView: collectionView, layout: collectionViewLayout, sizeForPhoto: photo, atIndexPath: indexPath)
-////
-////        // If the id is -1 it means that is a smart alert
-//        if (photo.id == "-1"){
-//            var cell = self.collectionView!.dequeueReusableCellWithReuseIdentifier(smartAlertReuseIdentifier, forIndexPath: indexPath) as CSSmartAlertPhotoBrowserCell
-////            println(cell.titleAndHashtags.frame)
-//        }
-//
-//        return size
-//    }
+    override func photoBrowser(photoBrowser: CSPhotoBrowser, forCollectionView collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForPhoto photo: CSPhoto, atIndexPath indexPath: NSIndexPath) -> CGSize {
+        var size = super.photoBrowser(photoBrowser, forCollectionView: collectionView, layout: collectionViewLayout, sizeForPhoto: photo, atIndexPath: indexPath)
+
+        // If the id is -1 it means that is a smart alert
+        if (photo.id == "-1"){
+            // Crop 35%
+            size.height -= size.height * 0.30
+        }
+
+        return size
+    }
 }
 

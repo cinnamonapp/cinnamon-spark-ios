@@ -9,97 +9,37 @@
 import UIKit
 import AdSupport
 
-class CSAPIRequest: AFHTTPRequestOperationManager {
+class CSAPIRequest: ASAPIRequest {
     
     // MARK: - Constants and Variables
-    private let deviceUniqueIdentifier = ASIdentifierManager.sharedManager().advertisingIdentifier.UUIDString
-    private let APIEndpoint : NSURL = NSURL(string: primaryAPIEndpoint)!
+    private let apiEndpoint : NSURL = NSURL(string: primaryAPIEndpoint)!
     
-    private let APIPathDictionary : [String : String] = [
-        "User" : "/users/:id.json",
-        "MealRecord" : "/meal_records/:id.json"
-    ]
-    
-//    private var retrialHandler = CSRetrialHandler()
-
-    func uniqueIdentifier() -> String{
-        return self.deviceUniqueIdentifier
+    override init() {
+        super.init(baseURL: apiEndpoint)
     }
     
-    // default initiator with default base url
-    init(){
-        super.init(baseURL: self.APIEndpoint)
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
-    override init(baseURL url: NSURL!) {
-        super.init(baseURL: url)
-    }
+    // MARK: - Interface methods
     
-    func getAPIPath(model: String) -> String{
-        return self.getAPIPath(model, withRecordId: nil)
+    override func APIPathDictionary() -> [String : String] {
+        return [
+            "User" : "/users/:id.json",
+            "MealRecord" : "/meal_records/:id.json"
+        ]
     }
     
     
-    // MARK: - Overrides from AFHTTPRequestOperationManager
-    
-//    override func POST(URLString: String!, parameters: AnyObject!, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)!, failure: ((AFHTTPRequestOperation!, NSError!) -> Void)!) -> AFHTTPRequestOperation! {
-//
-//        var returnOperation : AFHTTPRequestOperation!
-//        
-//        let redefinedSuccess = { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-//            
-//        }
-//        
-//        let redefinedFailure = { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-//            
-//        }
-//        
-//        return returnOperation
-//    }
-    
-    
-    // MARK: - URL helpers
-    
-    // Retrieves stuff from the dictionary and parses it
-    func getAPIPath(model: String, withRecordId recordId: String?) -> String{
-        var path : String = self.APIPathDictionary[model]!
-        
-        if recordId != nil{
-            path = path.stringByReplacingOccurrencesOfString(":id", withString: recordId!)
-        }else{
-            path = path.stringByReplacingOccurrencesOfString("/:id", withString: "")
-        }
-        
-        return path
-    }
-    
-    func getAPICombinedPath(parentModel: String, withParentRecordId parentRecordId: String, andModel model: String) -> String{
-        var path : String = self.getAPIPath(parentModel, withRecordId: parentRecordId)
-        var appendPath : String = self.getAPIPath(model)
-        
-        path = path.stringByReplacingOccurrencesOfString(".json", withString: appendPath)
-        
-        return path
-    }
-    
-    func getAPICombinedPath(parentModel: String, withParentRecordId parentRecordId: String, andModel model: String, withRecordId recordId: String?) -> String{
-        var path : String = self.getAPIPath(parentModel, withRecordId: parentRecordId)
-        var appendPath : String = self.getAPIPath(model, withRecordId: recordId)
-        
-        path = path.stringByReplacingOccurrencesOfString(".json", withString: appendPath)
-        
-        return path
-    }
-    
-
     // MARK: - HTTP custom requests methods
     
     /**
-        Creates a new MealRecord object, assigning it to the current user, and upload its image to server.
+    Creates a new MealRecord object, assigning it to the current user, and upload its image to server.
     
-        :param: mealSize The size of the photographed meal
-        :param: withImageData The NSData object of the image to be uploaded
-        :param: delegate (optional) An object that conforms to CSCameraDelegate. To be used to communicate the request success or failure
+    :param: mealSize The size of the photographed meal
+    :param: withImageData The NSData object of the image to be uploaded
+    :param: delegate (optional) An object that conforms to CSCameraDelegate. To be used to communicate the request success or failure
     */
     
     func createMealRecord(params: NSDictionary, withImageData imageData: NSData, delegate: CSBaseDelegate?){
@@ -152,7 +92,7 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
     }
     
     /**
-        Fetch MealRecords first page. Default page size from server is 25
+    Fetch MealRecords first page. Default page size from server is 25
     */
     func getOthersMealRecords(success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
         
@@ -166,7 +106,7 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
     }
     
     /**
-        Fetch MealRecords with page number. Default page size from server is 25
+    Fetch MealRecords with page number. Default page size from server is 25
     */
     func getOthersMealRecordsWithPage(page: Int, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
         
@@ -184,91 +124,7 @@ class CSAPIRequest: AFHTTPRequestOperationManager {
         let mealRecordPath : String = self.getAPIPath("MealRecord", withRecordId: id)
         
         self.GET(mealRecordPath, parameters: [], success: success, failure: failure)
-
+        
     }
     
-    
-    /** 
-        Use the device UUID to authenticate the user.
-        It will create a new user if the UUID is not found.
-    */
-    func checkCurrentUserInUsingDeviceUUID(success: (AFHTTPRequestOperation!, AnyObject!) -> Void){
-        let userPath : String = self.getAPIPath("User")
-        
-        let params : NSDictionary = [
-            "user": [
-                "device_uuid": self.uniqueIdentifier()
-            ]
-        ]
-        
-        self.POST(userPath,
-            parameters: params,
-            success: { (request: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-                println("User has been created/retrieved")
-                
-                let userDictionary = responseObject as NSDictionary
-                
-                if let dishCount = userDictionary["meal_records_count"] as? Int{
-                    // Set the global variable
-                    userDishCount = dishCount
-                }
-                
-                success(request, responseObject)
-                
-            },
-            failure: { (request: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                println("Error in api")
-                // Repeat once again
-                self.checkCurrentUserInUsingDeviceUUID(success)
-            }
-        )
-        
-    }
-
-    /**
-        Save the currentUser's remote notification token on the server.
-    
-        :param: deviceToken The token received from the AppDelegate.
-    */
-    func updateCurrentUserNotificationToken(deviceToken : NSData){
-        var plainToken = deviceToken.description.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<>"))
-        plainToken = plainToken.stringByReplacingOccurrencesOfString(" ", withString: "")
-        
-        let userPath : String = self.getAPIPath("User", withRecordId: self.uniqueIdentifier())
-        
-        let params : NSDictionary = [
-            "user": [
-                "push_notification_token": plainToken
-            ]
-        ]
-        
-        self.PUT(userPath,
-            parameters: params,
-            success: { (request: AFHTTPRequestOperation!, sender: AnyObject!) -> Void in
-                println("Token has been updated")
-            },
-            failure: { (request: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                println("Token has not been updated. Error: \(error)")
-            }
-        )
-        
-
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
-
-
-
-//class CSRetrialHandler{
-//    
-//    private var handlers : [(id: Int, count: Int)]!
-//    private let DefaultRetryForCount = 3
-//    
-//    init(){
-//        
-//    }
-//    
-//}
