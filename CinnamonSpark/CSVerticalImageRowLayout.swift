@@ -18,14 +18,13 @@ class CSVerticalImageRowLayout: UICollectionViewFlowLayout {
         let rowHeight  : CGFloat = 30
         let itemHeight : CGFloat = itemWidth + rowHeight * 2
         
-//        self.itemSize = CGSizeMake(itemWidth - self.sectionInset.left - self.sectionInset.right - 10, 50)
+        self.itemSize = CGSizeMake(itemWidth, itemHeight)
         
         self.minimumInteritemSpacing = 1.0
         self.minimumLineSpacing = 0
 
-        self.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
         
-        self.estimatedItemSize = CGSizeMake(itemWidth, 200)
+//        self.estimatedItemSize = CGSizeMake(itemWidth - 100, itemHeight)
 //        self.sectionInset = UIEdgeInsetsMake(20, 0, 20, 0)
     }
 
