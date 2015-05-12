@@ -26,6 +26,7 @@
 		B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */; };
 		B045436A1AEA16E900D46522 /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04543691AEA16E900D46522 /* JSSAlertView.swift */; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
+		B0862F4C1B0112A50026A01D /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0862F4B1B0112A50026A01D /* RootViewController.swift */; };
 		B087ACD11AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */; };
 		B087ACD71AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */; };
 		B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */; };
@@ -90,6 +91,7 @@
 		B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFriendPhotoFeedViewController.swift; sourceTree = "<group>"; };
 		B04543691AEA16E900D46522 /* JSSAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSAlertView.swift; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
+		B0862F4B1B0112A50026A01D /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+CSMisterCinnamon.swift"; sourceTree = "<group>"; };
 		B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+EmptyBackButton.m"; sourceTree = "<group>"; };
 		B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowser.swift; sourceTree = "<group>"; };
@@ -117,7 +119,7 @@
 		B0EDD6AD1ABC2A170065644F /* CinnamonTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinnamonTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0EDD6B21ABC2A170065644F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0EDD6B31ABC2A170065644F /* CinnamonSparkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonSparkTests.swift; sourceTree = "<group>"; };
-		B0EDD6BE1ABC31C90065644F /* CinnamonSpark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CinnamonSpark-Bridging-Header.h"; sourceTree = "<group>"; };
+		B0EDD6BE1ABC31C90065644F /* CinnamonSpark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CinnamonSpark-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
 		B0F1A80C1AF908D0006B3996 /* ASAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPIRequest.swift; sourceTree = "<group>"; };
 		B0FFC33D1AEB70E2008CE15D /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
 		B0FFC33F1AEB70E9008CE15D /* UIDeviceHardware.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIDeviceHardware.h; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				B01B2BE01AEEA6990017919A /* SocialMealRecords */,
 				B01B2BDF1AEEA6780017919A /* UserMealRecords */,
 				B0DCEF391AE5342100068B79 /* CSMealRecordDetailView.swift */,
+				B0862F4B1B0112A50026A01D /* RootViewController.swift */,
 				B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */,
 			);
 			name = Controllers;
@@ -293,7 +296,6 @@
 				B0EDD6961ABC2A170065644F /* Products */,
 				0F2C87824EBAAB41ED4B886D /* Pods */,
 				100BA9D59D6F7765472FB032 /* Frameworks */,
-				B0EDD6BE1ABC31C90065644F /* CinnamonSpark-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -319,6 +321,7 @@
 				B0EDD69C1ABC2A170065644F /* CinnamonSpark.xcdatamodeld */,
 				B0EDD6981ABC2A170065644F /* Supporting Files */,
 				B0AF66B11AC1754000E23657 /* TODO.md */,
+				B0EDD6BE1ABC31C90065644F /* CinnamonSpark-Bridging-Header.h */,
 			);
 			path = CinnamonSpark;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				B0E3B41C1AC4AF6E00347B91 /* CSAPIRequestDelegate.swift in Sources */,
 				B007561B1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift in Sources */,
 				B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */,
+				B0862F4C1B0112A50026A01D /* RootViewController.swift in Sources */,
 				B02BA6431ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift in Sources */,
 				B0EDD6A01ABC2A170065644F /* CSCameraViewController.swift in Sources */,
 				B0FFC33E1AEB70E2008CE15D /* UIDeviceHardware.m in Sources */,

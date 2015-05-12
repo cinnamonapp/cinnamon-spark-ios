@@ -14,11 +14,13 @@ import Crashlytics
 var userDishCount = 0
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate/*, UITabBarControllerDelegate*/ {
 
     var window: UIWindow?
     
-    var tabBarViewController: CSTabBarController!
+//    var tabBarViewController: CSTabBarController!
+
+    var rootViewController: RootViewController!
 
     let userHasOnboardedKey = "final_user_has_onboarded"
     
@@ -166,7 +168,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         // Here I'm just creating a generic view controller to represent the root of my application.
 //        self.prepareSocialFeedNavigationControllerForReuse()
 //        self.prepareUserPhotoFeedNavigationControllerForReuse()
-        self.prepareTabBarViewControllerForReuse()
+        self.prepareRootViewControllerForReuse()
         
         
         // If we want to animate it, animate the transition - in this case we're fading, but you can do it
@@ -174,35 +176,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         if animated {
             UIView.transitionWithView(self.window!, duration: 0.5, options:.TransitionCrossDissolve, animations: { () -> Void in
                 // Set the tabBarViewController as root view controller
-                self.window!.rootViewController = self.tabBarViewController
+                self.window!.rootViewController = self.rootViewController
                 }, completion:nil)
         }
             
         // Otherwise we just want to set the root view controller normally.
         else {
-            self.window?.rootViewController = self.tabBarViewController
+            self.window?.rootViewController = self.rootViewController
         }
     }
 
     // Setup the tabBarViewController
-    private func prepareTabBarViewControllerForReuse(){
-        self.tabBarViewController = CSTabBarController(delegate: self)
+//    private func prepareTabBarViewControllerForReuse(){
+//        self.tabBarViewController = CSTabBarController(delegate: self)
+//    }
+    
+    // Setup the rootViewController
+    private func prepareRootViewControllerForReuse(){
+        self.rootViewController = RootViewController()
     }
     
     // MARK: - UITabBarController delegate methods
     
-    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-        if (viewController.title != "."){
-            return true
-        }else{
-            return false
-        }
-    }
-    
-    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-        // Call this method
-        viewController.willAppearAfterTabBarViewControllerSelection()
-    }
+//    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+//        if (viewController.title != "."){
+//            return true
+//        }else{
+//            return false
+//        }
+//    }
+//    
+//    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+//        // Call this method
+//        viewController.willAppearAfterTabBarViewControllerSelection()
+//    }
     
     
     
@@ -219,8 +226,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UITabBarControllerDelegat
         let aps = userInfo["aps"] as NSDictionary
         
         if let photoId = userInfo["meal_record_id"] as? Int{
-            self.tabBarViewController.selectedViewController = self.tabBarViewController.userPhotoFeedNavigationController
-            self.tabBarViewController.userPhotoFeedNavigationController.openMealDetailViewControllerWithPhotoId(photoId.description, animated: false)
+//            self.tabBarViewController.selectedViewController = self.tabBarViewController.userPhotoFeedNavigationController
+//            self.tabBarViewController.userPhotoFeedNavigationController.openMealDetailViewControllerWithPhotoId(photoId.description, animated: false)
         }
     }
     
