@@ -24,15 +24,14 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let pageStack = PageStackController()
         
         // Setup pageViewController
         self.pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
         self.pageViewController?.delegate = self
-        self.pageViewController?.dataSource = pageStack
+        self.pageViewController?.dataSource = self.pageStack
         
         // Setup userPhotoFeedNavigationController
-        self.dashboardViewController = pageStack.viewControllerAtIndex(0)
+        self.dashboardViewController = self.pageStack.viewControllerAtIndex(0)
         self.dashboardViewController.view.backgroundColor = UIColor.blackColor()
         
         println(pageStack.viewControllerAtIndex(0))
@@ -57,6 +56,20 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    
+    
+    var pageStack: PageStackController {
+        // Return the model controller object, creating it if necessary.
+        // In more complex implementations, the model controller may be passed to the view controller.
+        if _pageStack == nil {
+            _pageStack = PageStackController()
+        }
+        return _pageStack!
+    }
+    
+    var _pageStack: PageStackController? = nil
+
     
     
     /*
@@ -115,22 +128,22 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
             return nil
         }
     
-        return self.viewControllerAtIndex(self.currentIndex)!
+        return UIViewController()
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
         
-        self.currentIndex++
+//        self.currentIndex++
+//        
+//        if(self.currentIndex > self.viewControllers.count - 1){
+//            self.currentIndex = self.viewControllers.count - 1
+//            return nil
+//        }
+//        
+//        println("Index => \(self.currentIndex)")
+//        println("Controller => \(self.viewControllerAtIndex(self.currentIndex))")
         
-        if(self.currentIndex > self.viewControllers.count - 1){
-            self.currentIndex = self.viewControllers.count - 1
-            return nil
-        }
-        
-        println("Index => \(self.currentIndex)")
-        println("Controller => \(self.viewControllerAtIndex(self.currentIndex))")
-        
-        return self.viewControllerAtIndex(self.currentIndex)!
+        return UIViewController()
     }
 
 
