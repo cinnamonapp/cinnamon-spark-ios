@@ -26,14 +26,26 @@ class CSAPIRequest: ASAPIRequest {
     
     override func APIPathDictionary() -> [String : String] {
         return [
-            "User" : "/users/:id.json",
-            "MealRecord" : "/meal_records/:id.json"
+            "User"          : "/users/:id.json",
+            "MealRecord"    : "/meal_records/:id.json",
+            "Dashboard"     : "/dashboard"
         ]
     }
     
     
     // MARK: - HTTP custom requests methods
     
+    func getUserDashboard(userId: String, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        let userDashboardPath : String = "/api/v1/" + self.getAPICombinedPath("User", withParentRecordId: userId, andModel: "Dashboard")
+        
+        self.GET(userDashboardPath, parameters: [], success: success, failure: failure)
+    }
+    
+    func getUserDashboard(success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        self.getUserDashboard(self.uniqueIdentifier(), success: success, failure: failure)
+    }
+    
+
     /**
     Creates a new MealRecord object, assigning it to the current user, and upload its image to server.
     

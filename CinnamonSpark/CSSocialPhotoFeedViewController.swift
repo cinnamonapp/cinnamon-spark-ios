@@ -25,8 +25,8 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
         super.viewDidLoad()
         
         // Temporary fix for custom navbar
-        self.collectionView?.frame.origin.y += 30
-        self.collectionView?.frame.size.height -= 30
+//        self.collectionView?.frame.origin.y += 30
+//        self.collectionView?.frame.size.height -= 30
         // End
         
         self.collectionView?.backgroundColor = viewsBackgroundColor
@@ -43,19 +43,6 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        // Check in current user
-        CSAPIRequest().checkCurrentUserInUsingDeviceUUID { (request: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
-            
-            let userDictionary = responseObject as NSDictionary
-            
-            if let dishCount = userDictionary["meal_records_count"] as? Int{
-                // Set the global variable
-                userDishCount = dishCount
-            }
-            
-            self.setDishCount(userDishCount.description)
-        }
     }
 
     override func loadPhotos() {

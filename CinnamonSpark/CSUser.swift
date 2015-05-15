@@ -20,8 +20,9 @@ class CSUser: NSObject {
     convenience init(dictionary: NSDictionary){
         self.init()
         
-        self.id = dictionary["id"] as String
+        self.id = (dictionary["id"] as Int).description
         self.username = dictionary["username"] as String
+        
         self.nanoProfilePictureURL = NSURL(string: dictionary["profile_picture_nano_url"] as String)
         self.microProfilePictureURL = NSURL(string: dictionary["profile_picture_micro_url"] as String)
         self.profilePictureURL = NSURL(string: dictionary["profile_picture_thumbnail_url"] as String)

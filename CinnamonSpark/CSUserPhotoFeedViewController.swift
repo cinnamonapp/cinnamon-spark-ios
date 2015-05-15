@@ -10,8 +10,6 @@ import Foundation
 
 class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequestDelegate, UIWebViewDelegate {
     
-    var cameraViewController : CSCameraViewController!
-    
     var webView : UIWebView!
     
     override init(){
@@ -27,7 +25,7 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.setQuirkyMessage(UserFeedQuirkyMessages.sample())
+//        self.setQuirkyMessage(UserFeedQuirkyMessages.sample())
     }
     
 //    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -38,62 +36,21 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
         super.viewDidLoad()
         
         
-        self.navigationController?.appendMisterCinnamon()
+//        self.navigationController?.appendMisterCinnamon()
         
-        self.view.backgroundColor = viewsInsideBackgroundColor
+        self.view.backgroundColor = viewsBackgroundColor
         
         // Add web view
         var webframe = self.view.frame
-        let tabBarHeight = 50 as CGFloat!
-        
-        webframe.origin.y += 10
-        webframe.size.height = webframe.size.height - tabBarHeight - 50
         
         self.webView = UIWebView(frame: webframe)
         self.webView.delegate = self
-        self.webView.backgroundColor = viewsInsideBackgroundColor
+        self.webView.backgroundColor = viewsBackgroundColor
         let url = NSURL(string: "\(primaryAPIEndpoint)/users/\(CSAPIRequest().uniqueIdentifier())/meals")
         webView.loadRequest(NSURLRequest(URL: url!))
         self.view.addSubview(webView)
         
     }
-    
-    
-    
-    
-    // Camera stuff
-    func didTakePicture(image: UIImage, withSelectionValue selectedValue: AnyObject) {
-        // Save image to photo album
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        
-        userDishCount += 1
-        
-        var s = (userDishCount > 1) ? "s" : ""
-        
-        var alertview = JSSAlertView().show(self.cameraViewController, title: "Awesome", text: "You are awesome my friend, \(userDishCount) meal\(s) already and going straight! Now hold on, we know you can't wait to see your carb result.\nWe will notify you.", buttonText: "Whoa", color: mainActionColor, iconImage: UIImage(named: "MonsterCircle"))
-        
-        alertview.setTextTheme(.Light)
-        alertview.addAction { () -> Void in
-            self.cameraViewController.closeViewController()
-        }
-
-        
-    }
-    
-    
-    func didSuccessfullyCreateMealRecord(response: NSDictionary) {
-        self.webView.reload()
-    }
-    
-    func openCamera(){
-        
-        self.cameraViewController = CSCameraViewController()
-        self.cameraViewController.delegate = self
-        let navigationController = UINavigationController(rootViewController: self.cameraViewController)
-        
-        self.presentViewController(navigationController, animated: true, completion: nil)
-    }
-    
     
     
     // MARK: - Webview delegate methods
@@ -102,7 +59,7 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
 
         // Assuming fragment is the id of a meal_record
         if let fragment = request.URL.fragment{
-            self.openMealDetailViewControllerWithPhotoId(fragment)
+            self.openMealDetailViewControllerWithPhotoId(fragment, animated: true)
             
             return false
         }
@@ -110,9 +67,10 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
         return true
     }
     
-    func openMealDetailViewControllerWithPhotoId(photoId: String){
+    func openMealDetailViewControllerWithPhotoId(photoId: String, animated: Bool){
         let mealDetailViewController = CSMealRecordDetailView(photoId: photoId)
-        self.navigationController?.pushViewController(mealDetailViewController, animated: true)
+        
+        self.presentViewController(mealDetailViewController, animated: animated, completion: nil)
     }
     
 }

@@ -38,7 +38,8 @@ class CSSocialFeedNavigationController: UINavigationController {
         self.socialPhotoFeedViewController = CSSocialPhotoFeedViewController()
         self.setViewControllers([self.socialPhotoFeedViewController], animated: false)
         
-        self.appendMisterCinnamon()
+        self.navigationBarHidden = true
+//        self.appendMisterCinnamon()
     }
 
     override func didReceiveMemoryWarning() {

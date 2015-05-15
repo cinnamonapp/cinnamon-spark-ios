@@ -40,7 +40,7 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate, UITextView
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        self.title = "What did you have?"
+//        self.title = "What did you have?"
         
         self.view.backgroundColor = UIColor.blackColor()
         

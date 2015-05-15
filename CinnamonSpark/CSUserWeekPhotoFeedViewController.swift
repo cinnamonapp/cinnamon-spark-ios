@@ -42,10 +42,9 @@ class CSUserWeekPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPI
         
         // Add web view
         var webframe = self.view.frame
-        let tabBarHeight = self.tabBarController?.tabBar.frame.height as CGFloat!
         
         webframe.origin.y += 10
-        webframe.size.height = webframe.size.height - tabBarHeight - 50
+        webframe.size.height = webframe.size.height - 50
         
         self.webView = UIWebView(frame: webframe)
         self.webView.delegate = self

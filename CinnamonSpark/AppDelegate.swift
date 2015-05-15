@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate/*, UITabBarControllerDeleg
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-        self.window?.backgroundColor = UIColor.whiteColor()
+        self.window?.backgroundColor = viewsBackgroundColor
         
         // Override point for customization after application launch.
         
@@ -228,6 +228,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate/*, UITabBarControllerDeleg
         if let photoId = userInfo["meal_record_id"] as? Int{
 //            self.tabBarViewController.selectedViewController = self.tabBarViewController.userPhotoFeedNavigationController
 //            self.tabBarViewController.userPhotoFeedNavigationController.openMealDetailViewControllerWithPhotoId(photoId.description, animated: false)
+            
+            self.rootViewController.pageStack.dashboardViewController.refreshDashboard()
         }
     }
     

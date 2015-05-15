@@ -25,7 +25,9 @@
 		B02F13AD1AD80C6000075E41 /* CSUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AC1AD80C6000075E41 /* CSUser.swift */; };
 		B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */; };
 		B045436A1AEA16E900D46522 /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04543691AEA16E900D46522 /* JSSAlertView.swift */; };
+		B04CB50C1B04B8020097C6F0 /* CSDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CB50B1B04B8020097C6F0 /* CSDashboard.swift */; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
+		B08041AB1B022C7F008B19BB /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08041A91B022C7F008B19BB /* DashboardViewController.swift */; };
 		B0862F4C1B0112A50026A01D /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0862F4B1B0112A50026A01D /* RootViewController.swift */; };
 		B087ACD11AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */; };
 		B087ACD71AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */; };
@@ -34,6 +36,9 @@
 		B0A148E61ACD9C010019E08F /* CSGridImageTagLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */; };
 		B0A81B8C1AE91D580006F4B4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A81B8B1AE91D570006F4B4 /* Constants.swift */; };
 		B0AF55161AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AF55151AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift */; };
+		B0BF897F1B03466B003BF9F9 /* DashboardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF897D1B03466B003BF9F9 /* DashboardViewCell.swift */; };
+		B0BF89801B03466B003BF9F9 /* DashboardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BF897E1B03466B003BF9F9 /* DashboardViewCell.xib */; };
+		B0BF89831B0362FD003BF9F9 /* RingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF89821B0362FD003BF9F9 /* RingView.swift */; };
 		B0CE45B71AE543BB0045C3BF /* (null) in Resources */ = {isa = PBXBuildFile; };
 		B0CE45B81AE543BB0045C3BF /* (null) in Resources */ = {isa = PBXBuildFile; };
 		B0DCEF371AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DCEF351AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.swift */; };
@@ -51,6 +56,7 @@
 		B0EDD6A51ABC2A170065644F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0EDD6A41ABC2A170065644F /* Images.xcassets */; };
 		B0EDD6A81ABC2A170065644F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0EDD6A61ABC2A170065644F /* LaunchScreen.xib */; };
 		B0EDD6B41ABC2A170065644F /* CinnamonSparkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0EDD6B31ABC2A170065644F /* CinnamonSparkTests.swift */; };
+		B0F079CD1B038EA200B4A872 /* CircleImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F079CC1B038EA200B4A872 /* CircleImageView.swift */; };
 		B0F1A80D1AF908D0006B3996 /* ASAPIRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F1A80C1AF908D0006B3996 /* ASAPIRequest.swift */; };
 		B0FFC33E1AEB70E2008CE15D /* UIDeviceHardware.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FFC33D1AEB70E2008CE15D /* UIDeviceHardware.m */; };
 /* End PBXBuildFile section */
@@ -90,7 +96,9 @@
 		B02F13AC1AD80C6000075E41 /* CSUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUser.swift; sourceTree = "<group>"; };
 		B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFriendPhotoFeedViewController.swift; sourceTree = "<group>"; };
 		B04543691AEA16E900D46522 /* JSSAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSAlertView.swift; sourceTree = "<group>"; };
+		B04CB50B1B04B8020097C6F0 /* CSDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSDashboard.swift; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
+		B08041A91B022C7F008B19BB /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		B0862F4B1B0112A50026A01D /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+CSMisterCinnamon.swift"; sourceTree = "<group>"; };
 		B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+EmptyBackButton.m"; sourceTree = "<group>"; };
@@ -100,6 +108,9 @@
 		B0A81B8B1AE91D570006F4B4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B0AF55151AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUserWeekPhotoFeedViewController.swift; sourceTree = "<group>"; };
 		B0AF66B11AC1754000E23657 /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
+		B0BF897D1B03466B003BF9F9 /* DashboardViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewCell.swift; sourceTree = "<group>"; };
+		B0BF897E1B03466B003BF9F9 /* DashboardViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DashboardViewCell.xib; sourceTree = "<group>"; };
+		B0BF89821B0362FD003BF9F9 /* RingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RingView.swift; sourceTree = "<group>"; };
 		B0DCEF351AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSRepeatablePhotoBrowserCell.swift; sourceTree = "<group>"; };
 		B0DCEF361AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSRepeatablePhotoBrowserCell.xib; sourceTree = "<group>"; };
 		B0DCEF391AE5342100068B79 /* CSMealRecordDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMealRecordDetailView.swift; sourceTree = "<group>"; };
@@ -120,6 +131,7 @@
 		B0EDD6B21ABC2A170065644F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0EDD6B31ABC2A170065644F /* CinnamonSparkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinnamonSparkTests.swift; sourceTree = "<group>"; };
 		B0EDD6BE1ABC31C90065644F /* CinnamonSpark-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CinnamonSpark-Bridging-Header.h"; sourceTree = SOURCE_ROOT; };
+		B0F079CC1B038EA200B4A872 /* CircleImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleImageView.swift; sourceTree = "<group>"; };
 		B0F1A80C1AF908D0006B3996 /* ASAPIRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ASAPIRequest.swift; sourceTree = "<group>"; };
 		B0FFC33D1AEB70E2008CE15D /* UIDeviceHardware.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIDeviceHardware.m; sourceTree = "<group>"; };
 		B0FFC33F1AEB70E9008CE15D /* UIDeviceHardware.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIDeviceHardware.h; sourceTree = "<group>"; };
@@ -189,6 +201,7 @@
 				B0AF55151AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift */,
 				B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */,
 				B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */,
+				B08041A91B022C7F008B19BB /* DashboardViewController.swift */,
 			);
 			name = UserMealRecords;
 			sourceTree = "<group>";
@@ -210,6 +223,8 @@
 				B0DCEF361AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.xib */,
 				B01B2BDA1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift */,
 				B01B2BDB1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib */,
+				B0BF897D1B03466B003BF9F9 /* DashboardViewCell.swift */,
+				B0BF897E1B03466B003BF9F9 /* DashboardViewCell.xib */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -259,7 +274,6 @@
 				B01B2BE11AEEA7670017919A /* Layouts */,
 				B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */,
 				B014ECBE1AC5B06900DBD1BD /* CSAPIRequest.swift */,
-				B0F1A80C1AF908D0006B3996 /* ASAPIRequest.swift */,
 				B074349A1AC062960065403A /* CSTapSelector.swift */,
 				B022479A1AE7738F0031DADC /* CSMealSizeSelector.swift */,
 				B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */,
@@ -279,11 +293,20 @@
 			name = Delegates;
 			sourceTree = "<group>";
 		};
+		B0BF89811B03629B003BF9F9 /* Ring */ = {
+			isa = PBXGroup;
+			children = (
+				B0BF89821B0362FD003BF9F9 /* RingView.swift */,
+			);
+			name = Ring;
+			sourceTree = "<group>";
+		};
 		B0E3B41A1AC451E500347B91 /* Models */ = {
 			isa = PBXGroup;
 			children = (
 				B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */,
 				B02F13AC1AD80C6000075E41 /* CSUser.swift */,
+				B04CB50B1B04B8020097C6F0 /* CSDashboard.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -329,12 +352,15 @@
 		B0EDD6981ABC2A170065644F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B0BF89811B03629B003BF9F9 /* Ring */,
 				B01B2BE21AEEA7740017919A /* Extensions */,
 				B01B2BE31AEEA7940017919A /* UIDeviceHardware */,
 				B00C45521AEA9EF80023520C /* Onboarding */,
 				B01B2BE41AEEA7AA0017919A /* JSSAlertView */,
+				B0F1A80C1AF908D0006B3996 /* ASAPIRequest.swift */,
 				B0EDD6991ABC2A170065644F /* Info.plist */,
 				B0A81B8B1AE91D570006F4B4 /* Constants.swift */,
+				B0F079CC1B038EA200B4A872 /* CircleImageView.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -441,6 +467,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B01B2BDD1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib in Resources */,
+				B0BF89801B03466B003BF9F9 /* DashboardViewCell.xib in Resources */,
 				B0EDD6A81ABC2A170065644F /* LaunchScreen.xib in Resources */,
 				B0EDD6A51ABC2A170065644F /* Images.xcassets in Resources */,
 				B0CE45B71AE543BB0045C3BF /* (null) in Resources */,
@@ -528,9 +555,14 @@
 				B02F13AD1AD80C6000075E41 /* CSUser.swift in Sources */,
 				B087ACD11AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift in Sources */,
 				B0E3B41E1AC4B71700347B91 /* CSBaseDelegate.swift in Sources */,
+				B0F079CD1B038EA200B4A872 /* CircleImageView.swift in Sources */,
+				B08041AB1B022C7F008B19BB /* DashboardViewController.swift in Sources */,
 				B0AF55161AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift in Sources */,
 				B0DE33A71ACAEC2C003E8626 /* CSTabBarController.swift in Sources */,
 				B087ACD71AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m in Sources */,
+				B0BF897F1B03466B003BF9F9 /* DashboardViewCell.swift in Sources */,
+				B0BF89831B0362FD003BF9F9 /* RingView.swift in Sources */,
+				B04CB50C1B04B8020097C6F0 /* CSDashboard.swift in Sources */,
 				B0A148E61ACD9C010019E08F /* CSGridImageTagLayout.swift in Sources */,
 				B0EDD69E1ABC2A170065644F /* CinnamonSpark.xcdatamodeld in Sources */,
 				B0DE33A51ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift in Sources */,

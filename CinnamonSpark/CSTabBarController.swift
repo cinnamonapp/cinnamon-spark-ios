@@ -83,7 +83,7 @@ class CSTabBarController: UITabBarController {
     
     func cameraButtonAction(sender: AnyObject){
         self.selectedViewController = self.userPhotoFeedNavigationController
-        self.userPhotoFeedNavigationController.openCameraViewController(true)
+//        self.userPhotoFeedNavigationController.openCameraViewController(true)
     }
 
     /*

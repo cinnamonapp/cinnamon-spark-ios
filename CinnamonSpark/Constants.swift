@@ -11,13 +11,13 @@ import Foundation
 // APIEndpoints constant
 let apiEndpoints : (local: String, development: String, staging: String, production: String) = (
     local:          "http://localhost:3000",
-    development:    "http://192.168.1.223:3000",
+    development:    "http://192.168.1.4:3000",
     staging:        "http://cinnamon-staging.herokuapp.com",
     production:     "http://cinnamon-production.herokuapp.com"
 )
 
 // Change this constant to change the endpoint for entire app
-let primaryAPIEndpoint = apiEndpoints.production
+let primaryAPIEndpoint = apiEndpoints.staging
 
 
 let SocialFeedQuirkyMessages = [
@@ -32,7 +32,7 @@ let UserFeedQuirkyMessages = [
     "Hello Meal View!"
 ]
 
-let viewsBackgroundColor = UIColor(red: 239/255, green: 242/255, blue: 230/255, alpha: 1)
+let viewsBackgroundColor = UIColor.blackColor()
 let viewsInsideBackgroundColor = UIColor.whiteColor()
 
 let mainActionColor = UIColor(red: 169/255, green: 179/255, blue: 140/255, alpha: 1)

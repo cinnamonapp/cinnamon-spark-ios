@@ -43,7 +43,8 @@ class CSUserPhotoFeedNavigationController: UINavigationController {
         
         self.viewControllers = [self.userWeekPhotoFeedViewController, self.userPhotoFeedViewController]
         
-        self.appendMisterCinnamon()
+        self.navigationBarHidden = true
+//        self.appendMisterCinnamon()
     }
 
     override func didReceiveMemoryWarning() {
@@ -57,19 +58,16 @@ class CSUserPhotoFeedNavigationController: UINavigationController {
         }
     }
     
+    // Open the meal detail view
     func openMealDetailViewControllerWithPhotoId(photoId: String, animated: Bool){
-        let detailView = CSMealRecordDetailView(photoId: photoId)
+//        let detailView = CSMealRecordDetailView(photoId: photoId)
 
-        self.openUserPhotoFeedViewControllerAnimated(animated)
-        self.pushViewController(detailView, animated: animated)
+//        self.openUserPhotoFeedViewControllerAnimated(animated)
+//        self.presentViewController(detailView, animated: true, completion: nil)
+        
+        // Uses the method from the userPhotoFeedViewController
+        self.userPhotoFeedViewController.openMealDetailViewControllerWithPhotoId(photoId, animated: animated)
     }
-    
-    func openCameraViewController(animated: Bool){
-        self.openUserPhotoFeedViewControllerAnimated(animated)
-        // TODO: - Move thid into this navigation controller?
-        self.userPhotoFeedViewController.openCamera()
-    }
-    
     
     // MARK: - Custom behaviour for UINavigationController
     override func popToRootViewControllerAnimated(animated: Bool) -> [AnyObject]? {
