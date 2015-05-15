@@ -25,6 +25,16 @@ class RingView: UIView {
         }
     }
     
+    var fillColor : UIColor{
+        get{
+            return UIColor(CGColor: circlePathLayer.strokeColor)
+        }
+        
+        set{
+            circlePathLayer.strokeColor = newValue.CGColor
+        }
+    }
+    
     var progress: CGFloat {
         get {
             return circlePathLayer.strokeEnd
@@ -39,6 +49,16 @@ class RingView: UIView {
             }
         }
     }
+    
+//    func setProgress(toProgress: CGFloat, animated: Bool){
+//        let animation = CABasicAnimation(keyPath: "strokeEnd")
+//        animation.duration = 0.8
+//        animation.fromValue = progress
+//        animation.toValue = toProgress
+//        animation.repeatCount = 2
+//
+//        circlePathLayer.addAnimation(animation, forKey: "progressAnimation")
+//    }
     
     var reverseProgress: CGFloat {
         get{
@@ -74,27 +94,29 @@ class RingView: UIView {
         
         configureBack()
         
-        circlePathLayer.frame = bounds
+        circlePathLayer.frame       = bounds
         
-        circlePathLayer.lineWidth = lineWidth
-        circlePathLayer.fillColor = UIColor.clearColor().CGColor
+        circlePathLayer.lineWidth   = lineWidth
+        circlePathLayer.fillColor   = UIColor.clearColor().CGColor
         circlePathLayer.strokeColor = yellow.CGColor
         
-        circlePathLayer.lineCap = kCALineCapRound
-        circlePathLayer.lineJoin = kCALineJoinRound
+        circlePathLayer.lineCap     = kCALineCapRound
+        circlePathLayer.lineJoin    = kCALineJoinRound
         
         layer.addSublayer(circlePathLayer)
         
-//        backgroundColor = UIColor.whiteColor()
     }
     
     func configureBack(){
-        backCirclePathLayer.frame = bounds
         
-        backCirclePathLayer.lineWidth = lineWidth
-        backCirclePathLayer.fillColor = UIColor.clearColor().CGColor
+        backCirclePathLayer.frame       = bounds
+        
+        backCirclePathLayer.lineWidth   = lineWidth
+        backCirclePathLayer.fillColor   = UIColor.clearColor().CGColor
         backCirclePathLayer.strokeColor = transparent.CGColor
+        
         layer.addSublayer(backCirclePathLayer)
+        
     }
     
     func circleFrame() -> CGRect {

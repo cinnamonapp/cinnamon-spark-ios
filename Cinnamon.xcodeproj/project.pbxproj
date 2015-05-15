@@ -25,6 +25,7 @@
 		B02F13AD1AD80C6000075E41 /* CSUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AC1AD80C6000075E41 /* CSUser.swift */; };
 		B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */; };
 		B045436A1AEA16E900D46522 /* JSSAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04543691AEA16E900D46522 /* JSSAlertView.swift */; };
+		B045C20C1B05ED4C008A3883 /* DotsScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B045C20B1B05ED4C008A3883 /* DotsScrollView.swift */; };
 		B04CB50C1B04B8020097C6F0 /* CSDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CB50B1B04B8020097C6F0 /* CSDashboard.swift */; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
 		B08041AB1B022C7F008B19BB /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08041A91B022C7F008B19BB /* DashboardViewController.swift */; };
@@ -96,6 +97,7 @@
 		B02F13AC1AD80C6000075E41 /* CSUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUser.swift; sourceTree = "<group>"; };
 		B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFriendPhotoFeedViewController.swift; sourceTree = "<group>"; };
 		B04543691AEA16E900D46522 /* JSSAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSSAlertView.swift; sourceTree = "<group>"; };
+		B045C20B1B05ED4C008A3883 /* DotsScrollView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotsScrollView.swift; sourceTree = "<group>"; };
 		B04CB50B1B04B8020097C6F0 /* CSDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSDashboard.swift; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
 		B08041A91B022C7F008B19BB /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 				B0EDD6991ABC2A170065644F /* Info.plist */,
 				B0A81B8B1AE91D570006F4B4 /* Constants.swift */,
 				B0F079CC1B038EA200B4A872 /* CircleImageView.swift */,
+				B045C20B1B05ED4C008A3883 /* DotsScrollView.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -540,6 +543,7 @@
 				B00C45501AEA9EF40023520C /* OnboardingContentViewController.m in Sources */,
 				B0F1A80D1AF908D0006B3996 /* ASAPIRequest.swift in Sources */,
 				B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */,
+				B045C20C1B05ED4C008A3883 /* DotsScrollView.swift in Sources */,
 				B0DCEF3B1AE5342100068B79 /* CSMealRecordDetailView.swift in Sources */,
 				B00C45511AEA9EF40023520C /* OnboardingViewController.m in Sources */,
 				B01B2BE61AEEBC4C0017919A /* CSUserPhotoFeedNavigationController.swift in Sources */,

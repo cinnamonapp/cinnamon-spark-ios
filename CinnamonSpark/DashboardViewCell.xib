@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="330" height="525"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6lH-B6-OES">
-                        <rect key="frame" x="53" y="50" width="225" height="47"/>
+                        <rect key="frame" x="53" y="41" width="225" height="47"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="225" id="cPD-bV-Scf"/>
                         </constraints>
@@ -28,7 +28,7 @@ carb dinner will do good.</string>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wgj-Zs-XHl">
-                        <rect key="frame" x="0.0" y="107" width="330" height="330"/>
+                        <rect key="frame" x="0.0" y="98" width="330" height="330"/>
                         <subviews>
                             <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tWE-mp-mph" customClass="RingView" customModule="Cinnamon" customModuleProvider="target">
                                 <rect key="frame" x="23" y="22" width="285" height="285"/>
@@ -44,10 +44,6 @@ carb dinner will do good.</string>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DishTest" translatesAutoresizingMaskIntoConstraints="NO" id="O0y-pu-Hit" customClass="CircleImageView" customModule="Cinnamon" customModuleProvider="target">
                                         <rect key="frame" x="29" y="30" width="225" height="225"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="225" id="cv0-sG-ZGq"/>
-                                            <constraint firstAttribute="width" constant="225" id="qaa-nY-rCY"/>
-                                        </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50g" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HOE-2C-AlT">
                                         <rect key="frame" x="82" y="80" width="119" height="89"/>
@@ -103,6 +99,8 @@ carb dinner will do good.</string>
                                     <constraint firstItem="O0y-pu-Hit" firstAttribute="top" secondItem="24h-oM-WYz" secondAttribute="top" id="65g-ei-bmd"/>
                                     <constraint firstItem="O0y-pu-Hit" firstAttribute="leading" secondItem="24h-oM-WYz" secondAttribute="leading" id="F8E-Ld-AAN"/>
                                     <constraint firstAttribute="centerY" secondItem="24h-oM-WYz" secondAttribute="centerY" id="ITo-va-Kmg"/>
+                                    <constraint firstItem="24h-oM-WYz" firstAttribute="height" secondItem="O0y-pu-Hit" secondAttribute="height" id="J8Y-Oc-Dv7"/>
+                                    <constraint firstItem="24h-oM-WYz" firstAttribute="width" secondItem="O0y-pu-Hit" secondAttribute="width" id="MxM-g9-tAM"/>
                                     <constraint firstAttribute="centerX" secondItem="24h-oM-WYz" secondAttribute="centerX" constant="0.5" id="Za6-dh-03Q"/>
                                     <constraint firstAttribute="width" secondItem="24h-oM-WYz" secondAttribute="width" constant="60" id="bC8-4e-UPf"/>
                                     <constraint firstItem="O0y-pu-Hit" firstAttribute="top" secondItem="HOE-2C-AlT" secondAttribute="top" constant="-50" id="e5d-Wx-fLv"/>
@@ -121,6 +119,12 @@ carb dinner will do good.</string>
                             <constraint firstAttribute="height" constant="330" id="xad-Oa-Na8"/>
                         </constraints>
                     </view>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPn-bl-zNA" customClass="DotsScrollView" customModule="Cinnamon" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="435" width="330" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="yTA-X9-eZV"/>
+                        </constraints>
+                    </scrollView>
                 </subviews>
                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             </view>
@@ -128,15 +132,24 @@ carb dinner will do good.</string>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="iT4-8a-aiW" secondAttribute="bottom" id="9Od-dR-ESm"/>
                 <constraint firstAttribute="centerX" secondItem="6lH-B6-OES" secondAttribute="centerX" constant="-0.5" id="Kim-df-tld"/>
+                <constraint firstAttribute="centerY" secondItem="wgj-Zs-XHl" secondAttribute="centerY" id="MlX-HY-0oU"/>
+                <constraint firstItem="YPn-bl-zNA" firstAttribute="bottom" secondItem="iT4-8a-aiW" secondAttribute="bottom" constant="-60" id="O08-W2-j02"/>
                 <constraint firstAttribute="trailing" secondItem="wgj-Zs-XHl" secondAttribute="trailing" id="OZk-gw-2Oo"/>
-                <constraint firstItem="6lH-B6-OES" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="50" id="UNg-va-J25"/>
+                <constraint firstItem="YPn-bl-zNA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="QSR-pO-uOu"/>
                 <constraint firstAttribute="trailing" secondItem="iT4-8a-aiW" secondAttribute="trailing" id="ZiZ-qB-8ve"/>
                 <constraint firstItem="iT4-8a-aiW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="bFn-kV-aHt"/>
+                <constraint firstItem="wgj-Zs-XHl" firstAttribute="top" secondItem="6lH-B6-OES" secondAttribute="bottom" constant="10" id="bk8-y2-67n"/>
+                <constraint firstAttribute="trailing" secondItem="YPn-bl-zNA" secondAttribute="trailing" id="cUF-oE-YeD"/>
                 <constraint firstItem="wgj-Zs-XHl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="hSV-Ie-Tje"/>
                 <constraint firstItem="wgj-Zs-XHl" firstAttribute="top" secondItem="6lH-B6-OES" secondAttribute="bottom" constant="10" id="ibV-z3-DdR"/>
                 <constraint firstItem="iT4-8a-aiW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="jNr-rV-p5N"/>
             </constraints>
             <size key="customSize" width="330" height="525"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="ibV-z3-DdR"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="backgroundImage" destination="iT4-8a-aiW" id="xc1-iC-48w"/>
                 <outlet property="carbsIndicatorSupportTextView" destination="4Un-zC-1jZ" id="det-gk-jFm"/>
@@ -146,6 +159,7 @@ carb dinner will do good.</string>
                 <outlet property="lastMealRecordView" destination="O0y-pu-Hit" id="YQt-oG-EzD"/>
                 <outlet property="messageView" destination="6lH-B6-OES" id="qC5-Jh-6dh"/>
                 <outlet property="ringDisplayView" destination="tWE-mp-mph" id="9fl-iP-sv3"/>
+                <outlet property="streakDotsView" destination="YPn-bl-zNA" id="fiM-Ra-woi"/>
             </connections>
             <point key="canvasLocation" x="307" y="438.5"/>
         </collectionViewCell>

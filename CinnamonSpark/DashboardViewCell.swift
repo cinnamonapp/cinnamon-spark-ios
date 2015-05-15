@@ -19,6 +19,7 @@ class DashboardViewCell: UICollectionViewCell {
     @IBOutlet var carbsIndicatorView: UILabel!
     @IBOutlet var carbsIndicatorSupportTextView: UILabel!
     @IBOutlet var messageView: UILabel!
+    @IBOutlet var streakDotsView: DotsScrollView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

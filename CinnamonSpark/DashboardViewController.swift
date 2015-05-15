@@ -96,19 +96,66 @@ class DashboardViewController: UICollectionViewController {
                 
                 if let dashboard = dashboardObject{
                     
+                    // Cell background
+                    cell.backgroundImage.sd_setImageWithURL(dashboard.backgroundImageURL, placeholderImage: cell.backgroundImage.image)
+                    
+                    // Ring progress
                     let dailyCarbsLimit = dashboard.dailyCarbsLimit
                     let dailyUsedCarbs = dashboard.dailyUsedCarbs
-                    
+                    let dailyRemainingCarbs = dashboard.dailyRemainingCarbs
+
                     let progress : CGFloat = CGFloat(dailyUsedCarbs) / CGFloat(dailyCarbsLimit)
                     
                     cell.ringDisplayView.progress = progress
                     
+                    // Basic ring color logic
+                    if(dailyUsedCarbs > dailyCarbsLimit){
+                        cell.ringDisplayView.fillColor = UIColorFromHex(0xAB0500, alpha: 1.0)
+                    }else if(dailyUsedCarbs < dailyCarbsLimit - 50){
+                        cell.ringDisplayView.fillColor = UIColorFromHex(0x3F6177, alpha: 1.0)
+                    }else{
+                        cell.ringDisplayView.fillColor = UIColorFromHex(0xFEDB6C, alpha: 1.0)
+                    }
                     
-                    cell.carbsIndicatorView.text = "\(dashboard.dailyRemainingCarbs)g"
                     
+                    // Carbs indicator
+                    
+                    cell.carbsIndicatorView.text = "\(dailyRemainingCarbs)g"
+                    cell.carbsIndicatorSupportTextView.text = "left"
+                    
+                    if(dailyRemainingCarbs < 0){
+                        cell.carbsIndicatorView.text = "+\(-dailyRemainingCarbs)g"
+                        cell.carbsIndicatorSupportTextView.text = "above"
+                    }
+                    
+                    // Last meal
                     cell.setLastMealRecord(dashboard.lastMealRecord)
                     
-                    cell.backgroundImage.sd_setImageWithURL(dashboard.backgroundImageURL)
+                    if let currentStreak = dashboard.currentStreak{
+                        
+                        var colors : [UIColor] = []
+                        for streakDay in currentStreak{
+                            var color : UIColor = UIColor.clearColor()
+                            if(streakDay.mealRecordsCount > 0){
+                                if(streakDay.dailyUsedCarbs > streakDay.dailyCarbsLimit){
+                                    color = UIColorFromHex(0xAB0500, alpha: 1.0)
+                                }else if(streakDay.dailyUsedCarbs < streakDay.dailyCarbsLimit - 50){
+                                    color = UIColorFromHex(0x3F6177, alpha: 1.0)
+                                }else{
+                                    color = UIColorFromHex(0xFEDB6C, alpha: 1.0)
+                                }
+                            }
+                            
+                            colors.append(color)
+                        }
+                        
+                        cell.streakDotsView.colorDotsWithColors(colors)
+                    }
+                    
+                    if let smartAlertMessage = dashboard.smartAlertMessage{
+                        cell.messageView.text = smartAlertMessage
+                    }
+                    
                 }
             }
         }

@@ -208,6 +208,7 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
         // Init this
         let layout      = UICollectionViewFlowLayout()
         layout.itemSize = UIScreen.mainScreen().bounds.size
+
         dashboardViewController = DashboardViewController(collectionViewLayout: layout)
         
         // Init this
