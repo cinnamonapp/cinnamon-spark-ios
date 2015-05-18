@@ -4,8 +4,9 @@
 target 'Cinnamon' do
     pod "FastttCamera"
     pod "AFNetworking", "~> 2.0"
-    pod "Fabric", "~> 1.2"
+#    pod "Fabric"
     pod "DateTools"
+    pod "SDWebImage", "~> 3.7"
 end
 
 target 'CinnamonTests' do

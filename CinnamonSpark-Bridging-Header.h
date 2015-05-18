@@ -3,7 +3,6 @@
 //
 
 #import "FastttCamera.h"
-#import "MWPhotoBrowser.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "DateTools.h"

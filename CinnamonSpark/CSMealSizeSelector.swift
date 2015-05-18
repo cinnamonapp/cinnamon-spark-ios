@@ -24,6 +24,8 @@ class CSMealSizeSelector: UIView{
         self.imageView = UIImageView()
         
         self.frame = mirrorView.frame
+        self.frame.size.height = mirrorView.frame.width
+        self.frame.origin.y = CGRectGetMidY(mirrorView.frame) - self.frame.size.height / 2
         
         self.selectedValueIndex = 0
         

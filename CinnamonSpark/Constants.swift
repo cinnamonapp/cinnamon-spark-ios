@@ -17,7 +17,7 @@ let apiEndpoints : (local: String, development: String, staging: String, product
 )
 
 // Change this constant to change the endpoint for entire app
-let primaryAPIEndpoint = apiEndpoints.development
+let primaryAPIEndpoint = apiEndpoints.local
 
 
 let SocialFeedQuirkyMessages = [

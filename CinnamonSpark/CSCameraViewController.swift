@@ -42,28 +42,35 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate, UITextView
         
 //        self.title = "What did you have?"
         
+//        self.view.backgroundColor = UIColor.blackColor()
+//        
+//        self.initiateCamera(CSCameraFrameModes.FullFrame)
+//        self.displayCamera()
+//        
+//        self.initiateTapSelector()
+//        self.displayTapSelector()
+//        
+//        self.initiateRetakeButton()
+//        
+//        self.initiateCameraButton()
+//        self.displayCameraButton(CSCameraButtomModes.TakePicture)
+//        
+//        self.displayCloseButton()
+//        
+//        self.initiateTitleInputField()
+//        
+//        self.navigationController?.navigationBar.translucent = true
+//        self.navigationController?.navigationBar.shadowImage = UIImage()
+//        self.navigationController?.navigationBar.alpha = 0
+//        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+//        self.navigationController?.navigationBar.tintColor = mainActionColor
+        
         self.view.backgroundColor = UIColor.blackColor()
         
-        self.initiateCamera(CSCameraFrameModes.SquareFrame)
-        self.displayCamera()
+        self.navigationController?.navigationBarHidden = true
         
-        self.initiateTapSelector()
-        self.displayTapSelector()
-        
-        self.initiateRetakeButton()
-        
-        self.initiateCameraButton()
-        self.displayCameraButton(CSCameraButtomModes.TakePicture)
-        
-        self.displayCloseButton()
-        
-        self.initiateTitleInputField()
-        
-        self.navigationController?.navigationBar.translucent = true
-        self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.alpha = 0
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-        self.navigationController?.navigationBar.tintColor = mainActionColor
+        let cameraView = CSFastCameraView(parentViewController: self)
+        self.view.addSubview(cameraView)
         
     }
     
@@ -106,11 +113,12 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate, UITextView
         let mainScreen = UIScreen.mainScreen().bounds
         
         fastCamera = FastttCamera()
-        fastCamera.handlesTapFocus = false
-        fastCamera.showsFocusView = false
-        fastCamera.delegate = self
-        fastCamera.interfaceRotatesWithOrientation = false
-        fastCamera.returnsRotatedPreview = false
+        
+        fastCamera.handlesTapFocus                  = false
+        fastCamera.showsFocusView                   = false
+        fastCamera.delegate                         = self
+        fastCamera.interfaceRotatesWithOrientation  = false
+        fastCamera.returnsRotatedPreview            = false
         
         fastCamera.view.frame = self.view.frame
         
@@ -118,9 +126,10 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate, UITextView
             fastCamera.view.frame.size.height = self.view.frame.width
             
             // Add some top space equals the navigation bar's height
-            if let navigationBarHeight = self.navigationController?.navigationBar{
-                fastCamera.view.frame.origin.y = navigationBarHeight.frame.height
-            }
+//            if let navigationBarHeight = self.navigationController?.navigationBar{
+//                fastCamera.view.frame.origin.y = navigationBarHeight.frame.height
+//            }
+
             
         }
         
