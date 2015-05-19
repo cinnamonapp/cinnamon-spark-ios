@@ -133,33 +133,6 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
     func displayCameraButton(){
         self.view.addSubview(self.cameraButton)
     }
-
-    
-    func didTakePicture(image: UIImage, withSelectionValue selectedValue: AnyObject) {
-        // Save image to photo album
-        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-        
-        userDishCount += 1
-        
-        // Show the alert for the first 5 times
-        // and every 50th dish uploaded
-        if (userDishCount <= 5 || userDishCount % 50 == 0){
-            
-            var s = (userDishCount > 1) ? "s" : ""
-            
-            var alertview = JSSAlertView().show(self.cameraViewController, title: "Awesome", text: "You are awesome my friend, \(userDishCount) meal\(s) already and going straight! Now hold on, we know you can't wait to see your carb result.\nWe will notify you.", buttonText: "Whoa", color: mainActionColor, iconImage: UIImage(named: "MonsterCircle"))
-            
-            alertview.setTextTheme(.Light)
-            alertview.addAction { () -> Void in
-                self.cameraViewController.dismissViewControllerAnimated(true, completion: nil)
-            }
-            
-        }else{
-            self.cameraViewController.dismissViewControllerAnimated(true, completion: nil)
-        }
-        
-        
-    }
     
     
     func didSuccessfullyCreateMealRecord(response: NSDictionary) {
@@ -183,31 +156,68 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
     
 
     func cameraViewController(cameraViewController: CSCameraViewController, didConfirmPictureWithScaledImage scaledImage: UIImage, withSize size: CSFastCameraSize?, withServing serving: CSFastCameraServing?, andDescription description: String?) {
-        let imageData = UIImageJPEGRepresentation(scaledImage, 0.7)
+        
+        //        let rotatedImage = scaledImage.imageRotatedByDegrees(90, flip: false)
+        let image = scaledImage //cameraViewController.cameraView.takenPicture!
+        let rotatedImage = UIImage(CGImage: image.CGImage, scale: image.scale, orientation: UIImageOrientation.Right)
+        
+        let imageData = UIImageJPEGRepresentation(rotatedImage, 0.7)
+        
+        // Save image to photo album
+        UIImageWriteToSavedPhotosAlbum(rotatedImage, nil, nil, nil)
         
         var title = description!
         if(title == "Tell me more..."){
             title = ""
         }
         
-        let s = size!
-        
         let params : NSDictionary = [
             "meal_record": [
                 "title": title,
-                "size": s.id as Int
+                "size": size!.id,
+                "serving": serving!.id
             ]
         ]
+        
+        cameraViewController.dismissViewControllerAnimated(true, completion: nil)
         
         CSAPIRequest().createMealRecord(params, withImageData: imageData, success: handleCreateMealRecordRequestSuccess)
         
     }
     
-    
-    func handleCreateMealRecordRequestSuccess(request: AFHTTPRequestOperation!, response: AnyObject!){
-        println("uploaded successfully")
+    func showMonster(){
+//        userDishCount += 1
+//        
+//        // Show the alert for the first 5 times
+//        // and every 50th dish uploaded
+//        if (userDishCount <= 5 || userDishCount % 50 == 0){
+//            
+//            var s = (userDishCount > 1) ? "s" : ""
+//            
+//            var alertview = JSSAlertView().show(self.cameraViewController, title: "Awesome", text: "You are awesome my friend, \(userDishCount) meal\(s) already and going straight! Now hold on, we know you can't wait to see your carb result.\nWe will notify you.", buttonText: "Whoa", color: mainActionColor, iconImage: UIImage(named: "MonsterCircle"))
+//            
+//            alertview.setTextTheme(.Light)
+//            alertview.addAction { () -> Void in
+//                self.cameraViewController.dismissViewControllerAnimated(true, completion: nil)
+//            }
+//            
+//        }else{
+//            self.cameraViewController.dismissViewControllerAnimated(true, completion: nil)
+//        }
+
     }
     
+    func handleCreateMealRecordRequestSuccess(request: AFHTTPRequestOperation!, response: AnyObject!){
+        if let dashboard = pageStack.dashboardViewController.dashboardObject{
+            let mealRecord = CSPhoto(dictionary: response as NSDictionary)
+            
+            dashboard.backgroundImageURL = mealRecord.photoURL(.BlurredBackground)
+            dashboard.lastMealRecord = mealRecord
+        }
+        pageStack.dashboardViewController.setReloadCollectionView()
+    }
+    
+
     /*
     // MARK: - Navigation
 

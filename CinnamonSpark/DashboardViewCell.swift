@@ -21,14 +21,23 @@ class DashboardViewCell: UICollectionViewCell {
     @IBOutlet var messageView: UILabel!
     @IBOutlet var streakDotsView: DotsScrollView!
     
+    var ringDisplayViewTapGesture : UITapGestureRecognizer{
+        get{
+            return _ringDisplayViewTapGesture
+        }
+    }
+    let _ringDisplayViewTapGesture = UITapGestureRecognizer()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
         ringDisplayView?.progress = 0
-        carbsIndicatorView?.text = "150g"
+        carbsIndicatorView?.text = "200g"
         carbsIndicatorSupportTextView?.text = "left"
         lastMealRecordView.contentMode = UIViewContentMode.Center
+        
+        ringDisplayView.addGestureRecognizer(ringDisplayViewTapGesture)
         
         setLastMealRecord(nil)
     }
@@ -76,5 +85,10 @@ class DashboardViewCell: UICollectionViewCell {
             lastMealRecordView.hidden = true
             lastMealRecordCarbsContainerView.hidden = true
         }
+        
+        
+        // Force hide the carbs number
+        lastMealRecordCarbsContainerView.hidden = true
     }
+    
 }

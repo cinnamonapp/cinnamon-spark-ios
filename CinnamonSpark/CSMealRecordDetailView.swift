@@ -41,10 +41,6 @@ class CSMealRecordDetailView: UICollectionViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-        if(self.photo != nil){
-            self.setQuirkyMessageWithPhoto(self.photo)
-        }
-        
         // Temporary fix for custom navbar
         self.collectionView?.frame.origin.y += 30
         self.collectionView?.frame.size.height -= 30
@@ -56,27 +52,21 @@ class CSMealRecordDetailView: UICollectionViewController {
         self.collectionView?.backgroundColor = viewsInsideBackgroundColor
         
         // Do any additional setup after loading the view.
+        
+        if let navigationController = self.navigationController{
+            println("here")
+//            navigationController.navigationBar.tintColor = UIColor.clearColor()
+            navigationController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "closeViewController")
+        }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    func setQuirkyMessageWithPhoto(photo: CSPhoto){
-        if let carbs = photo.carbsEstimate{
-            switch carbs{
-            case .High:
-                self.setQuirkyMessage("I hope it was\n delicious at least.")
-                break
-            case .Medium:
-                self.setQuirkyMessage("Quite good my friend,\n quite good.")
-                break
-            default: // .Low
-                self.setQuirkyMessage("This looks like you\n finally learned something.")
-            }
-        }
-
+    
+    func closeViewController(){
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     /*
@@ -99,8 +89,6 @@ class CSMealRecordDetailView: UICollectionViewController {
         var mealRecord = responseObject as NSDictionary
         
         self.photo = CSPhoto(dictionary: mealRecord)
-        
-        self.setQuirkyMessageWithPhoto(self.photo)
         
         self.collectionView?.reloadData()
     }

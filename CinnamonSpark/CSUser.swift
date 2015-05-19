@@ -19,8 +19,13 @@ class CSUser: NSObject {
 
     convenience init(dictionary: NSDictionary){
         self.init()
-        
-        self.id = (dictionary["id"] as Int).description
+
+        if let idString = dictionary["id"] as? String{
+            self.id = idString
+        }else if let idInt = dictionary["id"] as? Int{
+            self.id = idInt.description
+        }
+
         self.username = dictionary["username"] as String
         
         self.nanoProfilePictureURL = NSURL(string: dictionary["profile_picture_nano_url"] as String)

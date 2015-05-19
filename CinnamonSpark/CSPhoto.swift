@@ -8,10 +8,24 @@
 
 import UIKit
 
+enum CSPhotoPhotoStyle : String{
+    case Thumbnail          = "thumbnail"
+    case Medium             = "medium"
+    case Large              = "large"
+    case Original           = "original"
+    case BlurredBackground  = "blurred_background"
+}
+
 enum CSPhotoMealSize{
+    case ExtraSmall
     case Small
     case Medium
     case Large
+}
+
+enum CSPhotoServing{
+    case Cup
+    case Piece
 }
 
 enum CSPhotoMealCarbsEstimate{
@@ -27,6 +41,7 @@ class CSPhoto: NSObject {
     var user : CSUser!
     var createdAtDate : NSDate!
     var size : CSPhotoMealSize!
+    var serving : CSPhotoServing!
     var carbsEstimate : CSPhotoMealCarbsEstimate?
     var carbsEstimateGrams : Int?
     
@@ -51,6 +66,10 @@ class CSPhoto: NSObject {
         
         if let size = dictionary["size"] as? Int{
             self.size = self.evaluateSize(size)
+        }
+        
+        if let serving = dictionary["serving"] as? Int{
+            self.serving = self.evaluateServing(serving)
         }
         
         
@@ -83,21 +102,41 @@ class CSPhoto: NSObject {
         
         switch intSize{
         case 1:
-            size = .Small
+            size = .ExtraSmall
             break
         case 2:
-            size = .Medium
+            size = .Small
             break
         case 3:
+            size = .Medium
+            break
+        case 4:
             size = .Large
             break
         default:
             size = .Small
         }
-    
+        
         return size
     }
-
+    
+    private func evaluateServing(intServing : Int) -> CSPhotoServing{
+        var serving = CSPhotoServing.Cup
+        
+        switch intServing{
+        case 1:
+            serving = .Cup
+            break
+        case 2:
+            serving = .Piece
+            break
+        default:
+            serving = .Cup
+        }
+        
+        return serving
+    }
+    
     private func evaluateCarbsEstimate(intEstimate: Int) -> CSPhotoMealCarbsEstimate{
         var estimate = CSPhotoMealCarbsEstimate.Medium
         
@@ -133,5 +172,12 @@ class CSPhoto: NSObject {
         date = date.dateByAddingTimeInterval(NSTimeInterval(systemZone.secondsFromGMT))
 
         return date
+    }
+    
+    func photoURL(style: CSPhotoPhotoStyle) -> NSURL{
+        var urlString = self.URL.description
+        urlString = urlString.stringByReplacingOccurrencesOfString("original", withString: style.rawValue)
+        
+        return NSURL(string: urlString)!
     }
 }

@@ -20,8 +20,6 @@ import UIKit
 }
 
 class CSFastCameraView: UIView, FastttCameraDelegate, CSFastCameraSizeSelectorDelegate, CSFastCameraControlsDelegate, CSFastCameraServingSelectorDelegate {
-
-    var parentViewController : UIViewController?
     
     var cameraView : FastttCamera!
 
@@ -39,19 +37,14 @@ class CSFastCameraView: UIView, FastttCameraDelegate, CSFastCameraSizeSelectorDe
     
     var stillImageView : UIImageView!
     
+    var takenPicture : UIImage?
+    
     override init(){
         super.init()
     }
     
     override init(frame: CGRect){
         super.init(frame: frame)
-    }
-    
-    convenience init(parentViewController: UIViewController){
-        self.init()
-        frame = parentViewController.view.frame
-        self.parentViewController = parentViewController
-        configure()
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -87,7 +80,6 @@ class CSFastCameraView: UIView, FastttCameraDelegate, CSFastCameraSizeSelectorDe
         sizeSelector.delegate = self
         
         self.addSubview(sizeSelector)
-        
         
         
         // Above camera toolbar
@@ -149,6 +141,7 @@ class CSFastCameraView: UIView, FastttCameraDelegate, CSFastCameraSizeSelectorDe
         
         if(stillImageView.image == nil){
             cameraView.takePicture()
+            cameraControlsView.shutterButton.userInteractionEnabled = false
         }else{
             if let ifDelegate = delegate{
                 if(ifDelegate.respondsToSelector("fastCameraDidConfirmPictureWithScaledImage:withSize:andServing:")){
@@ -183,10 +176,10 @@ class CSFastCameraView: UIView, FastttCameraDelegate, CSFastCameraSizeSelectorDe
         if let value = selectedValue{
             if(value.id == 1){
                 sizeSelector.values = [
-                    CSFastCameraSize(id: 1, name: "1/2 cup"),
-                    CSFastCameraSize(id: 1, name: "1 cup"),
-                    CSFastCameraSize(id: 2, name: "3/2 cup"),
-                    CSFastCameraSize(id: 3, name: "2 cups")
+                    CSFastCameraSize(id: 1, name: "0.5 cup"),
+                    CSFastCameraSize(id: 2, name: "1 cup"),
+                    CSFastCameraSize(id: 3, name: "1.5 cups"),
+                    CSFastCameraSize(id: 4, name: "2 cups")
                 ]
                 
             }
@@ -194,9 +187,9 @@ class CSFastCameraView: UIView, FastttCameraDelegate, CSFastCameraSizeSelectorDe
             if(value.id == 2){
                 sizeSelector.values = [
                     CSFastCameraSize(id: 1, name: "Extra small"),
-                    CSFastCameraSize(id: 1, name: "Small"),
-                    CSFastCameraSize(id: 2, name: "Medium"),
-                    CSFastCameraSize(id: 3, name: "Large")
+                    CSFastCameraSize(id: 2, name: "Small"),
+                    CSFastCameraSize(id: 3, name: "Medium"),
+                    CSFastCameraSize(id: 4, name: "Large")
                 ]
             }
         }
@@ -205,12 +198,14 @@ class CSFastCameraView: UIView, FastttCameraDelegate, CSFastCameraSizeSelectorDe
     
     func cameraController(cameraController: FastttCameraInterface!, didFinishScalingCapturedImage capturedImage: FastttCapturedImage!) {
         
+        cameraControlsView.shutterButton.userInteractionEnabled = true
         stillImageView.image = capturedImage.scaledImage
         
         self.setNeedsLayout()
         
         if let ifDelegate = delegate{
             if(ifDelegate.respondsToSelector("fastCameraDidTakePictureWithScaledImage:withSize:andServing:")){
+                takenPicture = capturedImage.scaledImage
                 ifDelegate.fastCameraDidTakePictureWithScaledImage(capturedImage.scaledImage, withSize: sizeSelector.selectedValue, andServing: servingSelector.selectedServing)
             }
         }

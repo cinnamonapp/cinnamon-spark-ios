@@ -68,9 +68,11 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
     }
     
     func openMealDetailViewControllerWithPhotoId(photoId: String, animated: Bool){
-        let mealDetailViewController = CSMealRecordDetailView(photoId: photoId)
         
-        self.presentViewController(mealDetailViewController, animated: animated, completion: nil)
+        let mealDetailViewController = CSMealRecordDetailView(photoId: photoId)
+        let navController = UINavigationController(rootViewController: mealDetailViewController)
+        
+        self.presentViewController(navController, animated: animated, completion: nil)
     }
     
 }

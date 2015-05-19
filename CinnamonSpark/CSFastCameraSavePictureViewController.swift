@@ -49,9 +49,13 @@ class CSFastCameraSavePictureViewController: UIViewController, CSFastCameraContr
     var selectedServing : CSFastCameraServing?
     var selectedSize : CSFastCameraSize?
     
+    var _originalPicture : UIImage?
+    
     convenience init(image: UIImage!){
         self.init()
         configure()
+        
+        _originalPicture = image
         
         var blurredImage = image.applyBlurWithRadius(CGFloat(8), tintColor: nil, saturationDeltaFactor: 1, maskImage: nil)
         blurredImage = blurredImage.imageRotatedByDegrees(90, flip: false)
@@ -198,7 +202,7 @@ class CSFastCameraSavePictureViewController: UIViewController, CSFastCameraContr
     func fastCameraControlsDidTapShutterButton(fastCameraControls: CSFastCameraControls) {
         if let ifDelegate = delegate{
             if(ifDelegate.respondsToSelector("savePictureControllerDidConfirmPictureWithScaledImage:withSize:withServing:andDescription:")){
-                ifDelegate.savePictureControllerDidConfirmPictureWithScaledImage(foregroundImage!, withSize: selectedSize, withServing: selectedServing, andDescription: imageDetailsTextField.text)
+                ifDelegate.savePictureControllerDidConfirmPictureWithScaledImage(_originalPicture!, withSize: selectedSize, withServing: selectedServing, andDescription: imageDetailsTextField.text)
             }
         }
 

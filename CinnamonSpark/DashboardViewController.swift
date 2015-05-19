@@ -52,6 +52,10 @@ class DashboardViewController: UICollectionViewController {
         CSAPIRequest().getUserDashboard(handleRequestSuccessResponse, handleRequestFailureResponse)
     }
     
+    func setReloadCollectionView(){
+        collectionView?.reloadData()
+    }
+    
     // MARK: - Data handling
     
     func handleRequestSuccessResponse(request: AFHTTPRequestOperation!, responseObject: AnyObject!){
@@ -73,6 +77,20 @@ class DashboardViewController: UICollectionViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    func openLastMealDetailViewController(){
+        if let dashboard = dashboardObject{
+            
+            if let lastMealRecord = dashboard.lastMealRecord{
+                let mealDetailViewController = CSMealRecordDetailView(photoId: lastMealRecord.id)
+                let navController = UINavigationController(rootViewController: mealDetailViewController)
+        
+                self.presentViewController(navController, animated: true, completion: nil)
+            }
+            
+        }
+    }
+
 
     // MARK: UICollectionViewDataSource
 
@@ -130,6 +148,8 @@ class DashboardViewController: UICollectionViewController {
                     
                     // Last meal
                     cell.setLastMealRecord(dashboard.lastMealRecord)
+
+                    cell.ringDisplayViewTapGesture.addTarget(self, action: "openLastMealDetailViewController")
                     
                     if let currentStreak = dashboard.currentStreak{
                         
