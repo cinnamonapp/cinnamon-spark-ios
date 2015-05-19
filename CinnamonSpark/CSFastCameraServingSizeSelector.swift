@@ -20,7 +20,13 @@ class CSFastCameraServing : NSObject{
     }
 }
 
+protocol CSFastCameraServingSelectorDelegate : NSObjectProtocol{
+    func servingSelectorDidChangeSelectedValue(servingSelector: CSFastCameraServingSelector, selectedValue: CSFastCameraServing?)
+}
+
 class CSFastCameraServingSelector: UIScrollView{
+    
+    var servingSelectorDelegate : CSFastCameraServingSelectorDelegate?
     
     var servings : [CSFastCameraServing] = []
     
@@ -42,6 +48,7 @@ class CSFastCameraServingSelector: UIScrollView{
             
             for serving in servings{
                 let label = UILabel(frame: CGRectMake(0,0,100,30))
+                label.font = UIFont(name: "Futura", size: 18)
                 label.text = serving.name
                 label.sizeToFit()
                 
@@ -109,6 +116,12 @@ class CSFastCameraServingSelector: UIScrollView{
     func setSelectedServingWithIndex(index: Int){
         _selectedServingIndex = index
         highlightSelectedServing()
+        
+        if let delegate = servingSelectorDelegate{
+            if(delegate.respondsToSelector("servingSelectorDidChangeSelectedValue:selectedValue:")){
+                delegate.servingSelectorDidChangeSelectedValue(self, selectedValue: selectedServing)
+            }
+        }
     }
     
     func setSelectedServingWithTapGesture(tapGesture: UITapGestureRecognizer){

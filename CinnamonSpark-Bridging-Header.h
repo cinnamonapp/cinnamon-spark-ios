@@ -3,8 +3,10 @@
 //
 
 #import "FastttCamera.h"
+#import "UIImage+FastttCamera.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "DateTools.h"
 #import "OnboardingViewController.h"
 #import "UIDeviceHardware.h"
+#import "UIImage+ImageEffects.h"

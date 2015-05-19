@@ -9,6 +9,6 @@
 import UIKit
 
 @objc
-protocol CSBaseDelegate {
+protocol CSBaseDelegate : NSObjectProtocol {
     
 }

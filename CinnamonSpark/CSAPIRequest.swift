@@ -82,6 +82,34 @@ class CSAPIRequest: ASAPIRequest {
         
     }
     
+    func createMealRecord(params: NSDictionary, withImageData imageData: NSData, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)){
+        let userMealRecordPath : String = self.getAPICombinedPath("User", withParentRecordId: self.uniqueIdentifier(), andModel: "MealRecord")
+        
+        self.POST(userMealRecordPath,
+            parameters: params,
+            constructingBodyWithBlock: { (formData: AFMultipartFormData!) -> Void in
+                formData.appendPartWithFileData(imageData, name: "meal_record[photo]", fileName: "meal_photo.jpeg", mimeType: "image/jpeg")
+            },
+            success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                let responseDictionary = responseObject as NSDictionary
+                
+                println("Meal record uploaded.")
+                success(operation, responseObject)
+                
+            },
+            failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("Error uploading the file")
+                println(error)
+                
+                // Try again until it works :D
+                self.createMealRecord(params, withImageData: imageData, success: success)
+            }
+        )
+        
+    }
+    
+    
+    
     func getUserMealRecords(userId: String, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)) {
         
         let userMealRecordPath : String = self.getAPICombinedPath("User", withParentRecordId: userId, andModel: "MealRecord")

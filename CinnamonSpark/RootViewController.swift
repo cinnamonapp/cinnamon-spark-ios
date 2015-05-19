@@ -8,7 +8,7 @@
 
 import UIKit
 
-class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCameraDelegate, CSAPIRequestDelegate {
+class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCameraViewControllerDelegate, CSAPIRequestDelegate {
 
     // The building block here
     var pageViewController: UIPageViewController?
@@ -151,11 +151,11 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
             
             alertview.setTextTheme(.Light)
             alertview.addAction { () -> Void in
-                self.cameraViewController.closeViewController()
+                self.cameraViewController.dismissViewControllerAnimated(true, completion: nil)
             }
             
         }else{
-            self.cameraViewController.closeViewController()
+            self.cameraViewController.dismissViewControllerAnimated(true, completion: nil)
         }
         
         
@@ -182,7 +182,31 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
     }
     
 
+    func cameraViewController(cameraViewController: CSCameraViewController, didConfirmPictureWithScaledImage scaledImage: UIImage, withSize size: CSFastCameraSize?, withServing serving: CSFastCameraServing?, andDescription description: String?) {
+        let imageData = UIImageJPEGRepresentation(scaledImage, 0.7)
+        
+        var title = description!
+        if(title == "Tell me more..."){
+            title = ""
+        }
+        
+        let s = size!
+        
+        let params : NSDictionary = [
+            "meal_record": [
+                "title": title,
+                "size": s.id as Int
+            ]
+        ]
+        
+        CSAPIRequest().createMealRecord(params, withImageData: imageData, success: handleCreateMealRecordRequestSuccess)
+        
+    }
     
+    
+    func handleCreateMealRecordRequestSuccess(request: AFHTTPRequestOperation!, response: AnyObject!){
+        println("uploaded successfully")
+    }
     
     /*
     // MARK: - Navigation

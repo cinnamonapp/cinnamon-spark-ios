@@ -30,6 +30,11 @@
 		B047379F1B068625003FCD78 /* CSFastCameraServingSizeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B047379E1B068624003FCD78 /* CSFastCameraServingSizeSelector.swift */; };
 		B04737A11B068647003FCD78 /* CSFastCameraControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04737A01B068647003FCD78 /* CSFastCameraControls.swift */; };
 		B04CB50C1B04B8020097C6F0 /* CSDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CB50B1B04B8020097C6F0 /* CSDashboard.swift */; };
+		B0548DD61B0A164200384B55 /* CSFastCameraSizeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0548DD51B0A164200384B55 /* CSFastCameraSizeSelector.swift */; };
+		B0548DD81B0A8AE200384B55 /* CSFastCameraSavePictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0548DD71B0A8AE200384B55 /* CSFastCameraSavePictureViewController.swift */; };
+		B0548DDE1B0B379400384B55 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = B0548DDB1B0B379400384B55 /* UIImage+ImageEffects.m */; };
+		B0548DDF1B0B379400384B55 /* UIImageEffects-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0548DDC1B0B379400384B55 /* UIImageEffects-Info.plist */; };
+		B0548DE11B0B39E100384B55 /* ImageRotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0548DE01B0B39E100384B55 /* ImageRotation.swift */; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
 		B08041AB1B022C7F008B19BB /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08041A91B022C7F008B19BB /* DashboardViewController.swift */; };
 		B0862F4C1B0112A50026A01D /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0862F4B1B0112A50026A01D /* RootViewController.swift */; };
@@ -105,6 +110,13 @@
 		B047379E1B068624003FCD78 /* CSFastCameraServingSizeSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFastCameraServingSizeSelector.swift; sourceTree = "<group>"; };
 		B04737A01B068647003FCD78 /* CSFastCameraControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFastCameraControls.swift; sourceTree = "<group>"; };
 		B04CB50B1B04B8020097C6F0 /* CSDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSDashboard.swift; sourceTree = "<group>"; };
+		B0548DD51B0A164200384B55 /* CSFastCameraSizeSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFastCameraSizeSelector.swift; sourceTree = "<group>"; };
+		B0548DD71B0A8AE200384B55 /* CSFastCameraSavePictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFastCameraSavePictureViewController.swift; sourceTree = "<group>"; };
+		B0548DDA1B0B379400384B55 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		B0548DDB1B0B379400384B55 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		B0548DDC1B0B379400384B55 /* UIImageEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "UIImageEffects-Info.plist"; sourceTree = "<group>"; };
+		B0548DDD1B0B379400384B55 /* UIImageEffects-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageEffects-Prefix.pch"; sourceTree = "<group>"; };
+		B0548DE01B0B39E100384B55 /* ImageRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRotation.swift; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
 		B08041A91B022C7F008B19BB /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		B0862F4B1B0112A50026A01D /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -208,7 +220,6 @@
 				B01B2BE51AEEBC4C0017919A /* CSUserPhotoFeedNavigationController.swift */,
 				B0AF55151AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift */,
 				B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */,
-				B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */,
 				B08041A91B022C7F008B19BB /* DashboardViewController.swift */,
 			);
 			name = UserMealRecords;
@@ -270,8 +281,22 @@
 				B047379C1B063B47003FCD78 /* CSFastCameraView.swift */,
 				B047379E1B068624003FCD78 /* CSFastCameraServingSizeSelector.swift */,
 				B04737A01B068647003FCD78 /* CSFastCameraControls.swift */,
+				B0548DD51B0A164200384B55 /* CSFastCameraSizeSelector.swift */,
+				B0548DD71B0A8AE200384B55 /* CSFastCameraSavePictureViewController.swift */,
 			);
 			name = CSFastCamera;
+			sourceTree = "<group>";
+		};
+		B0548DD91B0B378400384B55 /* UIImage+ImageEffects */ = {
+			isa = PBXGroup;
+			children = (
+				B0548DDA1B0B379400384B55 /* UIImage+ImageEffects.h */,
+				B0548DDB1B0B379400384B55 /* UIImage+ImageEffects.m */,
+				B0548DDC1B0B379400384B55 /* UIImageEffects-Info.plist */,
+				B0548DDD1B0B379400384B55 /* UIImageEffects-Prefix.pch */,
+				B0548DE01B0B39E100384B55 /* ImageRotation.swift */,
+			);
+			name = "UIImage+ImageEffects";
 			sourceTree = "<group>";
 		};
 		B0AF66B31AC1763E00E23657 /* Controllers */ = {
@@ -279,6 +304,7 @@
 			children = (
 				B01B2BE01AEEA6990017919A /* SocialMealRecords */,
 				B01B2BDF1AEEA6780017919A /* UserMealRecords */,
+				B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */,
 				B0DCEF391AE5342100068B79 /* CSMealRecordDetailView.swift */,
 				B0862F4B1B0112A50026A01D /* RootViewController.swift */,
 				B0DE33A61ACAEC2C003E8626 /* CSTabBarController.swift */,
@@ -370,6 +396,7 @@
 		B0EDD6981ABC2A170065644F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B0548DD91B0B378400384B55 /* UIImage+ImageEffects */,
 				B047379B1B063B11003FCD78 /* CSFastCamera */,
 				B0BF89811B03629B003BF9F9 /* Ring */,
 				B01B2BE21AEEA7740017919A /* Extensions */,
@@ -491,6 +518,7 @@
 				B0EDD6A81ABC2A170065644F /* LaunchScreen.xib in Resources */,
 				B0EDD6A51ABC2A170065644F /* Images.xcassets in Resources */,
 				B0CE45B71AE543BB0045C3BF /* (null) in Resources */,
+				B0548DDF1B0B379400384B55 /* UIImageEffects-Info.plist in Resources */,
 				B0CE45B81AE543BB0045C3BF /* (null) in Resources */,
 				B0DCEF381AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.xib in Resources */,
 			);
@@ -557,8 +585,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				B01B2BDC1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift in Sources */,
+				B0548DE11B0B39E100384B55 /* ImageRotation.swift in Sources */,
 				B00C45501AEA9EF40023520C /* OnboardingContentViewController.m in Sources */,
 				B04737A11B068647003FCD78 /* CSFastCameraControls.swift in Sources */,
+				B0548DD81B0A8AE200384B55 /* CSFastCameraSavePictureViewController.swift in Sources */,
 				B0F1A80D1AF908D0006B3996 /* ASAPIRequest.swift in Sources */,
 				B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */,
 				B045C20C1B05ED4C008A3883 /* DotsScrollView.swift in Sources */,
@@ -575,12 +605,14 @@
 				B02BA6451ACECBF500BC46F1 /* CSPhoto.swift in Sources */,
 				B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */,
 				B02F13AD1AD80C6000075E41 /* CSUser.swift in Sources */,
+				B0548DD61B0A164200384B55 /* CSFastCameraSizeSelector.swift in Sources */,
 				B087ACD11AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift in Sources */,
 				B047379D1B063B47003FCD78 /* CSFastCameraView.swift in Sources */,
 				B0E3B41E1AC4B71700347B91 /* CSBaseDelegate.swift in Sources */,
 				B0F079CD1B038EA200B4A872 /* CircleImageView.swift in Sources */,
 				B08041AB1B022C7F008B19BB /* DashboardViewController.swift in Sources */,
 				B0AF55161AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift in Sources */,
+				B0548DDE1B0B379400384B55 /* UIImage+ImageEffects.m in Sources */,
 				B0DE33A71ACAEC2C003E8626 /* CSTabBarController.swift in Sources */,
 				B087ACD71AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m in Sources */,
 				B0BF897F1B03466B003BF9F9 /* DashboardViewCell.swift in Sources */,
