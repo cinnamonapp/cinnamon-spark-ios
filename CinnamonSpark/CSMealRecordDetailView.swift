@@ -41,10 +41,8 @@ class CSMealRecordDetailView: UICollectionViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
-        // Temporary fix for custom navbar
-        self.collectionView?.frame.origin.y += 30
-        self.collectionView?.frame.size.height -= 30
-        // End
+        self.collectionView?.bounces = true
+        self.collectionView?.alwaysBounceVertical = true
         
         // Register cell classes
         self.collectionView!.registerNib(UINib(nibName: "CSRepeatablePhotoBrowserCell", bundle: nil), forCellWithReuseIdentifier: mealRecordDetailViewReuseIdentifier)
@@ -52,11 +50,9 @@ class CSMealRecordDetailView: UICollectionViewController {
         self.collectionView?.backgroundColor = viewsInsideBackgroundColor
         
         // Do any additional setup after loading the view.
-        
         if let navigationController = self.navigationController{
-            println("here")
-//            navigationController.navigationBar.tintColor = UIColor.clearColor()
-            navigationController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: "closeViewController")
+            let buttonItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "closeViewController")
+            self.navigationItem.rightBarButtonItem = buttonItem
         }
     }
 
