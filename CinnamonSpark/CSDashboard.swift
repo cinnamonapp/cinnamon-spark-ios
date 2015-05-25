@@ -16,6 +16,7 @@ class CSDashboard: NSObject {
             return dailyCarbsLimit - dailyUsedCarbs
         }
     }
+    var currentStatusAtTime : Int?
     
     var backgroundImageURL : NSURL!
     
@@ -38,6 +39,10 @@ class CSDashboard: NSObject {
         dailyCarbsLimit     = dashboard["daily_carbs_limit"]        as Int
         dailyUsedCarbs      = dashboard["daily_used_carbs"]         as Int
 //        dailyRemainingCarbs = dashboard["daily_remaining_carbs"]    as Int
+        
+        if let currentStatusAtTimeInt = dashboard["current_status_at_time"] as? Int{
+            currentStatusAtTime = currentStatusAtTimeInt
+        }
         
         if let backgroundImageURLString = dashboard["background_image"] as? String{
             backgroundImageURL = NSURL(string: backgroundImageURLString)

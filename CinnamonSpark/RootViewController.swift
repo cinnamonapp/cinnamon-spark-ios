@@ -55,10 +55,12 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
         self.pageViewController?.dataSource = self.pageStack
         
         // Setup userPhotoFeedNavigationController
-        var initialViewController = self.pageStack.viewControllerAtIndex(0)!
+        var initialViewController = self.pageStack.viewControllerAtIndex(3)!
         
         
         self.pageViewController?.setViewControllers([initialViewController], direction: .Forward, animated: false, completion: { (b: Bool) -> Void in })
+        
+
         
         self.addChildViewController(self.pageViewController!)
         self.view.addSubview(self.pageViewController!.view)
@@ -159,12 +161,12 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
         
         //        let rotatedImage = scaledImage.imageRotatedByDegrees(90, flip: false)
         let image = scaledImage //cameraViewController.cameraView.takenPicture!
-        let rotatedImage = UIImage(CGImage: image.CGImage, scale: image.scale, orientation: UIImageOrientation.Right)
+//        let rotatedImage = UIImage(CGImage: image.CGImage, scale: image.scale, orientation: image)
         
-        let imageData = UIImageJPEGRepresentation(rotatedImage, 0.7)
+        let imageData = UIImageJPEGRepresentation(image, 0.7)
         
         // Save image to photo album
-        UIImageWriteToSavedPhotosAlbum(rotatedImage, nil, nil, nil)
+        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         
         var title = description!
         if(title == "Tell me more..."){
@@ -231,10 +233,21 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
 }
 
 
+class FakeViewController : UIViewController{
+    
+}
+
+class SuperFakeViewController : UIViewController{
+    
+}
+
 class PageStackController: NSObject, UIPageViewControllerDataSource{
     
     let dashboardViewController             : DashboardViewController!
     let userPhotoFeedNavigationController   : CSUserPhotoFeedNavigationController!
+    
+    let userMonthView : UIViewController!
+    let communityView : UIViewController!
     
     override init(){
         super.init()
@@ -247,22 +260,45 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
         
         // Init this
         userPhotoFeedNavigationController = CSUserPhotoFeedNavigationController()
+        // Fix to force webview to preload
+        let forceLoad = userPhotoFeedNavigationController.view
+        let forceStill = userPhotoFeedNavigationController.userPhotoFeedViewController.view
+        
+        userMonthView = FakeViewController()
+        let fakeMonthImage = UIImageView(image: UIImage(named: "FakeMonthView"))
+        fakeMonthImage.frame = userMonthView.view.bounds
+        userMonthView.view.addSubview(fakeMonthImage)
+        
+        communityView = SuperFakeViewController()
+        let fakeCommunityImage = UIImageView(image: UIImage(named: "FakeCommunityView"))
+        fakeCommunityImage.frame = userMonthView.view.bounds
+        communityView.view.addSubview(fakeCommunityImage)
     }
     
     func viewControllersCount() -> Int{
-        return 2
+        return 4
     }
     
     func viewControllerAtIndex(index: Int) -> UIViewController? {
         // Return the data view controller for the given index.
         
-        if(index==0){
+        if(index==3){
             
             return dashboardViewController
         }
-
-        if(index==1){
+        
+        if(index==2){
+            
             return userPhotoFeedNavigationController
+        }
+        
+        if(index==1){
+            
+            return userMonthView
+        }
+        
+        if(index==0){
+            return communityView
         }
 
         return nil
@@ -272,11 +308,19 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
         // Return the index of the given data view controller.
         
         if let vc = viewController as? DashboardViewController{
-            return 0
+            return 3
         }
         
         if let vc = viewController as? CSUserPhotoFeedNavigationController{
+            return 2
+        }
+        
+        if let vc = viewController as? FakeViewController{
             return 1
+        }
+        
+        if let vc = viewController as? SuperFakeViewController{
+            return 0
         }
         
         
@@ -290,12 +334,14 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         var index = self.indexOfViewController(viewController)
         
-        index--
+        println("Index => \(index)")
         
         if(index <= 0){
             return nil
         }
-    
+        
+        index--
+        
         return self.viewControllerAtIndex(index)
     }
     

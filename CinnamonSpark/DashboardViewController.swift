@@ -10,7 +10,7 @@ import UIKit
 
 let dashboardCellReuseIdentifier = "dashboardViewCell"
 
-class DashboardViewController: UICollectionViewController {
+class DashboardViewController: UICollectionViewController, UIViewControllerTransitioningDelegate {
     
     var dashboardObject : CSDashboard? {
         get{
@@ -82,26 +82,27 @@ class DashboardViewController: UICollectionViewController {
         if let dashboard = dashboardObject{
             
             if let lastMealRecord = dashboard.lastMealRecord{
-                let mealDetailViewController = CSMealRecordDetailView(photoId: lastMealRecord.id)
-                let navController = UINavigationController(rootViewController: mealDetailViewController)
+                let mealDetailViewController = CSMealRecordDetailView(photo: lastMealRecord)
+//                let navController = UINavigationController(rootViewController: mealDetailViewController)
         
-                self.presentViewController(navController, animated: true, completion: nil)
+                self.presentViewController(mealDetailViewController, animated: true, completion: nil)
             }
             
         }
     }
-
-
+    
+    override func prefersStatusBarHidden() -> Bool {
+        return true
+    }
+    
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        //#warning Incomplete method implementation -- Return the number of sections
         return 1
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //#warning Incomplete method implementation -- Return the number of items in the section
         return 1
     }
 
@@ -124,17 +125,7 @@ class DashboardViewController: UICollectionViewController {
 
                     let progress : CGFloat = CGFloat(dailyUsedCarbs) / CGFloat(dailyCarbsLimit)
                     
-                    cell.ringDisplayView.progress = progress
-                    
-                    // Basic ring color logic
-                    if(dailyUsedCarbs > dailyCarbsLimit){
-                        cell.ringDisplayView.fillColor = UIColorFromHex(0xAB0500, alpha: 1.0)
-                    }else if(dailyUsedCarbs < dailyCarbsLimit - 50){
-                        cell.ringDisplayView.fillColor = UIColorFromHex(0x3F6177, alpha: 1.0)
-                    }else{
-                        cell.ringDisplayView.fillColor = UIColorFromHex(0xFEDB6C, alpha: 1.0)
-                    }
-                    
+                    cell.setRingProgress(progress, withStatus: dashboard.currentStatusAtTime)
                     
                     // Carbs indicator
                     
@@ -152,24 +143,7 @@ class DashboardViewController: UICollectionViewController {
                     cell.ringDisplayViewTapGesture.addTarget(self, action: "openLastMealDetailViewController")
                     
                     if let currentStreak = dashboard.currentStreak{
-                        
-                        var colors : [UIColor] = []
-                        for streakDay in currentStreak{
-                            var color : UIColor = UIColor.clearColor()
-                            if(streakDay.mealRecordsCount > 0){
-                                if(streakDay.dailyUsedCarbs > streakDay.dailyCarbsLimit){
-                                    color = UIColorFromHex(0xAB0500, alpha: 1.0)
-                                }else if(streakDay.dailyUsedCarbs < streakDay.dailyCarbsLimit - 50){
-                                    color = UIColorFromHex(0x3F6177, alpha: 1.0)
-                                }else{
-                                    color = UIColorFromHex(0xFEDB6C, alpha: 1.0)
-                                }
-                            }
-                            
-                            colors.append(color)
-                        }
-                        
-                        cell.streakDotsView.colorDotsWithColors(colors)
+                        cell.setStreak(currentStreak)
                     }
                     
                     if let smartAlertMessage = dashboard.smartAlertMessage{

@@ -41,7 +41,7 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
         self.view.backgroundColor = viewsBackgroundColor
         
         // Add web view
-        var webframe = self.view.frame
+        var webframe = UIScreen.mainScreen().bounds
         
         self.webView = UIWebView(frame: webframe)
         self.webView.delegate = self
@@ -70,9 +70,9 @@ class CSUserPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPIRequ
     func openMealDetailViewControllerWithPhotoId(photoId: String, animated: Bool){
         
         let mealDetailViewController = CSMealRecordDetailView(photoId: photoId)
-        let navController = UINavigationController(rootViewController: mealDetailViewController)
+//        let navController = UINavigationController(rootViewController: mealDetailViewController)
         
-        self.presentViewController(navController, animated: animated, completion: nil)
+        self.presentViewController(mealDetailViewController, animated: animated, completion: nil)
     }
     
 }

@@ -11,6 +11,26 @@ import UIKit
 class CircleImageView: UIImageView {
     
     let circlePathLayer = CAShapeLayer()
+    let borderLayer = CAShapeLayer()
+    
+    var borderWidth : CGFloat{
+        get{
+            return borderLayer.lineWidth
+        }
+        set{
+            borderLayer.lineWidth = newValue
+        }
+    }
+    
+    var borderColor : UIColor{
+        get{
+            return UIColor(CGColor: borderLayer.strokeColor)
+        }
+        
+        set{
+            borderLayer.strokeColor = newValue.CGColor
+        }
+    }
     
     override init() {
         super.init()
@@ -42,6 +62,12 @@ class CircleImageView: UIImageView {
         circlePathLayer.fillColor = UIColor.whiteColor().CGColor
         
         layer.mask = circlePathLayer
+        
+        borderLayer.fillColor = UIColor.clearColor().CGColor
+        borderWidth = 0
+        borderColor = UIColor.whiteColor()
+        
+        layer.addSublayer(borderLayer)
     }
     
     var circleRadius: CGFloat {
@@ -67,6 +93,9 @@ class CircleImageView: UIImageView {
         super.layoutSubviews()
         circlePathLayer.frame = bounds
         circlePathLayer.path = circlePath().CGPath
+        
+        borderLayer.frame = bounds
+        borderLayer.path = circlePath().CGPath
     }
     
     /*

@@ -8,21 +8,41 @@
 
 import UIKit
 
-let mealRecordDetailViewReuseIdentifier = "feedItemRepeatablePhotoBrowserCell"
+let mealRecordDetailViewReuseIdentifier = "mealRecordDetailCell"
 
 class CSMealRecordDetailView: UICollectionViewController {
     
     var photo : CSPhoto!
+    var backgroundImageView: UIImageView!
     
     override init(){
         // TODO: - Allow the developer to set this from inheritance
         super.init(collectionViewLayout: CSVerticalImageRowLayout() )
+        
+        backgroundImageView = UIImageView(frame: view.bounds)
+        backgroundImageView.contentMode = UIViewContentMode.Center
+        collectionView?.backgroundView = UIView()
+        collectionView?.backgroundView?.addSubview(backgroundImageView)
+        
+        let blackView = UIView(frame: UIScreen.mainScreen().bounds)
+        blackView.backgroundColor = UIColorFromHex(0x000000, alpha: 0.6)
+        collectionView?.backgroundView?.addSubview(blackView)
+        
+        let closeButton = UIButton(frame: CGRectMake(view.bounds.width - 40 - 10, 30, 40, 40))
+        let closeButtonImage = UIImageView(image: UIImage(named: "CameraCancelButton"))
+        closeButtonImage.frame = closeButton.bounds
+        closeButton.addTarget(self, action: "closeViewController", forControlEvents: UIControlEvents.TouchUpInside)
+        closeButton.addSubview(closeButtonImage)
+        
+        self.view.addSubview(closeButton)
     }
 
     convenience init(photo: CSPhoto){
         self.init()
         
         self.photo = photo
+        
+        setBackgroundWithPhoto(photo)
     }
     
     convenience init(photoId: String){
@@ -35,6 +55,10 @@ class CSMealRecordDetailView: UICollectionViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func setBackgroundWithPhoto(photo: CSPhoto){
+        backgroundImageView.sd_setImageWithURL(photo.photoURL(CSPhotoPhotoStyle.BlurredBackground))
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -45,15 +69,17 @@ class CSMealRecordDetailView: UICollectionViewController {
         self.collectionView?.alwaysBounceVertical = true
         
         // Register cell classes
-        self.collectionView!.registerNib(UINib(nibName: "CSRepeatablePhotoBrowserCell", bundle: nil), forCellWithReuseIdentifier: mealRecordDetailViewReuseIdentifier)
-
-        self.collectionView?.backgroundColor = viewsInsideBackgroundColor
+        self.collectionView!.registerNib(UINib(nibName: "CSMealRecordDetailCell", bundle: nil), forCellWithReuseIdentifier: mealRecordDetailViewReuseIdentifier)
+        
+        self.collectionView?.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "calorificCell")
         
         // Do any additional setup after loading the view.
         if let navigationController = self.navigationController{
             let buttonItem = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "closeViewController")
             self.navigationItem.rightBarButtonItem = buttonItem
+            navigationController.navigationBarHidden = true
         }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -62,7 +88,11 @@ class CSMealRecordDetailView: UICollectionViewController {
     }
     
     func closeViewController(){
-        self.dismissViewControllerAnimated(true, completion: nil)
+        if let navigationController = self.navigationController{
+            navigationController.dismissViewControllerAnimated(true, completion: nil)
+        }else{
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     /*
@@ -87,6 +117,8 @@ class CSMealRecordDetailView: UICollectionViewController {
         self.photo = CSPhoto(dictionary: mealRecord)
         
         self.collectionView?.reloadData()
+        
+        setBackgroundWithPhoto(photo)
     }
     
     /**
@@ -108,20 +140,26 @@ class CSMealRecordDetailView: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //#warning Incomplete method implementation -- Return the number of items in the section
         if(self.photo != nil){
-            return 1
+            return 2
         }else{
             return 0
         }
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(mealRecordDetailViewReuseIdentifier, forIndexPath: indexPath) as CSRepeatablePhotoBrowserCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(mealRecordDetailViewReuseIdentifier, forIndexPath: indexPath) as CSMealRecordDetailCell
     
+        cell.backgroundColor = UIColor.clearColor()
+        
         // Configure the cell
         if(indexPath.section == 0){
             if(indexPath.item == 0){
                 
-                cell.setPhotoWithThumbURL(self.photo.URL, originalURL: self.photo.URL)
+                cell.setPhotoWithThumbURL(self.photo.photoURL(CSPhotoPhotoStyle.Thumbnail), originalURL: self.photo.photoURL(CSPhotoPhotoStyle.Large), andMealSize: self.photo.size)
+                
+                if let circlePhoto = cell.photo as? CircleImageView{
+                    circlePhoto.borderWidth = 4
+                }
                 
                 cell.userProfileName.hidden = true
                 cell.userProfilePicture.hidden = true
@@ -130,10 +168,34 @@ class CSMealRecordDetailView: UICollectionViewController {
                 
                 cell.titleAndHashtags.text = photo.title
                 
+                cell.setCarbsEstimateToValue(CSPhotoMealCarbsEstimate.Low, grams: 0)
+                cell.indicatorRing.progress = 0
+                cell.indicatorRing.textColor = ColorPalette.DefaultTextColor
+                cell.indicatorRing.font = DefaultFont!
+                
+                
                 if let carbs = photo.carbsEstimate{
                     cell.setCarbsEstimateToValue(carbs, grams: photo.carbsEstimateGrams)
+                    if let grams = photo.carbsEstimateGrams{
+                        cell.indicatorRing.progress = CGFloat(grams) / CGFloat(300)
+                    }
                 }
+                
+                cell.hideCarbsEstimate()
 
+            }
+            
+            if(indexPath.item == 1){
+                let newCell = collectionView.dequeueReusableCellWithReuseIdentifier("calorificCell", forIndexPath: indexPath) as UICollectionViewCell
+                
+                newCell.backgroundColor = UIColor.clearColor()
+                
+                let backgroundImage = UIImageView(image: UIImage(named: "FakeCalorific"))
+                backgroundImage.frame = newCell.bounds
+                newCell.addSubview(backgroundImage)
+                
+                return newCell
+                
             }
         }
 

@@ -17,14 +17,25 @@ class RingView: UIView {
     
     let backCirclePathLayer = CAShapeLayer()
 
-    let lineWidth : CGFloat = 8
+    var lineWidth : CGFloat{
+        get{
+            return _lineWidth
+        }
+        
+        set{
+            _lineWidth = newValue
+            circlePathLayer.lineWidth = _lineWidth
+            backCirclePathLayer.lineWidth = _lineWidth
+        }
+    }
+    var _lineWidth : CGFloat = 8
 
     var circleRadius: CGFloat {
         get {
             return bounds.height / 2 - lineWidth / 2
         }
     }
-    
+        
     var fillColor : UIColor{
         get{
             return UIColor(CGColor: circlePathLayer.strokeColor)
@@ -107,7 +118,7 @@ class RingView: UIView {
         
     }
     
-    func configureBack(){
+    internal func configureBack(){
         
         backCirclePathLayer.frame       = bounds
         
