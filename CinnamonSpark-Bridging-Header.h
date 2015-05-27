@@ -10,3 +10,4 @@
 #import "OnboardingViewController.h"
 #import "UIDeviceHardware.h"
 #import "UIImage+ImageEffects.h"
+#import "UICountingLabel.h"

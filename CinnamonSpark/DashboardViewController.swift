@@ -50,6 +50,8 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
     }
 
     func refreshDashboard(){
+        selectedStreakDay = nil
+        setReloadCollectionView()
         // Get data for the dashboard
         CSAPIRequest().getUserDashboard(handleRequestSuccessResponse, handleRequestFailureResponse)
     }
@@ -63,7 +65,7 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
     func handleRequestSuccessResponse(request: AFHTTPRequestOperation!, responseObject: AnyObject!){
         dashboardObject = CSDashboard(dictionary: responseObject as NSDictionary)
         
-        collectionView?.reloadData()
+        setReloadCollectionView()
     }
     
     func handleRequestFailureResponse(request: AFHTTPRequestOperation!, error: NSError!){
@@ -135,14 +137,17 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
                     cell.setRingProgress(progress, withStatus: streakDay.status)
                     
                     // Carbs indicator
-                    let dailyRemainingCarbs = streakDay.dailyRemainingCarbs
-                    cell.carbsIndicatorView.text = "\(dailyRemainingCarbs)g"
-                    cell.carbsIndicatorSupportTextView.text = "left"
-                    
-                    if(dailyRemainingCarbs < 0){
-                        cell.carbsIndicatorView.text = "+\(-dailyRemainingCarbs)g"
-                        cell.carbsIndicatorSupportTextView.text = "above"
-                    }
+//                    let dailyRemainingCarbs = streakDay.dailyRemainingCarbs
+//                    cell.carbsIndicatorView.text = "\(dailyRemainingCarbs)g"
+//                    cell.carbsIndicatorSupportTextView.text = "left"
+//                    
+//                    if(dailyRemainingCarbs < 0){
+//                        cell.carbsIndicatorView.text = "+\(-dailyRemainingCarbs)g"
+//                        cell.carbsIndicatorSupportTextView.text = "above"
+//                    }
+//                    cell.carbsIndicatorView.text = "\(streakDay.dailyUsedCarbs)g"
+                    cell.setCarbsIndicatorViewText(streakDay.dailyUsedCarbs)
+                    cell.carbsIndicatorSupportTextView.text = "used"
                     
                     cell.messageView.text = "\(streakDay.fullWeekDay) \(streakDay.date.day()).\(streakDay.date.month()).\(streakDay.date.year())"
                     
@@ -166,14 +171,7 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
                     cell.setRingProgress(progress, withStatus: dashboard.currentStatusAtTime)
                     
                     // Carbs indicator
-                    
-                    cell.carbsIndicatorView.text = "\(dailyRemainingCarbs)g"
-                    cell.carbsIndicatorSupportTextView.text = "left"
-                    
-                    if(dailyRemainingCarbs < 0){
-                        cell.carbsIndicatorView.text = "+\(-dailyRemainingCarbs)g"
-                        cell.carbsIndicatorSupportTextView.text = "above"
-                    }
+                    cell.setCarbsIndicatorViewText(dailyRemainingCarbs)
                     
                     // Last meal
                     cell.setLastMealRecord(dashboard.lastMealRecord)

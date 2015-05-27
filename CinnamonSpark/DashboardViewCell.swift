@@ -16,7 +16,7 @@ class DashboardViewCell: UICollectionViewCell {
     @IBOutlet var lastMealRecordView: CircleImageView!
     @IBOutlet var lastMealRecordCarbsContainerView: UIView!
     @IBOutlet var lastMealRecordCarbsIndicatorView: UILabel!
-    @IBOutlet var carbsIndicatorView: UILabel!
+    @IBOutlet var carbsIndicatorView: UICountingLabel!
     @IBOutlet var carbsIndicatorSupportTextView: UILabel!
     @IBOutlet var messageView: UILabel!
     @IBOutlet var streakDotsView: DotsScrollView!
@@ -186,5 +186,21 @@ class DashboardViewCell: UICollectionViewCell {
                 animations: { self.backgroundImage.image = toImage },
                 completion: nil)
         }
+    }
+
+
+    func setCarbsIndicatorViewText(carbsEstimateGrams: Int){
+        if(carbsEstimateGrams >= 0){
+            setCarbsIndicatorViewText(carbsEstimateGrams, withFormat: "%dg")
+            carbsIndicatorSupportTextView.text = "left"
+        }else{
+            setCarbsIndicatorViewText(carbsEstimateGrams, withFormat: "+%dg")
+            carbsIndicatorSupportTextView.text = "above"
+        }
+    }
+
+    func setCarbsIndicatorViewText(carbsEstimateGrams: Int, withFormat format: String){
+        carbsIndicatorView.format = format
+        carbsIndicatorView.countFromCurrentValueTo(CGFloat(carbsEstimateGrams), withDuration: 2)
     }
 }

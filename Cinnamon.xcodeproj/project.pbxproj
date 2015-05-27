@@ -30,6 +30,7 @@
 		B047379F1B068625003FCD78 /* CSFastCameraServingSizeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B047379E1B068624003FCD78 /* CSFastCameraServingSizeSelector.swift */; };
 		B04737A11B068647003FCD78 /* CSFastCameraControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04737A01B068647003FCD78 /* CSFastCameraControls.swift */; };
 		B04CB50C1B04B8020097C6F0 /* CSDashboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04CB50B1B04B8020097C6F0 /* CSDashboard.swift */; };
+		B05257D31B15CF0E007A1B07 /* UICountingLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B05257D21B15CF0E007A1B07 /* UICountingLabel.m */; };
 		B0548DD61B0A164200384B55 /* CSFastCameraSizeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0548DD51B0A164200384B55 /* CSFastCameraSizeSelector.swift */; };
 		B0548DD81B0A8AE200384B55 /* CSFastCameraSavePictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0548DD71B0A8AE200384B55 /* CSFastCameraSavePictureViewController.swift */; };
 		B0548DDE1B0B379400384B55 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = B0548DDB1B0B379400384B55 /* UIImage+ImageEffects.m */; };
@@ -114,6 +115,8 @@
 		B047379E1B068624003FCD78 /* CSFastCameraServingSizeSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFastCameraServingSizeSelector.swift; sourceTree = "<group>"; };
 		B04737A01B068647003FCD78 /* CSFastCameraControls.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFastCameraControls.swift; sourceTree = "<group>"; };
 		B04CB50B1B04B8020097C6F0 /* CSDashboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSDashboard.swift; sourceTree = "<group>"; };
+		B05257D11B15CF0E007A1B07 /* UICountingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICountingLabel.h; sourceTree = "<group>"; };
+		B05257D21B15CF0E007A1B07 /* UICountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICountingLabel.m; sourceTree = "<group>"; };
 		B0548DD51B0A164200384B55 /* CSFastCameraSizeSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFastCameraSizeSelector.swift; sourceTree = "<group>"; };
 		B0548DD71B0A8AE200384B55 /* CSFastCameraSavePictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFastCameraSavePictureViewController.swift; sourceTree = "<group>"; };
 		B0548DDA1B0B379400384B55 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
@@ -297,6 +300,15 @@
 			name = CSFastCamera;
 			sourceTree = "<group>";
 		};
+		B05257D01B15CF05007A1B07 /* UICountingLabel */ = {
+			isa = PBXGroup;
+			children = (
+				B05257D11B15CF0E007A1B07 /* UICountingLabel.h */,
+				B05257D21B15CF0E007A1B07 /* UICountingLabel.m */,
+			);
+			name = UICountingLabel;
+			sourceTree = "<group>";
+		};
 		B0548DD91B0B378400384B55 /* UIImage+ImageEffects */ = {
 			isa = PBXGroup;
 			children = (
@@ -415,6 +427,7 @@
 		B0EDD6981ABC2A170065644F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B05257D01B15CF05007A1B07 /* UICountingLabel */,
 				B0CABA941B0F1E84009878AD /* ModalAnimations */,
 				B0548DD91B0B378400384B55 /* UIImage+ImageEffects */,
 				B047379B1B063B11003FCD78 /* CSFastCamera */,
@@ -610,6 +623,7 @@
 				B00C45501AEA9EF40023520C /* OnboardingContentViewController.m in Sources */,
 				B04737A11B068647003FCD78 /* CSFastCameraControls.swift in Sources */,
 				B0548DD81B0A8AE200384B55 /* CSFastCameraSavePictureViewController.swift in Sources */,
+				B05257D31B15CF0E007A1B07 /* UICountingLabel.m in Sources */,
 				B0F1A80D1AF908D0006B3996 /* ASAPIRequest.swift in Sources */,
 				B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */,
 				B045C20C1B05ED4C008A3883 /* DotsScrollView.swift in Sources */,
