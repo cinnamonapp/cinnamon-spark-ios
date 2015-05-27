@@ -10,7 +10,7 @@ import UIKit
 
 let dashboardCellReuseIdentifier = "dashboardViewCell"
 
-class DashboardViewController: UICollectionViewController, UIViewControllerTransitioningDelegate {
+class DashboardViewController: UICollectionViewController, UIViewControllerTransitioningDelegate, DotsScrollViewDelegate {
     
     var dashboardObject : CSDashboard? {
         get{
@@ -22,6 +22,8 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
         }
     }
     var _dashboardObject : CSDashboard?
+    
+    var selectedStreakDay : StreakDay?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,6 +81,16 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
     */
     
     func openLastMealDetailViewController(){
+        
+        if let streakDay = selectedStreakDay{
+            if let lastMealRecord = streakDay.lastMealRecord{
+                let mealDetailViewController = CSMealRecordDetailView(photo: lastMealRecord)
+
+                self.presentViewController(mealDetailViewController, animated: true, completion: nil)
+            }
+            return 
+        }
+        
         if let dashboard = dashboardObject{
             
             if let lastMealRecord = dashboard.lastMealRecord{
@@ -113,17 +125,43 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
         if(indexPath.section == 0){
             if(indexPath.item == 0){
                 
+                // Set self as dots delegate
+                cell.streakDotsView.delegate = self
+                cell.ringDisplayViewTapGesture.addTarget(self, action: "openLastMealDetailViewController")
+                
+                // The user selected a streakDay
+                if let streakDay = selectedStreakDay{
+                    let progress : CGFloat = CGFloat(streakDay.dailyUsedCarbs) / CGFloat(streakDay.dailyCarbsLimit)
+                    cell.setRingProgress(progress, withStatus: streakDay.status)
+                    
+                    // Carbs indicator
+                    let dailyRemainingCarbs = streakDay.dailyRemainingCarbs
+                    cell.carbsIndicatorView.text = "\(dailyRemainingCarbs)g"
+                    cell.carbsIndicatorSupportTextView.text = "left"
+                    
+                    if(dailyRemainingCarbs < 0){
+                        cell.carbsIndicatorView.text = "+\(-dailyRemainingCarbs)g"
+                        cell.carbsIndicatorSupportTextView.text = "above"
+                    }
+                    
+                    cell.messageView.text = "\(streakDay.fullWeekDay) \(streakDay.date.day()).\(streakDay.date.month()).\(streakDay.date.year())"
+                    
+                    cell.setLastMealRecord(streakDay.lastMealRecord)
+                    
+                    if let lastMealRecord = streakDay.lastMealRecord{
+                        cell.setBackgroundImageWithURL(lastMealRecord.photoURL(CSPhotoPhotoStyle.BlurredBackground))
+                    }
+                    
+                    return cell
+                }
+                
+                // Dashboard data is there
                 if let dashboard = dashboardObject{
                     
-                    // Cell background
-                    cell.backgroundImage.sd_setImageWithURL(dashboard.backgroundImageURL, placeholderImage: cell.backgroundImage.image)
-                    
                     // Ring progress
-                    let dailyCarbsLimit = dashboard.dailyCarbsLimit
-                    let dailyUsedCarbs = dashboard.dailyUsedCarbs
                     let dailyRemainingCarbs = dashboard.dailyRemainingCarbs
 
-                    let progress : CGFloat = CGFloat(dailyUsedCarbs) / CGFloat(dailyCarbsLimit)
+                    let progress : CGFloat = CGFloat(dashboard.dailyUsedCarbs) / CGFloat(dashboard.dailyCarbsLimit)
                     
                     cell.setRingProgress(progress, withStatus: dashboard.currentStatusAtTime)
                     
@@ -139,8 +177,13 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
                     
                     // Last meal
                     cell.setLastMealRecord(dashboard.lastMealRecord)
-
-                    cell.ringDisplayViewTapGesture.addTarget(self, action: "openLastMealDetailViewController")
+                    
+                    // Set cell background
+                    if let backgroundImageURL = dashboard.backgroundImageURL{
+                        cell.setBackgroundImageWithURL(backgroundImageURL)
+                    }else if let lastMealRecord = dashboard.lastMealRecord{
+                        cell.setBackgroundImageWithURL(lastMealRecord.photoURL(CSPhotoPhotoStyle.BlurredBackground))
+                    }
                     
                     if let currentStreak = dashboard.currentStreak{
                         cell.setStreak(currentStreak)
@@ -157,6 +200,25 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
         return cell
     }
 
+    
+    // MARK: - DotsScrollViewDelegate methods
+    
+    func dotsScrollView(dotsScrollView: DotsScrollView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        if let dashboard = dashboardObject{
+            if let streak = dashboard.currentStreak{
+                if (indexPath.item == streak.count - 1){
+                    // Select the current day
+                    selectedStreakDay = nil
+                }else{
+                    selectedStreakDay = streak[indexPath.item]
+                }
+            }
+        }
+        
+        setReloadCollectionView()
+    }
+    
     // MARK: UICollectionViewDelegate
 
     /*

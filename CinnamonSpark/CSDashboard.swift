@@ -77,9 +77,30 @@ class CSDashboard: NSObject {
 
 class StreakDay : NSObject{
     var date : NSDate!
+    
+    var weekDay : String{
+        get{
+            return dayOfWeekNameFromInt(getDayOfWeek(date)!)
+        }
+    }
+    
+    var fullWeekDay : String{
+        get{
+            return fullDayOfWeekNameFromInt(getDayOfWeek(date)!)
+        }
+    }
+    
     var dailyUsedCarbs : Int!
     var dailyCarbsLimit : Int!
+    var dailyRemainingCarbs : Int{
+        get{
+            return dailyCarbsLimit - dailyUsedCarbs
+        }
+    }
+    var status : Int?
+    
     var mealRecordsCount : Int!
+    var lastMealRecord : CSPhoto?
     
     convenience init(dictionary: NSDictionary){
         self.init()
@@ -90,10 +111,14 @@ class StreakDay : NSObject{
             streak = s
         }
 
+        if let dateString = streak["date"] as? String{
+            date = dateFromString(dateString)
+        }
+        
         if let dailyCarbsLimitInt = streak["daily_carbs_limit"] as? Int{
             dailyCarbsLimit = dailyCarbsLimitInt
         }
-
+        
         if let dailyUsedCarbsInt = streak["daily_used_carbs"] as? Int{
             dailyUsedCarbs = dailyUsedCarbsInt
         }
@@ -101,5 +126,68 @@ class StreakDay : NSObject{
         if let mealRecordsCountInt = streak["meal_records_count"] as? Int{
             mealRecordsCount = mealRecordsCountInt
         }
+
+        if let statusInt = streak["status"] as? Int{
+            status = statusInt
+        }
+        
+        if let lastMealRecordDictionary = streak["last_meal_record"] as? NSDictionary{
+            lastMealRecord = CSPhoto(dictionary: lastMealRecordDictionary)
+        }
+
     }
+}
+
+private func dateFromString(dateString: String) -> NSDate?{
+    let formatter  = NSDateFormatter()
+    formatter.dateFormat = "yyyy-MM-dd"
+    if let date = formatter.dateFromString(dateString) {
+        return date
+    } else {
+        return nil
+    }
+}
+
+private func getDayOfWeek(dateString:String)->Int? {
+    if let date = dateFromString(dateString){
+        return getDayOfWeek(date)
+    } else {
+        return nil
+    }
+}
+
+private func getDayOfWeek(date: NSDate) -> Int?{
+    let myCalendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
+    let myComponents = myCalendar.components(.CalendarUnitWeekday, fromDate: date)
+    let weekDay = myComponents.weekday
+    
+    return weekDay
+}
+
+private func dayOfWeekNameFromInt(index: Int) -> String{
+    let array = [
+        "Sun",
+        "Mon",
+        "Tue",
+        "Wed",
+        "Thu",
+        "Fri",
+        "Sat"
+    ]
+    
+    return array[index - 1]
+}
+
+private func fullDayOfWeekNameFromInt(index: Int) -> String{
+    let array = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday"
+    ]
+    
+    return array[index - 1]
 }

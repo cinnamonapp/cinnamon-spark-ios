@@ -120,9 +120,9 @@ carb dinner will do good.</string>
                         </constraints>
                     </view>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPn-bl-zNA" customClass="DotsScrollView" customModule="Cinnamon" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="435" width="330" height="30"/>
+                        <rect key="frame" x="0.0" y="425" width="330" height="40"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="30" id="yTA-X9-eZV"/>
+                            <constraint firstAttribute="height" constant="40" id="yTA-X9-eZV"/>
                         </constraints>
                     </scrollView>
                 </subviews>

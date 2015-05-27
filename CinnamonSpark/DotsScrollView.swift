@@ -8,8 +8,22 @@
 
 import UIKit
 
-class DotsScrollView: UIScrollView {
+@objc
+protocol DotsScrollViewDelegate : UIScrollViewDelegate{
+    /**
+        This method is called when the user touches one of the dots.
+    
+        :param: dotsScrollViewDelegate The object that is container of dots
+        :param: indexPath The index path of the touched object. Only the item property is filled for now.
+    */
+    optional func dotsScrollView(
+                                 dotsScrollView: DotsScrollView,
+        didSelectItemAtIndexPath indexPath: NSIndexPath
+    )
+}
 
+class DotsScrollView: UIScrollView, DotViewDelegate{
+    
     var dotsCount : Int{
         get{
             
@@ -24,6 +38,9 @@ class DotsScrollView: UIScrollView {
             _dotsCount = newValue
             removeDotsFromSuperview()
             _dots = nil
+            
+            // Put the dots back into the view
+            configure()
         }
     }
     var _dotsCount : Int!
@@ -41,8 +58,11 @@ class DotsScrollView: UIScrollView {
             
             var array : [DotView] = []
             
+            // Dots initialization
             for(var i = 0; i < dotsCount; i++){
-                let dot = DotView(frame: CGRectMake(0, 0, defaultRadius*2, defaultRadius*2))
+                let dot = DotView(frame: CGRectMake(0, 0, defaultRadius*2, defaultRadius*2 + 15))
+                dot.label.text = "Tue"
+                dot.delegate = self
                 array.append(dot)
             }
             
@@ -69,9 +89,17 @@ class DotsScrollView: UIScrollView {
         }
     }
     
+    // MARK: - Dots method
+    
     func colorDotsWithColors(colors: [UIColor]){
         for (index, dot) in enumerate(dots){
             dot.fillColor = colors[index]
+        }
+    }
+    
+    func setTextToDotsWithStrings(strings: [String]){
+        for (index, dot) in enumerate(dots){
+            dot.label.text = strings[index]
         }
     }
     
@@ -82,6 +110,8 @@ class DotsScrollView: UIScrollView {
             }
         }
     }
+    
+    // MARK: - Layout methods
     
     func spaceBetweenDots() -> CGFloat{
         var space : CGFloat = 10
@@ -105,6 +135,20 @@ class DotsScrollView: UIScrollView {
             let previousDot = dots[i-1]
             
             dot.frame.origin.x = CGRectGetMaxX(previousDot.frame) + spaceBetweenDots()
+//            dot.frame.origin.y = CGRectGetMidY(bounds) - dot.frame.height / 2
+        }
+    }
+    
+    
+    // MARK: - DotViewDelegate methods
+    func dotViewDidTouchUpInside(dotView: DotView) {
+        let index = indexOf(dot: dotView, inArray: dots)
+        let indexPath = NSIndexPath(forItem: index, inSection: 0)
+        
+        if let delegate = self.delegate as? DotsScrollViewDelegate{
+            if(delegate.respondsToSelector("dotsScrollView:didSelectItemAtIndexPath:")){
+                delegate.dotsScrollView!(self, didSelectItemAtIndexPath: indexPath)
+            }
         }
     }
     
@@ -118,8 +162,18 @@ class DotsScrollView: UIScrollView {
 
 }
 
+protocol DotViewDelegate: NSObjectProtocol{
+    /**
+        Called when a dot is touched.
+        
+        :param: dotView The dot that has been touched
+    */
+    func dotViewDidTouchUpInside(dotView: DotView)
+}
 
 class DotView: UIView {
+    
+    var delegate : DotViewDelegate?
     
     let circlePathLayer = CAShapeLayer()
     
@@ -127,7 +181,7 @@ class DotView: UIView {
     
     var circleRadius: CGFloat {
         get {
-            return bounds.height / 2 - lineWidth / 2
+            return bounds.width / 2 - lineWidth / 2
         }
     }
     
@@ -141,6 +195,8 @@ class DotView: UIView {
         }
     }
     
+    let label : UILabel = UILabel()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
@@ -153,6 +209,7 @@ class DotView: UIView {
     
     func configure() {
         
+        // Configure circle
         circlePathLayer.frame = bounds
         
         circlePathLayer.lineWidth   = lineWidth
@@ -160,13 +217,35 @@ class DotView: UIView {
         circlePathLayer.strokeColor = UIColor.whiteColor().CGColor
         
         layer.addSublayer(circlePathLayer)
+        
+        // Configure label
+        label.font = label.font.fontWithSize(9)
+        label.textColor = UIColor.whiteColor()
+        label.textAlignment = NSTextAlignment.Center
+        self.addSubview(label)
+        
+        addTouchUpInsideGesture()
+    }
+    
+    func addTouchUpInsideGesture(){
+        let gesture = UITapGestureRecognizer(target: self, action: "handleTapGesture:")
+        self.addGestureRecognizer(gesture)
+    }
+    
+    func handleTapGesture(sender: AnyObject?){
+        // Call the delegate methods
+        if let delegate = self.delegate{
+            if(delegate.respondsToSelector("dotViewDidTouchUpInside:")){
+                delegate.dotViewDidTouchUpInside(self)
+            }
+        }
     }
     
     func circleFrame() -> CGRect {
         var circleFrame = CGRect(x: 0, y: 0, width: 2*circleRadius, height: 2*circleRadius)
         
         circleFrame.origin.x = CGRectGetMidX(circlePathLayer.bounds)// - CGRectGetMidX(circleFrame)
-        circleFrame.origin.y = CGRectGetMidY(circlePathLayer.bounds)// - CGRectGetMidY(circleFrame)
+        circleFrame.origin.y = CGRectGetMidX(circlePathLayer.bounds)// - CGRectGetMidY(circleFrame)
         return circleFrame
     }
     
@@ -183,6 +262,10 @@ class DotView: UIView {
         super.layoutSubviews()
         circlePathLayer.frame   = bounds
         circlePathLayer.path    = circlePath().CGPath
+        
+        // This has either a height of 0 or a adaptive height
+        label.hidden = (bounds.height == bounds.width)
+        label.frame = CGRectMake(0, CGRectGetMaxX(bounds), CGRectGetWidth(bounds), bounds.height - 2*circleRadius)
     }
     
     /*
@@ -193,4 +276,14 @@ class DotView: UIView {
     }
     */
     
+}
+
+private func indexOf(#dot: DotView, inArray array: [DotView]) -> Int{
+    for (index, element) in enumerate(array){
+        if(element == dot){
+            return index
+        }
+    }
+    
+    return -1
 }

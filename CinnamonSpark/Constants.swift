@@ -11,7 +11,7 @@ import Foundation
 // APIEndpoints constant
 let apiEndpoints : (local: String, development: String, staging: String, production: String) = (
     local:          "http://localhost:3000",
-    development:    "http://192.168.1.4:3000",
+    development:    "http://192.168.1.18:3000",
     staging:        "http://cinnamon-staging.herokuapp.com",
     production:     "http://cinnamon-production.herokuapp.com"
 )
@@ -19,13 +19,11 @@ let apiEndpoints : (local: String, development: String, staging: String, product
 // Change this constant to change the endpoint for entire app
 let primaryAPIEndpoint = apiEndpoints.production
 
-let color = 0x000000;
-
 let ColorPalette = (
-    AboveColor: UIColorFromHex(0x004040, alpha: 1.0),
-    WithinColor: UIColorFromHex(0x378C84, alpha: 1.0),
-    BelowColor: UIColorFromHex(0xDA967C, alpha: 1.0),
-    DefaultTextColor: UIColor.whiteColor()
+    AboveColor:         UIColorFromHex(0x004040, alpha: 1.0),
+    WithinColor:        UIColorFromHex(0x378C84, alpha: 1.0),
+    BelowColor:         UIColorFromHex(0xDA967C, alpha: 1.0),
+    DefaultTextColor:   UIColor.whiteColor()
 )
 
 let DefaultFont = UIFont(name: "Futura", size: 18)

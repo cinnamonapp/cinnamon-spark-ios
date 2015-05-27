@@ -125,7 +125,7 @@ class DashboardViewCell: UICollectionViewCell {
     }
     
     func setRingProgress(progress: CGFloat, withStatus statusOrNil: Int?){
-        var color = UIColor()
+        var color = ColorPalette.WithinColor
         
         if let status = statusOrNil{
             // Below
@@ -148,26 +148,43 @@ class DashboardViewCell: UICollectionViewCell {
     
     func setStreak(streak: [StreakDay]){
         var colors : [UIColor] = []
+        var strings : [String] = []
+        
         for streakDay in streak{
             var color : UIColor = UIColor.clearColor()
             if(streakDay.mealRecordsCount > 0){
-                // Above
-                if(streakDay.dailyUsedCarbs > streakDay.dailyCarbsLimit){
-                    color = ColorPalette.AboveColor
-                }
-                // Below
-                else if(streakDay.dailyUsedCarbs < streakDay.dailyCarbsLimit - 50){
-                    color = ColorPalette.BelowColor
-                }
-                // Within
-                else{
-                    color = ColorPalette.WithinColor
+                if let status = streakDay.status{
+                    // Above
+                    if(status == 1){
+                        color = ColorPalette.AboveColor
+                    }
+                        // Within
+                    else if(status == 0){
+                        color = ColorPalette.WithinColor
+                    }
+                        // Below
+                    else if(status == -1){
+                        color = ColorPalette.BelowColor
+                    }
                 }
             }
             
+            strings.append(streakDay.weekDay)
             colors.append(color)
         }
         
         streakDotsView.colorDotsWithColors(colors)
+        streakDotsView.setTextToDotsWithStrings(strings)
+    }
+    
+    func setBackgroundImageWithURL(url: NSURL){
+        backgroundImage.sd_setImageWithURL(url, placeholderImage: backgroundImage.image) { (image: UIImage!, error: NSError!, cache: SDImageCacheType, url: NSURL!) -> Void in
+            let toImage = image
+            UIView.transitionWithView(self.backgroundImage,
+                duration:0.3,
+                options: UIViewAnimationOptions.TransitionCrossDissolve,
+                animations: { self.backgroundImage.image = toImage },
+                completion: nil)
+        }
     }
 }
