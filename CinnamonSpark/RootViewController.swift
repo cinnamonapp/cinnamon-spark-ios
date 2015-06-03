@@ -117,7 +117,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
         
         self.cameraButton = UIButton(frame: CGRectMake(0, bounds.size.height - 60, bounds.size.width, 60))
         self.cameraButton.titleLabel?.textAlignment = NSTextAlignment.Center
-        self.cameraButton.backgroundColor = UIColorFromHex(0x000000, alpha: 0.4)
+        self.cameraButton.backgroundColor = UIColorFromHex(0x000000, alpha: 0.7)
         
         var buttonBounds = self.cameraButton.bounds
         buttonBounds.origin = CGPointMake(0, 0)

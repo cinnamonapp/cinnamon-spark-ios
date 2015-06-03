@@ -120,7 +120,7 @@ class DashboardViewCell: UICollectionViewCell {
     
     
     func setRingProgress(progress: CGFloat, withColor color: UIColor){
-        ringDisplayView.progress = progress
+        ringDisplayView.progress = progress        
         ringDisplayView.fillColor = color
     }
     
