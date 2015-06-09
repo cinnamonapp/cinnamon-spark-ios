@@ -10,7 +10,7 @@ import UIKit
 
 let dashboardCellReuseIdentifier = "dashboardViewCell"
 
-class DashboardViewController: UICollectionViewController, UIViewControllerTransitioningDelegate, DotsScrollViewDelegate {
+class DashboardViewController: CSRefreshableCollectionViewController, UIViewControllerTransitioningDelegate, DotsScrollViewDelegate {
     
     var dashboardObject : CSDashboard? {
         get{
@@ -34,7 +34,7 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
         // Register cell classes
         collectionView!.registerNib(UINib(nibName: "DashboardViewCell", bundle: nil), forCellWithReuseIdentifier: dashboardCellReuseIdentifier)
         
-        collectionView!.bounces = true
+        collectionView!.alwaysBounceVertical = true
         
         // Do any additional setup after loading the view.
     }
@@ -50,6 +50,10 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
     }
 
     func refreshDashboard(){
+        refreshDataWithRefreshControl(nil)
+    }
+    
+    override func refreshDataWithRefreshControl(refreshControlOrNil: UIRefreshControl?) {
         selectedStreakDay = nil
         setReloadCollectionView()
         // Get data for the dashboard
@@ -65,11 +69,13 @@ class DashboardViewController: UICollectionViewController, UIViewControllerTrans
     func handleRequestSuccessResponse(request: AFHTTPRequestOperation!, responseObject: AnyObject!){
         dashboardObject = CSDashboard(dictionary: responseObject as NSDictionary)
         
-        setReloadCollectionView()
+//        setReloadCollectionView()
+        
+        refreshControlEndRefreshing()
     }
     
     func handleRequestFailureResponse(request: AFHTTPRequestOperation!, error: NSError!){
-        
+        self.refreshControl.endRefreshing()
     }
     
     /*

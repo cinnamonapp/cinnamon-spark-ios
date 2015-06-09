@@ -17,6 +17,8 @@ class CSUser: NSObject {
     var microProfilePictureURL : NSURL!
     var profilePictureURL : NSURL!
 
+    var dailyCarbsLimit : Int!
+
     convenience init(dictionary: NSDictionary){
         self.init()
 
@@ -26,6 +28,10 @@ class CSUser: NSObject {
             self.id = idInt.description
         }
 
+        if let dailyCarbsLimitInt = dictionary["daily_carbs_limit"] as? Int{
+            self.dailyCarbsLimit = dailyCarbsLimitInt
+        }
+        
         self.username = dictionary["username"] as String
         
         self.nanoProfilePictureURL = NSURL(string: dictionary["profile_picture_nano_url"] as String)

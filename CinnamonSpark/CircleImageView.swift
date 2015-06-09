@@ -57,6 +57,11 @@ class CircleImageView: UIImageView {
         applyMask()
     }
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        applyMask()
+    }
+    
     func applyMask(){
         circlePathLayer.frame = bounds
         circlePathLayer.fillColor = UIColor.whiteColor().CGColor

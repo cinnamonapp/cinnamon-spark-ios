@@ -28,6 +28,7 @@ class CSAPIRequest: ASAPIRequest {
         return [
             "User"          : "/users/:id.json",
             "MealRecord"    : "/meal_records/:id.json",
+            "Meal"          : "/meals/:id.json",
             "Dashboard"     : "/dashboard"
         ]
     }
@@ -167,4 +168,19 @@ class CSAPIRequest: ASAPIRequest {
         
     }
     
+    
+    func getUserMeals(userId: String, page: Int, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        let mealsPath : String = self.getAPICombinedPath("User", withParentRecordId: userId, andModel: "Meal")
+        
+        let params = [
+            "page": page,
+            "per_page": 5
+        ]
+        
+        self.GET(mealsPath, parameters: params, success: success, failure: failure)
+    }
+    
+    func getUserMeals(#page: Int, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        self.getUserMeals(self.uniqueIdentifier(), page: page, success: success, failure: failure)
+    }
 }

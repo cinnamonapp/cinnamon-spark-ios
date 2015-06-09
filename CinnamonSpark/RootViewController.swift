@@ -260,9 +260,6 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
         
         // Init this
         userPhotoFeedNavigationController = CSUserPhotoFeedNavigationController()
-        // Fix to force webview to preload
-        let forceLoad = userPhotoFeedNavigationController.view
-        let forceStill = userPhotoFeedNavigationController.userPhotoFeedViewController.view
         
         userMonthView = FakeViewController()
         let fakeMonthImage = UIImageView(image: UIImage(named: "FakeMonthView"))

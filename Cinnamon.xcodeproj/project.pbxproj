@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		21CDA050D9882F91510919EF /* libPods-Cinnamon.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC7ABA3DDD64BD29F6E546F5 /* libPods-Cinnamon.a */; };
+		B0001A3C1B26FB380098897B /* CSRefreshableCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0001A3B1B26FB380098897B /* CSRefreshableCollectionViewController.swift */; };
+		B0001A3E1B27101D0098897B /* Superpowers+NSDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0001A3D1B27101D0098897B /* Superpowers+NSDate.swift */; };
 		B007561B1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */; };
 		B00C45501AEA9EF40023520C /* OnboardingContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B00C454D1AEA9EF40023520C /* OnboardingContentViewController.m */; };
 		B00C45511AEA9EF40023520C /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B00C454F1AEA9EF40023520C /* OnboardingViewController.m */; };
@@ -36,9 +38,11 @@
 		B0548DDE1B0B379400384B55 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = B0548DDB1B0B379400384B55 /* UIImage+ImageEffects.m */; };
 		B0548DDF1B0B379400384B55 /* UIImageEffects-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0548DDC1B0B379400384B55 /* UIImageEffects-Info.plist */; };
 		B0548DE11B0B39E100384B55 /* ImageRotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0548DE01B0B39E100384B55 /* ImageRotation.swift */; };
+		B0716C001B1F3D8C00FEC634 /* CSMealViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0716BFF1B1F3D8C00FEC634 /* CSMealViewFlowLayout.swift */; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
 		B08041AB1B022C7F008B19BB /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08041A91B022C7F008B19BB /* DashboardViewController.swift */; };
 		B0862F4C1B0112A50026A01D /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0862F4B1B0112A50026A01D /* RootViewController.swift */; };
+		B08786311B1EF6EF0056F34B /* CSMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08786301B1EF6EF0056F34B /* CSMeal.swift */; };
 		B087ACD11AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */; };
 		B087ACD71AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */; };
 		B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */; };
@@ -91,6 +95,8 @@
 		3FE6295B67B21935006E5391 /* Pods-Cinnamon.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinnamon.release.xcconfig"; path = "Pods/Target Support Files/Pods-Cinnamon/Pods-Cinnamon.release.xcconfig"; sourceTree = "<group>"; };
 		664C352E3714CB5744E6C067 /* Pods-Cinnamon.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinnamon.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Cinnamon/Pods-Cinnamon.debug.xcconfig"; sourceTree = "<group>"; };
 		A51D2CAEBE17904D55F97869 /* libPods-CinnamonSpark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CinnamonSpark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0001A3B1B26FB380098897B /* CSRefreshableCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSRefreshableCollectionViewController.swift; sourceTree = "<group>"; };
+		B0001A3D1B27101D0098897B /* Superpowers+NSDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Superpowers+NSDate.swift"; sourceTree = "<group>"; };
 		B007561A1ABC5D8B00386B03 /* CSUserPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUserPhotoFeedViewController.swift; sourceTree = "<group>"; };
 		B00C454C1AEA9EF40023520C /* OnboardingContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnboardingContentViewController.h; sourceTree = "<group>"; };
 		B00C454D1AEA9EF40023520C /* OnboardingContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OnboardingContentViewController.m; sourceTree = "<group>"; };
@@ -124,9 +130,11 @@
 		B0548DDC1B0B379400384B55 /* UIImageEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "UIImageEffects-Info.plist"; sourceTree = "<group>"; };
 		B0548DDD1B0B379400384B55 /* UIImageEffects-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageEffects-Prefix.pch"; sourceTree = "<group>"; };
 		B0548DE01B0B39E100384B55 /* ImageRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRotation.swift; sourceTree = "<group>"; };
+		B0716BFF1B1F3D8C00FEC634 /* CSMealViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMealViewFlowLayout.swift; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
 		B08041A91B022C7F008B19BB /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
 		B0862F4B1B0112A50026A01D /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		B08786301B1EF6EF0056F34B /* CSMeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMeal.swift; sourceTree = "<group>"; };
 		B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+CSMisterCinnamon.swift"; sourceTree = "<group>"; };
 		B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+EmptyBackButton.m"; sourceTree = "<group>"; };
 		B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowser.swift; sourceTree = "<group>"; };
@@ -345,6 +353,7 @@
 				B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */,
 				B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */,
 				B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */,
+				B0716BFF1B1F3D8C00FEC634 /* CSMealViewFlowLayout.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -382,6 +391,7 @@
 				B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */,
 				B02F13AC1AD80C6000075E41 /* CSUser.swift */,
 				B04CB50B1B04B8020097C6F0 /* CSDashboard.swift */,
+				B08786301B1EF6EF0056F34B /* CSMeal.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -441,6 +451,8 @@
 				B0A81B8B1AE91D570006F4B4 /* Constants.swift */,
 				B0F079CC1B038EA200B4A872 /* CircleImageView.swift */,
 				B045C20B1B05ED4C008A3883 /* DotsScrollView.swift */,
+				B0001A3B1B26FB380098897B /* CSRefreshableCollectionViewController.swift */,
+				B0001A3D1B27101D0098897B /* Superpowers+NSDate.swift */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -627,6 +639,7 @@
 				B0F1A80D1AF908D0006B3996 /* ASAPIRequest.swift in Sources */,
 				B02F13AB1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift in Sources */,
 				B045C20C1B05ED4C008A3883 /* DotsScrollView.swift in Sources */,
+				B0716C001B1F3D8C00FEC634 /* CSMealViewFlowLayout.swift in Sources */,
 				B0DCEF3B1AE5342100068B79 /* CSMealRecordDetailView.swift in Sources */,
 				B00C45511AEA9EF40023520C /* OnboardingViewController.m in Sources */,
 				B0CABA961B0F1EDD009878AD /* OverlayAnimationController.swift in Sources */,
@@ -653,7 +666,9 @@
 				B0548DDE1B0B379400384B55 /* UIImage+ImageEffects.m in Sources */,
 				B0DE33A71ACAEC2C003E8626 /* CSTabBarController.swift in Sources */,
 				B087ACD71AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m in Sources */,
+				B0001A3E1B27101D0098897B /* Superpowers+NSDate.swift in Sources */,
 				B0BF897F1B03466B003BF9F9 /* DashboardViewCell.swift in Sources */,
+				B0001A3C1B26FB380098897B /* CSRefreshableCollectionViewController.swift in Sources */,
 				B0BF89831B0362FD003BF9F9 /* RingView.swift in Sources */,
 				B04CB50C1B04B8020097C6F0 /* CSDashboard.swift in Sources */,
 				B0A148E61ACD9C010019E08F /* CSGridImageTagLayout.swift in Sources */,
@@ -661,6 +676,7 @@
 				B0DE33A51ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift in Sources */,
 				B0ECE8CC1AC081CF001D00CE /* CSCameraDelegate.swift in Sources */,
 				B0A148E41ACD9BE00019E08F /* CSVerticalImageRowLayout.swift in Sources */,
+				B08786311B1EF6EF0056F34B /* CSMeal.swift in Sources */,
 				B045436A1AEA16E900D46522 /* JSSAlertView.swift in Sources */,
 				B02F13A71AD7DE7800075E41 /* UILabel+CSTextLink.swift in Sources */,
 				B022479B1AE7738F0031DADC /* CSMealSizeSelector.swift in Sources */,

@@ -20,6 +20,11 @@ class CSMealRecordDetailCell: CSRepeatablePhotoBrowserCell {
     }
     */
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        photo.contentMode = .Center
+    }
+    
     override func setCarbsEstimateToValue(value: CSPhotoMealCarbsEstimate, grams: Int?) {
         super.setCarbsEstimateToValue(value, grams: grams)
         
@@ -43,12 +48,16 @@ class CSMealRecordDetailCell: CSRepeatablePhotoBrowserCell {
         
         self.photo.sd_setImageWithURL(thumbURL, completed: { (image: UIImage!, error: NSError!, cache: SDImageCacheType, url: NSURL!) -> Void in
             
-            self.photo.image = self.scaleImageWithImage(image, withMealSize: size)
+            if(image !== nil){
+                self.photo.image = self.scaleImageWithImage(image, withMealSize: size)
+            }
             
             // Then load the full image
             self.photo.sd_setImageWithURL(originalURL, placeholderImage: self.photo.image, completed: { (originalImage: UIImage!, error: NSError!, cache: SDImageCacheType, url: NSURL!) -> Void in
                 
-                self.photo.image = self.scaleImageWithImage(originalImage, withMealSize: size)
+                if(originalImage !== nil){
+                    self.photo.image = self.scaleImageWithImage(originalImage, withMealSize: size)
+                }
             })
         })
         

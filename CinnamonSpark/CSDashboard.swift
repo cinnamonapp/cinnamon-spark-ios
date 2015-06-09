@@ -138,6 +138,8 @@ class StreakDay : NSObject{
     }
 }
 
+
+
 private func dateFromString(dateString: String) -> NSDate?{
     let formatter  = NSDateFormatter()
     formatter.dateFormat = "yyyy-MM-dd"

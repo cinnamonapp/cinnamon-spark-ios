@@ -10,7 +10,7 @@ import UIKit
 
 let mealRecordDetailViewReuseIdentifier = "mealRecordDetailCell"
 
-class CSMealRecordDetailView: UICollectionViewController {
+class CSMealRecordDetailView: CSRefreshableCollectionViewController {
     
     var photo : CSPhoto!
     var backgroundImageView: UIImageView!
@@ -43,6 +43,9 @@ class CSMealRecordDetailView: UICollectionViewController {
         self.photo = photo
         
         setBackgroundWithPhoto(photo)
+        
+        // Make an api request anyway
+        CSAPIRequest().getMealRecordWithId(photo.id, self.handleRequestSuccessResponse, self.handleRequestFailureResponse)
     }
     
     convenience init(photoId: String){
@@ -53,6 +56,10 @@ class CSMealRecordDetailView: UICollectionViewController {
 
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func refreshDataWithRefreshControl(refreshControlOrNil: UIRefreshControl?) {
+        CSAPIRequest().getMealRecordWithId(photo.id, self.handleRequestSuccessResponse, self.handleRequestFailureResponse)
     }
     
     func setBackgroundWithPhoto(photo: CSPhoto){
@@ -119,6 +126,8 @@ class CSMealRecordDetailView: UICollectionViewController {
         self.collectionView?.reloadData()
         
         setBackgroundWithPhoto(photo)
+        
+        refreshControlEndRefreshing()
     }
     
     /**
@@ -126,7 +135,7 @@ class CSMealRecordDetailView: UICollectionViewController {
     Override to set custom behaviour for this action.
     */
     func handleRequestFailureResponse(operation: AFHTTPRequestOperation!, error: NSError!){
-
+        refreshControlEndRefreshing()
     }
 
     // MARK: UICollectionViewDataSource
