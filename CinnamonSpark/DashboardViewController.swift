@@ -50,12 +50,12 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
     }
 
     func refreshDashboard(){
-        refreshDataWithRefreshControl(nil)
+        println("refreshing")
+        refreshDataWithRefreshControl(self.refreshControl)
     }
     
     override func refreshDataWithRefreshControl(refreshControlOrNil: UIRefreshControl?) {
         selectedStreakDay = nil
-        setReloadCollectionView()
         // Get data for the dashboard
         CSAPIRequest().getUserDashboard(handleRequestSuccessResponse, handleRequestFailureResponse)
     }
@@ -69,9 +69,8 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
     func handleRequestSuccessResponse(request: AFHTTPRequestOperation!, responseObject: AnyObject!){
         dashboardObject = CSDashboard(dictionary: responseObject as NSDictionary)
         
-//        setReloadCollectionView()
-        
         refreshControlEndRefreshing()
+        setReloadCollectionView()
     }
     
     func handleRequestFailureResponse(request: AFHTTPRequestOperation!, error: NSError!){

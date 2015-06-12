@@ -17,7 +17,7 @@ let apiEndpoints : (local: String, development: String, staging: String, product
 )
 
 // Change this constant to change the endpoint for entire app
-let primaryAPIEndpoint = apiEndpoints.staging
+let primaryAPIEndpoint = apiEndpoints.production
 
 let ColorPalette = (
     AboveColor:         UIColorFromHex(0x004040, alpha: 1.0),

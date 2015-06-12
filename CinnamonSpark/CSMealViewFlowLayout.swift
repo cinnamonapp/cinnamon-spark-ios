@@ -339,5 +339,33 @@ class CSIndicatorRingReusableView: UICollectionReusableView{
         ringView.textColor = ColorPalette.DefaultTextColor
         ringView.text = "0"
     }
+    
+    
+    func setRingProgress(progress: CGFloat, withColor color: UIColor){
+        ringView.progress = progress
+        ringView.fillColor = color
+    }
+    
+    func setRingProgress(progress: CGFloat, withStatus statusOrNil: Int?){
+        var color = ColorPalette.WithinColor
+        
+        if let status = statusOrNil{
+            // Below
+            if(status < 0){
+                color = ColorPalette.BelowColor
+            }
+                // Within
+            else if(status == 0){
+                color = ColorPalette.WithinColor
+            }
+                // Above
+            else{
+                color = ColorPalette.AboveColor
+            }
+        }
+        
+        self.setRingProgress(progress, withColor: color)
+        
+    }
 
 }

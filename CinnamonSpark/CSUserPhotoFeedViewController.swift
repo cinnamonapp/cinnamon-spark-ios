@@ -58,7 +58,6 @@ class CSUserPhotoFeedViewController: CSRefreshableCollectionViewController, UICo
     
     
     override func refreshDataWithRefreshControl(refreshControlOrNil: UIRefreshControl?) {
-        meals = []
         CSAPIRequest().getUserMeals(page: 1, success: handleMealsRequestSuccess, failure: handleMealsRequestFailure)
     }
     
@@ -87,11 +86,13 @@ class CSUserPhotoFeedViewController: CSRefreshableCollectionViewController, UICo
         
         lastRetrievedMealsCount = mealsArray.count
         
-//        if let page = (response as NSDictionary)["page"] as? Int{
-//            if(page == 1){
-//                meals = []
-//            }
-//        }
+        if let page = (response as NSDictionary)["page"] as? String{
+            if(page == "1"){
+                meals = []
+                resetPageIndex()
+            }
+            
+        }
         
         for mealDictionary in mealsArray{
             meals.append(CSMeal(dictionary: mealDictionary))
@@ -111,7 +112,6 @@ class CSUserPhotoFeedViewController: CSRefreshableCollectionViewController, UICo
     }
     
     override func shouldContinueToFetchPages() -> Bool {
-        println(lastRetrievedMealsCount != 0)
         return (lastRetrievedMealsCount != 0)
     }
     
@@ -172,6 +172,7 @@ class CSUserPhotoFeedViewController: CSRefreshableCollectionViewController, UICo
             newcell.ringView.progress = CGFloat(meal.carbsEstimateGrams) / CGFloat(meal.user.dailyCarbsLimit)
             newcell.ringView.text = meal.carbsEstimateGrams.description
 
+            newcell.setRingProgress(CGFloat(meal.carbsEstimateGrams) / CGFloat(meal.user.dailyCarbsLimit), withStatus: meal.status)
             
             cell = newcell
         }

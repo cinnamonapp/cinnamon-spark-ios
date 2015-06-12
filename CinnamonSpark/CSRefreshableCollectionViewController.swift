@@ -93,6 +93,10 @@ extension CSRefreshableCollectionViewController{
         }
     }
     
+    func resetPageIndex(){
+        pageIndex = 1
+    }
+    
     // Allows the controller to know that now he can fetch another page
     func endPageFetching(){
         self.isAlreadyFetching = false
