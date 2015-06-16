@@ -73,12 +73,24 @@ class DashboardViewCell: UICollectionViewCell {
         
         self.lastMealRecordView.sd_setImageWithURL(thumbURL, completed: { (image: UIImage!, error: NSError!, cache: SDImageCacheType, url: NSURL!) -> Void in
             
-            self.lastMealRecordView.image = self.scaleImageWithImage(image, withMealSize: size)
+            if(image !== nil){
+                self.lastMealRecordView.image = self.scaleImageWithImage(image, withMealSize: size)
+            }else{
+                println("Error setting thumbnail image to dashboard last meal record (image = nil)")
+            }
+            
             
 //            // Then load the full image
             self.lastMealRecordView.sd_setImageWithURL(originalURL, placeholderImage: self.lastMealRecordView.image, completed: { (originalImage: UIImage!, error: NSError!, cache: SDImageCacheType, url: NSURL!) -> Void in
-                let scaledImage = self.scaleImageWithImage(originalImage, withMealSize: size)
-                self.lastMealRecordView.image = scaledImage
+                
+                
+                if(image !== nil){
+                    let scaledImage = self.scaleImageWithImage(originalImage, withMealSize: size)
+                    self.lastMealRecordView.image = scaledImage
+                }else{
+                    println("Error setting original image to dashboard last meal record (originalImage = nil)")
+                }
+                
             })
         })
         
@@ -179,12 +191,17 @@ class DashboardViewCell: UICollectionViewCell {
     
     func setBackgroundImageWithURL(url: NSURL){
         backgroundImage.sd_setImageWithURL(url, placeholderImage: backgroundImage.image) { (image: UIImage!, error: NSError!, cache: SDImageCacheType, url: NSURL!) -> Void in
-            let toImage = image
-            UIView.transitionWithView(self.backgroundImage,
-                duration:0.3,
-                options: UIViewAnimationOptions.TransitionCrossDissolve,
-                animations: { self.backgroundImage.image = toImage },
-                completion: nil)
+            if(image !== nil){
+                let toImage = image
+                UIView.transitionWithView(self.backgroundImage,
+                    duration:0.3,
+                    options: UIViewAnimationOptions.TransitionCrossDissolve,
+                    animations: { self.backgroundImage.image = toImage },
+                    completion: nil)
+            }else{
+                println("Error setting the background of the dashboard view (image = nil)")
+            }
+            
         }
     }
 

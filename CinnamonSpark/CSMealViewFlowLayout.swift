@@ -258,6 +258,8 @@ class CSMealViewDishCell: UICollectionViewCell{
         imageView.sd_setImageWithURL(URL, completed: { (image: UIImage!, error: NSError!, cache: SDImageCacheType, url: NSURL!) -> Void in
             if(image !== nil){
                 self.imageView.image = self.scaleImageWithImage(image, withMealSize: size)
+            }else{
+                println("Error setting image of a meal record's cell of the meal view (image = nil)")
             }
         })
         

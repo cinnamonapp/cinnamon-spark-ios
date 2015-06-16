@@ -50,6 +50,8 @@ class CSMealRecordDetailCell: CSRepeatablePhotoBrowserCell {
             
             if(image !== nil){
                 self.photo.image = self.scaleImageWithImage(image, withMealSize: size)
+            }else{
+                println("Error setting thumbnail image of meal record detail view cell (image = nil)")
             }
             
             // Then load the full image
@@ -57,6 +59,8 @@ class CSMealRecordDetailCell: CSRepeatablePhotoBrowserCell {
                 
                 if(originalImage !== nil){
                     self.photo.image = self.scaleImageWithImage(originalImage, withMealSize: size)
+                }else{
+                    println("Error setting original image of meal record detail view cell (originalImage = nil)")
                 }
             })
         })

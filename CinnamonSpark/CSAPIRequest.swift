@@ -94,12 +94,12 @@ class CSAPIRequest: ASAPIRequest {
             success: { (operation: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
                 let responseDictionary = responseObject as NSDictionary
                 
-                println("Meal record uploaded.")
+                println("CSAPIRequest - Meal record uploaded.")
                 success(operation, responseObject)
                 
             },
             failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                println("Error uploading the file")
+                println("CSAPIRequest - Error uploading the file")
                 println(error)
                 
                 // Try again until it works :D
