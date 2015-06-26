@@ -11,6 +11,7 @@ import UIKit
 class CSMealRecordDetailCell: CSRepeatablePhotoBrowserCell {
 
     @IBOutlet var indicatorRing: IndicatorRingView!
+    @IBOutlet var timeAgoIcon: UIImageView!
     
     /*
     // Only override drawRect: if you perform custom drawing.
@@ -22,7 +23,16 @@ class CSMealRecordDetailCell: CSRepeatablePhotoBrowserCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        
+        
         photo.contentMode = .Center
+        userProfilePicture.layer.borderWidth = 1
+        userProfilePicture.layer.borderColor = UIColor.whiteColor().CGColor
+        
+        if let circlePhoto = photo as? CircleImageView{
+            circlePhoto.borderWidth = 6
+        }
     }
     
     override func setCarbsEstimateToValue(value: CSPhotoMealCarbsEstimate, grams: Int?) {

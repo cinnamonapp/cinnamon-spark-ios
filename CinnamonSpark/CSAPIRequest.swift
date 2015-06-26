@@ -28,11 +28,19 @@ class CSAPIRequest: ASAPIRequest {
         return [
             "User"          : "/users/:id.json",
             "MealRecord"    : "/meal_records/:id.json",
+            "Like"          : "/likes/:id.json",
             "Meal"          : "/meals/:id.json",
+            "Comment"       : "/comments/:id.json",
             "Dashboard"     : "/dashboard"
         ]
     }
     
+    
+    override func currentUser(userDictionary: NSDictionary?, handleResponseForEvent: Bool) {
+        if let userD = userDictionary{
+            CSUser.setCurrentUserOnce(dictionary: userD)
+        }
+    }
     
     // MARK: - HTTP custom requests methods
     
@@ -83,11 +91,19 @@ class CSAPIRequest: ASAPIRequest {
         
     }
     
+    var backgroundTask: UIBackgroundTaskIdentifier = UIBackgroundTaskInvalid
+
     func createMealRecord(params: NSDictionary, withImageData imageData: NSData, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void)){
+        
         let userMealRecordPath : String = self.getAPICombinedPath("User", withParentRecordId: self.uniqueIdentifier(), andModel: "MealRecord")
         
+        let mealRecordParams = [
+            "meal_record": params,
+            "ignore_if_duplicate": true
+        ]
+        
         self.POST(userMealRecordPath,
-            parameters: params,
+            parameters: mealRecordParams,
             constructingBodyWithBlock: { (formData: AFMultipartFormData!) -> Void in
                 formData.appendPartWithFileData(imageData, name: "meal_record[photo]", fileName: "meal_photo.jpeg", mimeType: "image/jpeg")
             },
@@ -97,16 +113,34 @@ class CSAPIRequest: ASAPIRequest {
                 println("CSAPIRequest - Meal record uploaded.")
                 success(operation, responseObject)
                 
+                self.endBackgroundTask()
             },
             failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println("CSAPIRequest - Error uploading the file")
                 println(error)
                 
+                self.endBackgroundTask()
                 // Try again until it works :D
-                self.createMealRecord(params, withImageData: imageData, success: success)
+//                self.createMealRecord(params, withImageData: imageData, success: success)
             }
         )
         
+        registerBackgroundTask()
+        
+    }
+    
+    func registerBackgroundTask() {
+        backgroundTask = UIApplication.sharedApplication().beginBackgroundTaskWithExpirationHandler {
+            [unowned self] in
+            self.endBackgroundTask()
+        }
+        assert(backgroundTask != UIBackgroundTaskInvalid)
+    }
+    
+    func endBackgroundTask() {
+        NSLog("Background task ended.")
+        UIApplication.sharedApplication().endBackgroundTask(backgroundTask)
+        backgroundTask = UIBackgroundTaskInvalid
     }
     
     
@@ -136,14 +170,8 @@ class CSAPIRequest: ASAPIRequest {
     Fetch MealRecords first page. Default page size from server is 25
     */
     func getOthersMealRecords(success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
-        
-        let mealRecordPath : String = self.getAPIPath("MealRecord")
-        let params = [
-            "page": 1
-        ]
-        
-        self.GET(mealRecordPath, parameters: params, success: success, failure: failure)
-        
+
+        self.getOthersMealRecordsWithPage(1, success: success, failure: failure)
     }
     
     /**
@@ -153,7 +181,9 @@ class CSAPIRequest: ASAPIRequest {
         
         let mealRecordPath : String = self.getAPIPath("MealRecord")
         let params = [
-            "page": page
+            "page": page,
+            "per_page": 5,
+            "requesting_user_id": self.uniqueIdentifier()
         ]
         
         self.GET(mealRecordPath, parameters: params, success: success, failure: failure)
@@ -182,5 +212,52 @@ class CSAPIRequest: ASAPIRequest {
     
     func getUserMeals(#page: Int, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
         self.getUserMeals(self.uniqueIdentifier(), page: page, success: success, failure: failure)
+    }
+    
+    
+    // Likes
+    
+    func likeMealRecordWithId(id: String, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        let likesPath : String = "/api/v1" + self.getAPIPath("Like")
+        
+        let params = [
+            "like": [
+                "meal_record_id": id,
+                "user_id": self.uniqueIdentifier()
+            ],
+            "delete_if_duplicate": true
+        ]
+        
+        self.POST(likesPath, parameters: params, success: success, failure: failure)
+    }
+    
+    func createLikeWithDictionary(dictionary: NSDictionary, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        let likesPath : String = "/api/v1" + self.getAPIPath("Like")
+    
+        let params = [
+            "like": dictionary,
+            "delete_if_duplicate": true
+        ]
+    
+        self.POST(likesPath, parameters: params, success: success, failure: failure)
+    }
+    
+    
+    // Comments
+    
+    func createCommentWithDictionary(dictionary: NSDictionary, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        let commentsPath : String = "/api/v1" + self.getAPIPath("Comment")
+        
+        let params = [
+            "comment": dictionary
+        ]
+        
+        self.POST(commentsPath, parameters: params, success: success, failure: failure)
+    }
+    
+    func getMealRecordComments(mealRecordId: String, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        let commentsPath : String = "/api/v1" + self.getAPICombinedPath("MealRecord", withParentRecordId: mealRecordId, andModel: "Comment")
+        
+        self.GET(commentsPath, parameters: [], success: success, failure: failure)
     }
 }

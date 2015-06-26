@@ -8,6 +8,8 @@
 
 import Foundation
 
+let mealRecordCacheFolderPath = "meal_records_cache/"
+
 // APIEndpoints constant
 let apiEndpoints : (local: String, development: String, staging: String, production: String) = (
     local:          "http://localhost:3000",
@@ -17,7 +19,7 @@ let apiEndpoints : (local: String, development: String, staging: String, product
 )
 
 // Change this constant to change the endpoint for entire app
-let primaryAPIEndpoint = apiEndpoints.development
+let primaryAPIEndpoint = apiEndpoints.production
 
 let ColorPalette = (
     AboveColor:         UIColorFromHex(0x004040, alpha: 1.0),

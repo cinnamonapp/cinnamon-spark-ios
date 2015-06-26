@@ -50,8 +50,16 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
     }
 
     func refreshDashboard(){
-        println("refreshing")
+        println("Refreshing dashboard content")
         refreshDataWithRefreshControl(self.refreshControl)
+    }
+    
+    func refreshDataWithLastMealRecord(mealRecord: CSPhoto){
+        if let dashboard = dashboardObject{
+            dashboard.lastMealRecord = mealRecord
+        }
+        
+        setReloadCollectionView()
     }
     
     override func refreshDataWithRefreshControl(refreshControlOrNil: UIRefreshControl?) {
@@ -68,6 +76,19 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
     
     func handleRequestSuccessResponse(request: AFHTTPRequestOperation!, responseObject: AnyObject!){
         dashboardObject = CSDashboard(dictionary: responseObject as NSDictionary)
+        
+        let dashboard = dashboardObject!
+        let computedDashboardDictionary = [
+            "dashboard":[
+                "daily_used_carbs": dashboard.dailyUsedCarbs,
+                "daily_carbs_limit": dashboard.dailyCarbsLimit,
+                "current_status_at_time": dashboard.currentStatusAtTime!,
+                "smart_alert_message": dashboard.smartAlertMessage!
+            ]
+        ]
+        
+        // Cache the response of the query
+        NSUserDefaults.standardUserDefaults().setObject(computedDashboardDictionary, forKey: "dashboardObjectDictionary")
         
         refreshControlEndRefreshing()
         setReloadCollectionView()
@@ -101,10 +122,15 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
         if let dashboard = dashboardObject{
             
             if let lastMealRecord = dashboard.lastMealRecord{
-                let mealDetailViewController = CSMealRecordDetailView(photo: lastMealRecord)
-//                let navController = UINavigationController(rootViewController: mealDetailViewController)
-        
-                self.presentViewController(mealDetailViewController, animated: true, completion: nil)
+                
+                if let image = lastMealRecord.image {}
+                else{
+                    let mealDetailViewController = CSMealRecordDetailView(photo: lastMealRecord)
+                    //                let navController = UINavigationController(rootViewController: mealDetailViewController)
+                    
+                    self.presentViewController(mealDetailViewController, animated: true, completion: nil)
+                }
+                
             }
             
         }
@@ -134,33 +160,12 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
                 
                 // Set self as dots delegate
                 cell.streakDotsView.delegate = self
+                
                 cell.ringDisplayViewTapGesture.addTarget(self, action: "openLastMealDetailViewController")
                 
                 // The user selected a streakDay
                 if let streakDay = selectedStreakDay{
-                    let progress : CGFloat = CGFloat(streakDay.dailyUsedCarbs) / CGFloat(streakDay.dailyCarbsLimit)
-                    cell.setRingProgress(progress, withStatus: streakDay.status)
-                    
-                    // Carbs indicator
-//                    let dailyRemainingCarbs = streakDay.dailyRemainingCarbs
-//                    cell.carbsIndicatorView.text = "\(dailyRemainingCarbs)g"
-//                    cell.carbsIndicatorSupportTextView.text = "left"
-//                    
-//                    if(dailyRemainingCarbs < 0){
-//                        cell.carbsIndicatorView.text = "+\(-dailyRemainingCarbs)g"
-//                        cell.carbsIndicatorSupportTextView.text = "above"
-//                    }
-//                    cell.carbsIndicatorView.text = "\(streakDay.dailyUsedCarbs)g"
-                    cell.setCarbsIndicatorViewText(streakDay.dailyUsedCarbs)
-                    cell.carbsIndicatorSupportTextView.text = "used"
-                    
-                    cell.messageView.text = "\(streakDay.fullWeekDay) \(streakDay.date.day()).\(streakDay.date.month()).\(streakDay.date.year())"
-                    
-                    cell.setLastMealRecord(streakDay.lastMealRecord)
-                    
-                    if let lastMealRecord = streakDay.lastMealRecord{
-                        cell.setBackgroundImageWithURL(lastMealRecord.photoURL(CSPhotoPhotoStyle.BlurredBackground))
-                    }
+                    cell.configure(streakDay: streakDay)
                     
                     return cell
                 }
@@ -168,32 +173,15 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
                 // Dashboard data is there
                 if let dashboard = dashboardObject{
                     
-                    // Ring progress
-                    let dailyRemainingCarbs = dashboard.dailyRemainingCarbs
-
-                    let progress : CGFloat = CGFloat(dashboard.dailyUsedCarbs) / CGFloat(dashboard.dailyCarbsLimit)
+                    cell.configure(dashboard: dashboard)
                     
-                    cell.setRingProgress(progress, withStatus: dashboard.currentStatusAtTime)
+                }else{
                     
-                    // Carbs indicator
-                    cell.setCarbsIndicatorViewText(dailyRemainingCarbs)
-                    
-                    // Last meal
-                    cell.setLastMealRecord(dashboard.lastMealRecord)
-                    
-                    // Set cell background
-                    if let backgroundImageURL = dashboard.backgroundImageURL{
-                        cell.setBackgroundImageWithURL(backgroundImageURL)
-                    }else if let lastMealRecord = dashboard.lastMealRecord{
-                        cell.setBackgroundImageWithURL(lastMealRecord.photoURL(CSPhotoPhotoStyle.BlurredBackground))
-                    }
-                    
-                    if let currentStreak = dashboard.currentStreak{
-                        cell.setStreak(currentStreak)
-                    }
-                    
-                    if let smartAlertMessage = dashboard.smartAlertMessage{
-                        cell.messageView.text = smartAlertMessage
+                    if let cachedDashboardDictionary = NSUserDefaults.standardUserDefaults().dictionaryForKey("dashboardObjectDictionary"){
+                        let dashboard = CSDashboard(dictionary: cachedDashboardDictionary)
+                        
+                        cell.configure(dashboard: dashboard)
+                        
                     }
                     
                 }

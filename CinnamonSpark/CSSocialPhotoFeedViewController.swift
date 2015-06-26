@@ -8,9 +8,6 @@
 
 import Foundation
 
-let smartAlertReuseIdentifier = "smartAlertPhotoBrowserCell"
-
-
 class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
 
     let APIRequest = CSAPIRequest()
@@ -21,8 +18,23 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
     var queryPage = 1
     var continueLoadingPhotos = true
     
+    override init(){
+        // TODO: - Allow the developer to set this from inheritance
+        super.init(collectionViewLayout: CSCommunityViewLayout() )
+        
+        // By default set the delegate to self
+        self.delegate = self
+        
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.BlackTranslucent
         
         // Temporary fix for custom navbar
 //        self.collectionView?.frame.origin.y += 30
@@ -30,19 +42,24 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
         // End
         
         self.collectionView?.backgroundColor = viewsBackgroundColor
-        
-        
-        self.collectionView!.registerNib(UINib(nibName: "CSSmartAlertPhotoBrowserCell", bundle: nil), forCellWithReuseIdentifier: smartAlertReuseIdentifier)
+        self.collectionView?.registerNib(UINib(nibName: "CSMealRecordActionsCell", bundle: nil), forSupplementaryViewOfKind: CSCommunityViewActionsDecorationViewKind, withReuseIdentifier: CSCommunityViewActionsDecorationViewKind)
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.setQuirkyMessage(SocialFeedQuirkyMessages.sample())
+        if(photos.count == 0){
+            // Try to load photos again if there aren't any photos still
+            loadPhotos()
+        }
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        if let navigationController = self.navigationController{
+            navigationController.cs_rootViewController?.swipeInteractionEnabled = true
+        }
     }
 
     override func loadPhotos() {
@@ -55,6 +72,14 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
 
     func userRequiredRefreshWithRefreshControl(refreshControl: UIRefreshControl) {
         self.loadPhotos()
+    }
+    
+    override func repeatablePhotoBrowserCellNibName() -> String {
+        return "CSMealRecordDetailCell"
+    }
+    
+    override func repeatablePhotoBrowserReuseIdentifier() -> String {
+        return "mealRecordDetailCell"
     }
     
     /**
@@ -85,9 +110,14 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
         
         self.photos = []
         
-        for (mealRecord) in mealRecords{
+        for (index, mealRecord) in enumerate(mealRecords){
             
             let csPhoto = CSPhoto(dictionary: mealRecord)
+            
+            if(index == 0){
+                self.setBlurredBackgroundImageWithURL(csPhoto.photoURL(.BlurredBackground))
+            }
+
             
             self.photos.append(csPhoto)
         }
@@ -125,8 +155,8 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
     */
     func handleRequestFailureResponse(operation: AFHTTPRequestOperation!, error: NSError!){
         self.refreshControl?.endRefreshing()
+        println("There was an error in the community view api")
     }
-
     
     
     // MARK: - UIScrollViewDelegate methods
@@ -135,7 +165,7 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
         
         let collectionView = self.collectionView!
         
-        let didScrollToBottom = (collectionView.contentOffset.y > (collectionView.contentSize.height - collectionView.bounds.size.height))
+        let didScrollToBottom = (collectionView.contentOffset.y > (collectionView.contentSize.height - collectionView.bounds.size.height - 400))
         
         if (didScrollToBottom && !isAlreadyRefreshing){
             
@@ -156,73 +186,287 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
     override func photoBrowser(photoBrowser: CSPhotoBrowser, forCollectionView collectionView: UICollectionView, customizablePhotoBrowserCell cell: CSRepeatablePhotoBrowserCell, atIndexPath indexPath: NSIndexPath, withPhoto photo: CSPhoto) -> CSRepeatablePhotoBrowserCell {
         
         // Check for mister cinnamon
-        var finalcell = cell
+        var finalcell = cell as CSMealRecordDetailCell
         
-        // If the id is -1 it means that is a smart alert
-        if (photo.id == "-1"){
-            finalcell = collectionView.dequeueReusableCellWithReuseIdentifier(smartAlertReuseIdentifier, forIndexPath: indexPath) as CSSmartAlertPhotoBrowserCell
-        }else{
-            // Set the photo
-            finalcell.setPhotoWithThumbURL(photo.URL, originalURL: photo.URL)
-        }
+        finalcell.backgroundColor = UIColor.clearColor()
         
-        finalcell.backgroundColor = viewsInsideBackgroundColor
+        finalcell.photoTapGesture.addTarget(self, action: "openMealDetailViewController:", passedArguments: [
+            "mealRecord": photo
+        ])
         
-        // Add tap gesture to photo by uncommenting these lines
-//        finalcell.photo.userInteractionEnabled = true
-//        let tapGesture = UITapGestureRecognizer(target: self.navigationController!, action: "openMealDetailViewControllerWithPhotoInGestureRecognizer:")
-//        tapGesture.passedValue = photo
-//        
-//        cell.photo.addGestureRecognizer(tapGesture)
+        finalcell.setPhotoWithThumbURL(photo.photoURL(CSPhotoPhotoStyle.Thumbnail), originalURL: photo.photoURL(CSPhotoPhotoStyle.Large), andMealSize: photo.size)
         
+        finalcell.setUserWithUser(photo.user)
         
-        // Set profile pic and username label
-        if (photo.user != nil){
-            if let pic = photo.user.microProfilePictureURL{
-                finalcell.userProfilePicture.sd_setImageWithURL(pic)
-            }
-            
-            finalcell.userProfileName.text = photo.user.username
-            
-            // Add action to userProfileName. Click to view user's stream
-            if let navController = self.navigationController as? CSSocialFeedNavigationController{
-                finalcell.userProfileName.addTarget(navController, action: "openUserProfile:", forControlEvents: UIControlEvents.TouchUpInside, passedValue: photo)
-            }
-
-        }
+        finalcell.timeAgoLabel.text = photo.createdAtDate.shortTimeAgoSinceNow()
         
-        // Set the created at
-        if(photo.createdAtDate != nil){
-            finalcell.timeAgoLabel.text = photo.createdAtDate.timeAgoSinceNow()
-        }else{
-            finalcell.timeAgoLabel.text = "Smart alert"
-        }
-        
-        // Set the title
         finalcell.titleAndHashtags.text = photo.title
-
-        // Set the carbs value
+        
+        finalcell.setCarbsEstimateToValue(CSPhotoMealCarbsEstimate.Low, grams: 0)
+        finalcell.indicatorRing.progress = 0
+        finalcell.indicatorRing.textColor = ColorPalette.DefaultTextColor
+        finalcell.indicatorRing.font = DefaultFont!
+        
+        
         if let carbs = photo.carbsEstimate{
             finalcell.setCarbsEstimateToValue(carbs, grams: photo.carbsEstimateGrams)
-        }else{
-            finalcell.hideCarbsEstimate()
+            if let grams = photo.carbsEstimateGrams{
+                var dividend = 200
+                
+                if let currentUser = CSUser.currentUser(){
+                    dividend = currentUser.dailyCarbsLimit
+                }
+                
+                finalcell.indicatorRing.progress = CGFloat(grams) / CGFloat(dividend)
+            }
         }
+        
+        cell.hideCarbsEstimate()
         
         return finalcell
     }
     
+    func openMealDetailViewController(sender: AnyObject?){
+
+        if let gestureRecognizer = sender as? UIGestureRecognizer{
+            if let passedArguments = gestureRecognizer.passedArguments as? NSDictionary{
+                if let mealRecord = passedArguments["mealRecord"] as? CSPhoto{
+                    
+                    
+                    if let navigationController = self.navigationController{
+                        if let rootViewController = navigationController.cs_rootViewController{
+                            rootViewController.openMealDetailViewControllerWithMealRecord(mealRecord, animated: true)
+                        }
+                    }
+                    
+                }
+            }
+        }
+    }
+    
+
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        var supplementaryView = collectionView.dequeueReusableSupplementaryViewOfKind(CSCommunityViewActionsDecorationViewKind, withReuseIdentifier: CSCommunityViewActionsDecorationViewKind, forIndexPath: indexPath) as CSMealRecordActionsCell
+        
+        let mealRecord = photoAtIndexPath(indexPath)
+        
+        
+        supplementaryView.loveButtonItem.isLoved = mealRecord.hasBeenLikedByUser!
+        supplementaryView.loveButtonItem.label.text = mealRecord.likesCount?.description
+        
+        supplementaryView.loveButtonItem.setTarget(self, action: "loveSelectedMealRecord:", passedArguments: [
+            "indexPath" : indexPath
+        ])
+        
+        
+        
+        supplementaryView.commentButtonItem.label.text = mealRecord.commentsCount?.description
+        supplementaryView.commentButtonItem.setTarget(self, action: "commentSelectedMealRecord:", passedArguments: [
+            "indexPath" : indexPath
+        ])
+        
+        return supplementaryView
+    }
+    
+    func loveSelectedMealRecord(sender: AnyObject?){
+        
+        if let argumentableSender = sender as? Argumentable{
+            if let passedArgs = argumentableSender.passedArguments as? NSDictionary{
+                if let indexPath = passedArgs["indexPath"] as? NSIndexPath{
+                    // Tap on heart
+                    if let heartButton = sender as? UIButton{
+                        println("liking")
+                        let mealRecord = photoAtIndexPath(indexPath)
+                        
+                        if let loveButtonItem = heartButton._parent_ as? CSLoveBarButtonItem{
+                            // Is liked
+                            if((mealRecord.hasBeenLikedByUser!)){
+                                mealRecord.hasBeenLikedByUser = false
+                                mealRecord.likesCount! -= 1
+                            }else{
+                                mealRecord.hasBeenLikedByUser = true
+                                mealRecord.likesCount! += 1
+                            }
+                            
+                            loveButtonItem.label.text = "\(mealRecord.likesCount!)"
+                            loveButtonItem.isLoved = mealRecord.hasBeenLikedByUser!
+                            
+                        }
+                        
+                        let like = CSLike()
+                        like.user = CSUser.currentUser()
+                        like.mealRecord = mealRecord
+                        
+                        like.save(success: handleLikeMealRecordRequestSuccess, failure: handleLikeMealRecordRequestFailure)
+                    }
+                    
+                    // Tap on label
+                    if let gesture = sender as? UIGestureRecognizer{
+                        println("showing likers")
+                    }
+                }
+            }
+        }
+        
+    }
+    
+    
+    func commentSelectedMealRecord(sender: AnyObject?){
+        if let argumentableSender = sender as? Argumentable{
+            if let passedArgs = argumentableSender.passedArguments as? NSDictionary{
+                if let indexPath = passedArgs["indexPath"] as? NSIndexPath{
+                    let mealRecord = photoAtIndexPath(indexPath)
+                    
+                    self.openMealRecordCommentsViewForMealRecord(mealRecord)
+                }
+            }
+        }
+    }
+    
+    
+    func openMealRecordCommentsViewForMealRecord(mealRecord: CSPhoto){
+        if let navigationController = self.navigationController{
+            let mealRecordCommentsView = CSMealRecordCommentsView()
+            mealRecordCommentsView.mealRecord = mealRecord
+            
+            navigationController.pushViewController(mealRecordCommentsView, animated: true)
+        }
+    }
+
+    func handleLikeMealRecordRequestSuccess(request: AFHTTPRequestOperation!, response: AnyObject!) -> Void{
+        println(response)
+    }
+    
+    func handleLikeMealRecordRequestFailure(request: AFHTTPRequestOperation!, error: NSError!) -> Void{
+        println(error)
+    }
+    
+//    override func sectionsCount() -> Int {
+//        var count = self.photos.count
+//        
+//        return count
+//    }
+//    
+//    override func elementsCountForSection(section: Int) -> Int {
+//        return 1
+//    }
+//    
+//    
+//    override func photoAtIndexPath(indexPath: NSIndexPath) -> CSPhoto {
+//        return self.photos[indexPath.section]
+//    }
     
     // Auto size height when smart alert
     override func photoBrowser(photoBrowser: CSPhotoBrowser, forCollectionView collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForPhoto photo: CSPhoto, atIndexPath indexPath: NSIndexPath) -> CGSize {
         var size = super.photoBrowser(photoBrowser, forCollectionView: collectionView, layout: collectionViewLayout, sizeForPhoto: photo, atIndexPath: indexPath)
 
         // If the id is -1 it means that is a smart alert
-        if (photo.id == "-1"){
-            // Crop 35%
-            size.height -= size.height * 0.30
-        }
+//        if (photo.id == "-1"){
+//            // Crop 35%
+//            size.height -= size.height * 0.30
+//        }
 
         return size
     }
 }
+
+
+
+
+
+
+@objc
+protocol BlurBackgroundable{
+    var blurredBackgroundImage : UIImage? {get set}
+    
+    func setBlurredBackgroundImageWithURL(url: NSURL)
+}
+
+private var blurredBackgroundImageViewAssociationKey : UInt8 = 0
+extension UICollectionViewController : BlurBackgroundable{
+    
+    
+    
+    var blurredBackgroundImage : UIImage?{
+        get{
+            return blurredBackgroundImageView.image
+        }
+        
+        set{
+            blurredBackgroundImageView.image = newValue
+        }
+    }
+    
+    func setBlurredBackgroundImageWithURL(url: NSURL) {
+        blurredBackgroundImageView.sd_setImageWithURL(url)
+    }
+    
+    private var blurredBackgroundImageView : UIImageView! {
+        get{
+            var imageView = objc_getAssociatedObject(self, &blurredBackgroundImageViewAssociationKey) as UIImageView!
+            
+            if(imageView == nil){
+                
+                let mainScreenBounds = UIScreen.mainScreen().bounds
+                
+                imageView = UIImageView(frame: mainScreenBounds)
+                imageView.contentMode = .Center
+                
+                let blackOverlay = UIView(frame: mainScreenBounds)
+                blackOverlay.backgroundColor = UIColorFromHex(0x000000, alpha: 0.6)
+                imageView.addSubview(blackOverlay)
+                
+                collectionView?.backgroundView = imageView
+                
+                objc_setAssociatedObject(self, &blurredBackgroundImageViewAssociationKey, imageView, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
+            }
+            
+            return imageView
+        }
+    }
+    
+}
+
+extension SLKTextViewController : BlurBackgroundable{
+    
+    var blurredBackgroundImage : UIImage?{
+        get{
+            return blurredBackgroundImageView.image
+        }
+        
+        set{
+            blurredBackgroundImageView.image = newValue
+        }
+    }
+    
+    func setBlurredBackgroundImageWithURL(url: NSURL) {
+        blurredBackgroundImageView.sd_setImageWithURL(url)
+    }
+    
+    private var blurredBackgroundImageView : UIImageView! {
+        get{
+            var imageView = objc_getAssociatedObject(self, &blurredBackgroundImageViewAssociationKey) as UIImageView!
+            
+            if(imageView == nil){
+                
+                let mainScreenBounds = UIScreen.mainScreen().bounds
+                
+                imageView = UIImageView(frame: mainScreenBounds)
+                imageView.contentMode = .Center
+                
+                let blackOverlay = UIView(frame: mainScreenBounds)
+                blackOverlay.backgroundColor = UIColorFromHex(0x000000, alpha: 0.6)
+                imageView.addSubview(blackOverlay)
+                
+                tableView?.backgroundView = imageView
+                
+                objc_setAssociatedObject(self, &blurredBackgroundImageViewAssociationKey, imageView, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
+            }
+            
+            return imageView
+        }
+    }
+    
+}
+
 

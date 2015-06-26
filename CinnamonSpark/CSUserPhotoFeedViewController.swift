@@ -32,18 +32,21 @@ class CSUserPhotoFeedViewController: CSRefreshableCollectionViewController, UICo
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if(meals.count == 0){
+            // Try to load meals again if there aren't any meals still
+            refreshData()
+        }
     }
     
     override func viewDidLoad(){
         super.viewDidLoad()
         
-        let collectionV = collectionView!
-//        collectionV.frame.size.width = collectionV.frame.width - 80
         collectionView?.registerClass(CSMealViewDishCell.self, forCellWithReuseIdentifier: mealViewDishCellIdentifier)
         collectionView?.registerClass(CSMealViewHeaderView.self, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: mealViewDishSupplementaryCellIdentifier)
         collectionView?.registerClass(CSIndicatorRingReusableView.self, forSupplementaryViewOfKind: CSMealViewElementKindSectionRing, withReuseIdentifier: mealViewDishSupplementaryRingCellIdentifier)
         
-        refreshDataWithRefreshControl(nil)
+        refreshData()
         
         backgroundImageView = UIImageView()
         backgroundImageView.contentMode = .Center

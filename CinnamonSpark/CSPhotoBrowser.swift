@@ -27,6 +27,10 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
         
     }
 
+    override init(collectionViewLayout: UICollectionViewLayout){
+        super.init(collectionViewLayout: collectionViewLayout)
+    }
+    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -38,10 +42,10 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
-        self.collectionView!.registerNib(UINib(nibName: "CSRepeatablePhotoBrowserCell", bundle: nil), forCellWithReuseIdentifier:  mealRecordFeedItemReuseIdentifier)
+        self.collectionView!.registerNib(UINib(nibName: repeatablePhotoBrowserCellNibName(), bundle: nil), forCellWithReuseIdentifier:  repeatablePhotoBrowserReuseIdentifier())
         self.collectionView!.registerClass(CSPhotoBrowserCell.self, forCellWithReuseIdentifier: topInterfaceReuseIdentifier)
         self.collectionView!.backgroundColor = viewsInsideBackgroundColor
-
+        
         self.collectionView?.alwaysBounceVertical = true
         
         // Do any additional setup after loading the view.
@@ -66,6 +70,33 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
     }
     
     /**
+        Override to provide custom layout. 
+    
+        :Note: Must override also 'repeatablePhotoBrowserReuseIdentifier' method
+    */
+    func repeatablePhotoBrowserCellNibName() -> String{
+        return "CSRepeatablePhotoBrowserCell"
+    }
+    
+    /**
+    Override to provide custom layout
+    
+    :Note: Must override also 'repeatablePhotoBrowserCellNibName' method
+    */
+    func repeatablePhotoBrowserReuseIdentifier() -> String{
+        return mealRecordFeedItemReuseIdentifier
+    }
+    
+    /**
+    Override to provide custom layout
+    
+    :Note: Must override also 'repeatablePhotoBrowserCellNibName' method
+    */
+    func repeatablePhotoBrowserCellClass() -> AnyClass{
+        return CSRepeatablePhotoBrowserCell.self
+    }
+    
+    /**
         This function is vital. It is called automatically by the CSPhotoBrowser to fill up the photos array.
     */
     func loadPhotos(){
@@ -79,27 +110,22 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     // MARK: UICollectionViewDataSource
 
-    private func elementsCountForSection(section: Int) -> Int{
+    func elementsCountForSection(section: Int) -> Int{
         var count = 0
         
-        // If wants top interface and is the first section
-        if(self.wantsCustomizableTopViewInterface() && section == 0){
-            count = 1
-        }else{
-            count = self.photos.count
-        }
+        count = self.photos.count
         
         return count
     }
     
-    private func sectionsCount() -> Int{
+    func sectionsCount() -> Int{
         var count = 1
         
-        if(self.wantsCustomizableTopViewInterface()){
-            count = 2
-        }
-        
         return count
+    }
+    
+    func photoAtIndexPath(indexPath: NSIndexPath) -> CSPhoto{
+        return self.photos[indexPath.item]
     }
     
     /**
@@ -139,18 +165,31 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         //#warning Incomplete method implementation -- Return the number of sections
-        return self.sectionsCount()
+        var sections = self.sectionsCount()
+        
+        if(self.wantsCustomizableTopViewInterface()){
+            sections++
+        }
+        
+        return sections
     }
 
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         //#warning Incomplete method implementation -- Return the number of items in the section
-        return self.elementsCountForSection(section)
+        var items = self.elementsCountForSection(section)
+        
+        // If wants top interface and is the first section
+        if(self.wantsCustomizableTopViewInterface() && section == 0){
+            items = 1
+        }
+        
+        return items
     }
-
+    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier(mealRecordFeedItemReuseIdentifier, forIndexPath: indexPath) as CSRepeatablePhotoBrowserCell
+        var cell : CSRepeatablePhotoBrowserCell = collectionView.dequeueReusableCellWithReuseIdentifier(repeatablePhotoBrowserReuseIdentifier(), forIndexPath: indexPath) as CSRepeatablePhotoBrowserCell
         
         // If the developer wants a top interface space give him what he wants
         if(self.wantsCustomizableTopViewInterfaceWithIndexPath(indexPath)){
@@ -163,11 +202,10 @@ class CSPhotoBrowser: UICollectionViewController, UICollectionViewDelegateFlowLa
             newcell = delegate.photoBrowser!(self, customizableTopViewInterface: newcell)
             
             return newcell
-        }else{
             
-//            cell.setPhotoBrowser(photoBrowser: self)
+        }else{
 
-            let photo : CSPhoto = self.photos[indexPath.item] as CSPhoto
+            let photo : CSPhoto = photoAtIndexPath(indexPath)
             
             // Check if there's delegate
             if let delegate = self.delegate?{

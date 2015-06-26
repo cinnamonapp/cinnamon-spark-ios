@@ -119,6 +119,9 @@ carb dinner will do good.</string>
                             <constraint firstAttribute="height" constant="330" id="xad-Oa-Na8"/>
                         </constraints>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MealMarkers" translatesAutoresizingMaskIntoConstraints="NO" id="kvK-ef-8th">
+                        <rect key="frame" x="22" y="120" width="285" height="285"/>
+                    </imageView>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPn-bl-zNA" customClass="DotsScrollView" customModule="Cinnamon" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="425" width="330" height="40"/>
                         <constraints>
@@ -131,11 +134,13 @@ carb dinner will do good.</string>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="iT4-8a-aiW" secondAttribute="bottom" id="9Od-dR-ESm"/>
+                <constraint firstItem="tWE-mp-mph" firstAttribute="leading" secondItem="kvK-ef-8th" secondAttribute="leading" constant="1" id="BIa-W0-PoJ"/>
                 <constraint firstAttribute="centerX" secondItem="6lH-B6-OES" secondAttribute="centerX" constant="-0.5" id="Kim-df-tld"/>
                 <constraint firstAttribute="centerY" secondItem="wgj-Zs-XHl" secondAttribute="centerY" id="MlX-HY-0oU"/>
                 <constraint firstItem="YPn-bl-zNA" firstAttribute="bottom" secondItem="iT4-8a-aiW" secondAttribute="bottom" constant="-60" id="O08-W2-j02"/>
                 <constraint firstAttribute="trailing" secondItem="wgj-Zs-XHl" secondAttribute="trailing" id="OZk-gw-2Oo"/>
                 <constraint firstItem="YPn-bl-zNA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="QSR-pO-uOu"/>
+                <constraint firstItem="tWE-mp-mph" firstAttribute="height" secondItem="kvK-ef-8th" secondAttribute="height" id="SOf-hT-aam"/>
                 <constraint firstAttribute="trailing" secondItem="iT4-8a-aiW" secondAttribute="trailing" id="ZiZ-qB-8ve"/>
                 <constraint firstItem="iT4-8a-aiW" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="bFn-kV-aHt"/>
                 <constraint firstItem="wgj-Zs-XHl" firstAttribute="top" secondItem="6lH-B6-OES" secondAttribute="bottom" constant="10" id="bk8-y2-67n"/>
@@ -143,6 +148,8 @@ carb dinner will do good.</string>
                 <constraint firstItem="wgj-Zs-XHl" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="hSV-Ie-Tje"/>
                 <constraint firstItem="wgj-Zs-XHl" firstAttribute="top" secondItem="6lH-B6-OES" secondAttribute="bottom" constant="10" id="ibV-z3-DdR"/>
                 <constraint firstItem="iT4-8a-aiW" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="jNr-rV-p5N"/>
+                <constraint firstItem="tWE-mp-mph" firstAttribute="width" secondItem="kvK-ef-8th" secondAttribute="width" id="p1a-KP-4xt"/>
+                <constraint firstItem="tWE-mp-mph" firstAttribute="top" secondItem="kvK-ef-8th" secondAttribute="top" id="tha-cz-fEY"/>
             </constraints>
             <size key="customSize" width="330" height="525"/>
             <variation key="default">
@@ -169,5 +176,6 @@ carb dinner will do good.</string>
         <image name="CarbsBadgeBackground" width="40" height="40"/>
         <image name="DishContainerBackground" width="256" height="256"/>
         <image name="DishTest" width="255" height="256"/>
+        <image name="MealMarkers" width="626" height="626"/>
     </resources>
 </document>

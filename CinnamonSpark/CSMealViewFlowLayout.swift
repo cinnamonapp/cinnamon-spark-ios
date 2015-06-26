@@ -47,16 +47,21 @@ class CSMealViewFlowLayout: UICollectionViewFlowLayout {
         
     }
     
+    
     override func layoutAttributesForElementsInRect(rect: CGRect) -> [AnyObject]? {
         
-        var attributes = elementsAttributes //super.layoutAttributesForElementsInRect(rect) as [UICollectionViewLayoutAttributes]
+        var elementsattributes = elementsAttributes
+        var finalAttributes : [UICollectionViewLayoutAttributes]! = []
         
-        for (index, attribute) in enumerate(attributes){
-//            attribute.zIndex = index
+        for elementattributes in elementsattributes{
+            if(CGRectIntersectsRect(elementattributes.frame, rect)){
+                finalAttributes.append(elementattributes)
+            }
         }
         
-        return attributes
+        return finalAttributes
     }
+    
     
     override func layoutAttributesForSupplementaryViewOfKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes! {
         var attributes = super.layoutAttributesForSupplementaryViewOfKind(elementKind, atIndexPath: indexPath)

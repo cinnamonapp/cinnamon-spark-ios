@@ -15,6 +15,29 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
     
     var cameraViewController : CSCameraViewController!
     var cameraButton : UIButton!
+    var cameraButtonHidden : Bool {
+        get{
+            return cameraButton.hidden
+        }
+        
+        set{
+            cameraButton.hidden = newValue
+        }
+    }
+    
+    var swipeInteractionEnabled : Bool{
+        get{
+            return (pageViewController?.dataSource !== nil)
+        }
+        
+        set{
+            if(newValue){
+                pageViewController?.dataSource = pageStack
+            }else{
+                pageViewController?.dataSource = nil
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,6 +56,9 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
             
             self.setDishCount(userDishCount.description)
         }
+        
+
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -55,7 +81,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
         self.pageViewController?.dataSource = self.pageStack
         
         // Setup userPhotoFeedNavigationController
-        var initialViewController = self.pageStack.viewControllerAtIndex(3)!
+        var initialViewController = self.pageStack.viewControllerAtIndex(2)!
         
         
         self.pageViewController?.setViewControllers([initialViewController], direction: .Forward, animated: false, completion: { (b: Bool) -> Void in })
@@ -89,6 +115,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
         // In more complex implementations, the model controller may be passed to the view controller.
         if _pageStack == nil {
             _pageStack = PageStackController()
+            _pageStack?.rootViewController = self
         }
         return _pageStack!
     }
@@ -181,9 +208,34 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
             ]
         ]
         
+        
+        let mealRecord = CSPhoto(dictionary: params)
+        
+        println("Created meal record with date \(mealRecord.createdAtDate)")
+        let str = "test"
+        println("dictionary: \(mealRecord.toQueueableDictionaryForKey(str))")
+        
+        if let currentUser = CSUser.currentUser(){
+            mealRecord.user = currentUser
+        }
+        
+        mealRecord.image = image
+        
+        pageStack.dashboardViewController.dashboardObject?.backgroundImageURL = nil
+        pageStack.dashboardViewController.refreshDataWithLastMealRecord(mealRecord)
+        
         cameraViewController.dismissViewControllerAnimated(true, completion: nil)
         
-        CSAPIRequest().createMealRecord(params, withImageData: imageData, success: handleCreateMealRecordRequestSuccess)
+//        CSAPIRequest().createMealRecord(params, withImageData: imageData, success: handleCreateMealRecordRequestSuccess)
+        
+//        mealRecord.save(success: handleCreateMealRecordRequestSuccess, failure: handleCreateMealRecordRequestSuccess)
+        
+        mealRecord.queue()
+        // Testing
+        
+        // Store an array of the items that needs to be uploaded
+        
+        
         
     }
     
@@ -220,6 +272,22 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
     }
     
 
+    func openMealDetailViewControllerWithPhotoId(photoId: String, animated: Bool){
+        
+        let mealDetailViewController = CSMealRecordDetailView(photoId: photoId)
+        //        let navController = UINavigationController(rootViewController: mealDetailViewController)
+        
+        self.presentViewController(mealDetailViewController, animated: animated, completion: nil)
+    }
+    
+    func openMealDetailViewControllerWithMealRecord(mealRecord: CSPhoto, animated: Bool){
+        
+        let mealDetailViewController = CSMealRecordDetailView(photo: mealRecord)
+        //        let navController = UINavigationController(rootViewController: mealDetailViewController)
+        
+        self.presentViewController(mealDetailViewController, animated: animated, completion: nil)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -247,7 +315,19 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
     let userPhotoFeedNavigationController   : CSUserPhotoFeedNavigationController!
     
     let userMonthView : UIViewController!
-    let communityView : UIViewController!
+    let communityView : CSSocialFeedNavigationController!
+    
+    var rootViewController : RootViewController?{
+        get{
+            return dashboardViewController.cs_rootViewController
+        }
+        
+        set{
+            dashboardViewController.cs_rootViewController = newValue
+            userPhotoFeedNavigationController.cs_rootViewController = newValue
+            communityView.cs_rootViewController = newValue
+        }
+    }
     
     override init(){
         super.init()
@@ -260,16 +340,17 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
         
         // Init this
         userPhotoFeedNavigationController = CSUserPhotoFeedNavigationController()
+        let view = userPhotoFeedNavigationController.view
+        let view2 = userPhotoFeedNavigationController.userPhotoFeedViewController.view
         
         userMonthView = FakeViewController()
         let fakeMonthImage = UIImageView(image: UIImage(named: "FakeMonthView"))
         fakeMonthImage.frame = userMonthView.view.bounds
         userMonthView.view.addSubview(fakeMonthImage)
         
-        communityView = SuperFakeViewController()
-        let fakeCommunityImage = UIImageView(image: UIImage(named: "FakeCommunityView"))
-        fakeCommunityImage.frame = userMonthView.view.bounds
-        communityView.view.addSubview(fakeCommunityImage)
+        communityView = CSSocialFeedNavigationController()
+        let view3 = communityView.view
+        let view4 = communityView.socialPhotoFeedViewController.view
     }
     
     func viewControllersCount() -> Int{
@@ -281,21 +362,21 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
         
         if(index==3){
             
-            return dashboardViewController
+            return communityView
         }
         
         if(index==2){
             
-            return userPhotoFeedNavigationController
+            return dashboardViewController
         }
         
         if(index==1){
             
-            return userMonthView
+            return userPhotoFeedNavigationController
         }
         
         if(index==0){
-            return communityView
+            return userMonthView
         }
 
         return nil
@@ -304,19 +385,19 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
     func indexOfViewController(viewController: UIViewController) -> Int {
         // Return the index of the given data view controller.
         
-        if let vc = viewController as? DashboardViewController{
+        if let vc = viewController as? CSSocialFeedNavigationController{
             return 3
         }
         
-        if let vc = viewController as? CSUserPhotoFeedNavigationController{
+        if let vc = viewController as? DashboardViewController{
             return 2
         }
         
-        if let vc = viewController as? FakeViewController{
+        if let vc = viewController as? CSUserPhotoFeedNavigationController{
             return 1
         }
         
-        if let vc = viewController as? SuperFakeViewController{
+        if let vc = viewController as? FakeViewController{
             return 0
         }
         
@@ -325,7 +406,13 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
     }
     
 
-    
+//    func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
+//        return self.viewControllersCount()
+//    }
+//    
+//    func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
+//        return 1
+//    }
     
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
@@ -357,3 +444,26 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
 
 
 }
+
+
+
+
+@objc
+protocol Rootable{
+    var cs_rootViewController : RootViewController? {get set}
+}
+
+private var cs_rootViewControllerKeyAssociation : UInt8 = 0
+extension UIViewController : Rootable{
+    var cs_rootViewController : RootViewController? {
+        get{
+            return objc_getAssociatedObject(self, &cs_rootViewControllerKeyAssociation) as RootViewController?
+        }
+        
+        set{
+            objc_setAssociatedObject(self, &cs_rootViewControllerKeyAssociation, newValue, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
+        }
+    }
+    
+}
+

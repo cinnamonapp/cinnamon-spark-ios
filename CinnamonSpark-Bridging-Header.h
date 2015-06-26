@@ -11,3 +11,5 @@
 #import "UIDeviceHardware.h"
 #import "UIImage+ImageEffects.h"
 #import "UICountingLabel.h"
+#import "SLKTextViewController.h"
+#import "FCFileManager.h"

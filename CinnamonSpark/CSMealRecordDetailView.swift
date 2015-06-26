@@ -10,7 +10,7 @@ import UIKit
 
 let mealRecordDetailViewReuseIdentifier = "mealRecordDetailCell"
 
-class CSMealRecordDetailView: CSRefreshableCollectionViewController {
+class CSMealRecordDetailView: CSRefreshableCollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var photo : CSPhoto!
     var backgroundImageView: UIImageView!
@@ -166,12 +166,7 @@ class CSMealRecordDetailView: CSRefreshableCollectionViewController {
                 
                 cell.setPhotoWithThumbURL(self.photo.photoURL(CSPhotoPhotoStyle.Thumbnail), originalURL: self.photo.photoURL(CSPhotoPhotoStyle.Large), andMealSize: self.photo.size)
                 
-                if let circlePhoto = cell.photo as? CircleImageView{
-                    circlePhoto.borderWidth = 4
-                }
-                
-                cell.userProfileName.hidden = true
-                cell.userProfilePicture.hidden = true
+                cell.setUserWithUser(photo.user)
                 
                 cell.timeAgoLabel.text = self.photo.createdAtDate.timeAgoSinceNow()
                 
@@ -186,12 +181,21 @@ class CSMealRecordDetailView: CSRefreshableCollectionViewController {
                 if let carbs = photo.carbsEstimate{
                     cell.setCarbsEstimateToValue(carbs, grams: photo.carbsEstimateGrams)
                     if let grams = photo.carbsEstimateGrams{
-                        cell.indicatorRing.progress = CGFloat(grams) / CGFloat(300)
+                        var dividend = 200
+                        
+                        if let currentUser = CSUser.currentUser(){
+                            dividend = currentUser.dailyCarbsLimit
+                        }
+                        
+                        cell.indicatorRing.progress = CGFloat(grams) / CGFloat(dividend)
                     }
                 }
                 
+                cell.timeAgoIcon.hidden = true
+                cell.timeAgoLabel.hidden = true
                 cell.hideCarbsEstimate()
-
+                
+                collectionView.setStoredSize(cell.computedSize(), forItemAtIndexPath: indexPath)
             }
             
             if(indexPath.item == 1){
@@ -211,6 +215,21 @@ class CSMealRecordDetailView: CSRefreshableCollectionViewController {
         
     
         return cell
+    }
+    
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        var size = CGSizeMake(50, 50)
+        
+        if let flowLayout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout{
+            size = flowLayout.itemSize
+        }
+        
+        if let storedSize = collectionView.retreiveStoredSizeForItemAtIndexPath(indexPath){
+            size = storedSize
+        }
+        
+        return size
     }
 
     // MARK: UICollectionViewDelegate

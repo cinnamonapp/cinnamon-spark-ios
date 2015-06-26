@@ -37,7 +37,7 @@ class CSFriendPhotoFeedViewController: CSSocialPhotoFeedViewController {
             super.loadPhotos()
         }else{
             let user = self.mealRecordsForUser
-            APIRequest.getUserMealRecords(user.id, success: self.handleRequestSuccessResponse, failure: self.handleRequestFailureResponse)
+            APIRequest.getUserMealRecords(user.id!, success: self.handleRequestSuccessResponse, failure: self.handleRequestFailureResponse)
         }
     }
     
@@ -47,7 +47,7 @@ class CSFriendPhotoFeedViewController: CSSocialPhotoFeedViewController {
         }else{
             let user = self.mealRecordsForUser
             
-            APIRequest.getUserMealRecords(user.id, page: page, success: self.handleRequestSuccessResponsePaginated, failure: self.handleRequestFailureResponse)
+            APIRequest.getUserMealRecords(user.id!, page: page, success: self.handleRequestSuccessResponsePaginated, failure: self.handleRequestFailureResponse)
         }
     }
     

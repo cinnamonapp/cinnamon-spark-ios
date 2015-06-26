@@ -22,14 +22,19 @@ class CSMeal: NSObject {
             return self.user.dailyCarbsLimit
         }
     }
-    
-    convenience init(dictionary: NSDictionary){
-        self.init()
+
+    override init(){
+        super.init()
         
         createdAt = NSDate()
         mealRecords = []
         status = 0
         carbsEstimateGrams = 0
+    }
+    
+    convenience init(dictionary: NSDictionary){
+        self.init()
+        
         
         if let createdAtString = dictionary["created_at"] as? String{
             createdAt = dateFromString(createdAtString)

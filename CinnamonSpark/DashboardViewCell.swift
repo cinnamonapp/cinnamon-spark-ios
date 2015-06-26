@@ -48,7 +48,12 @@ class DashboardViewCell: UICollectionViewCell {
             lastMealRecordView.hidden = false
             lastMealRecordCarbsContainerView.hidden = false
             
-            self.setPhotoWithThumbURL(mealRecord.photoURL(CSPhotoPhotoStyle.Thumbnail), originalURL: mealRecord.photoURL(CSPhotoPhotoStyle.Large), andMealSize: mealRecord.size)
+            
+            if let image = mealRecord.image {
+                self.lastMealRecordView.image = self.scaleImageWithImage(image, withMealSize: mealRecord.size)
+            } else{
+                self.setPhotoWithThumbURL(mealRecord.photoURL(CSPhotoPhotoStyle.Thumbnail), originalURL: mealRecord.photoURL(CSPhotoPhotoStyle.Large), andMealSize: mealRecord.size)
+            }
             
             if let carbsEstimateGrams = mealRecord.carbsEstimateGrams{
                 lastMealRecordCarbsIndicatorView.text = "\(carbsEstimateGrams)"
@@ -84,7 +89,7 @@ class DashboardViewCell: UICollectionViewCell {
             self.lastMealRecordView.sd_setImageWithURL(originalURL, placeholderImage: self.lastMealRecordView.image, completed: { (originalImage: UIImage!, error: NSError!, cache: SDImageCacheType, url: NSURL!) -> Void in
                 
                 
-                if(image !== nil){
+                if(originalImage !== nil){
                     let scaledImage = self.scaleImageWithImage(originalImage, withMealSize: size)
                     self.lastMealRecordView.image = scaledImage
                 }else{
@@ -189,7 +194,22 @@ class DashboardViewCell: UICollectionViewCell {
         streakDotsView.setTextToDotsWithStrings(strings)
     }
     
+    func setBackgroundImageWithImage(image: UIImage){
+        var blurredImage = image.applyBlurWithRadius(CGFloat(8), tintColor: nil, saturationDeltaFactor: 1, maskImage: nil)
+        blurredImage = blurredImage.imageRotatedByDegrees(90, flip: false)
+        
+        backgroundImage.contentMode = UIViewContentMode.ScaleAspectFill
+        
+        UIView.transitionWithView(self.backgroundImage,
+            duration:0.3,
+            options: UIViewAnimationOptions.TransitionCrossDissolve,
+            animations: { self.backgroundImage.image = blurredImage },
+            completion: nil)
+        
+    }
+    
     func setBackgroundImageWithURL(url: NSURL){
+        backgroundImage.contentMode = UIViewContentMode.Center
         backgroundImage.sd_setImageWithURL(url, placeholderImage: backgroundImage.image) { (image: UIImage!, error: NSError!, cache: SDImageCacheType, url: NSURL!) -> Void in
             if(image !== nil){
                 let toImage = image
@@ -219,5 +239,74 @@ class DashboardViewCell: UICollectionViewCell {
     func setCarbsIndicatorViewText(carbsEstimateGrams: Int, withFormat format: String){
         carbsIndicatorView.format = format
         carbsIndicatorView.countFromCurrentValueTo(CGFloat(carbsEstimateGrams), withDuration: 2)
+    }
+    
+    
+    func configure(){
+        
+    }
+    
+    
+    func configure(#streakDay: StreakDay){
+        configure()
+        
+        let progress : CGFloat = CGFloat(streakDay.dailyUsedCarbs) / CGFloat(streakDay.dailyCarbsLimit)
+        setRingProgress(progress, withStatus: streakDay.status)
+        
+        // Carbs indicator
+        //                    let dailyRemainingCarbs = streakDay.dailyRemainingCarbs
+        //                    cell.carbsIndicatorView.text = "\(dailyRemainingCarbs)g"
+        //                    cell.carbsIndicatorSupportTextView.text = "left"
+        //
+        //                    if(dailyRemainingCarbs < 0){
+        //                        cell.carbsIndicatorView.text = "+\(-dailyRemainingCarbs)g"
+        //                        cell.carbsIndicatorSupportTextView.text = "above"
+        //                    }
+        //                    cell.carbsIndicatorView.text = "\(streakDay.dailyUsedCarbs)g"
+        
+        setCarbsIndicatorViewText(streakDay.dailyUsedCarbs)
+        carbsIndicatorSupportTextView.text = "used"
+        
+        messageView.text = "\(streakDay.fullWeekDay) \(streakDay.date.day()).\(streakDay.date.month()).\(streakDay.date.year())"
+        
+        setLastMealRecord(streakDay.lastMealRecord)
+        
+        if let lastMealRecord = streakDay.lastMealRecord{
+            setBackgroundImageWithURL(lastMealRecord.photoURL(CSPhotoPhotoStyle.BlurredBackground))
+        }
+    }
+    
+    func configure(#dashboard: CSDashboard){
+        // Ring progress
+        let dailyRemainingCarbs = dashboard.dailyRemainingCarbs
+        
+        let progress : CGFloat = CGFloat(dashboard.dailyUsedCarbs) / CGFloat(dashboard.dailyCarbsLimit)
+        
+        setRingProgress(progress, withStatus: dashboard.currentStatusAtTime)
+        
+        // Carbs indicator
+        setCarbsIndicatorViewText(dailyRemainingCarbs)
+        
+        // Last meal
+        setLastMealRecord(dashboard.lastMealRecord)
+        
+        // Set cell background
+        if let backgroundImageURL = dashboard.backgroundImageURL{
+            setBackgroundImageWithURL(backgroundImageURL)
+        }else if let lastMealRecord = dashboard.lastMealRecord{
+            if let image = lastMealRecord.image {
+                setBackgroundImageWithImage(image)
+            } else{
+                setBackgroundImageWithURL(lastMealRecord.photoURL(CSPhotoPhotoStyle.BlurredBackground))
+            }
+        }
+        
+        if let currentStreak = dashboard.currentStreak{
+            setStreak(currentStreak)
+        }
+        
+        if let smartAlertMessage = dashboard.smartAlertMessage{
+            messageView.text = smartAlertMessage
+        }
     }
 }

@@ -85,6 +85,7 @@ class CSFastCameraSavePictureViewController: UIViewController, CSFastCameraContr
         imageDetailsTextField.delegate = self
         imageDetailsTextField.textColor = UIColor.lightGrayColor()
         imageDetailsTextField.selectedTextRange = imageDetailsTextField.textRangeFromPosition(imageDetailsTextField.beginningOfDocument, toPosition: imageDetailsTextField.beginningOfDocument)
+        imageDetailsTextField.keyboardAppearance = UIKeyboardAppearance.Dark
         
         imageDetailsTextField.becomeFirstResponder()
         

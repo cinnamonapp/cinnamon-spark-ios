@@ -28,7 +28,7 @@ extension UILabel {
     func addTarget(target: AnyObject, action: Selector, forControlEvents: UIControlEvents, passedValue: AnyObject?){
         
         // Set the font color to make it seem a link
-        self.textColor = UIColor(red: 64/255, green: 134/255, blue: 168/255, alpha: 1)
+//        self.textColor = UIColor(red: 64/255, green: 134/255, blue: 168/255, alpha: 1)
         self.userInteractionEnabled = true
         self.passedValue = passedValue
         

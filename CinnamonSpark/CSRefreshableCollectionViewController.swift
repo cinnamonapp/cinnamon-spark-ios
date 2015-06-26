@@ -116,7 +116,7 @@ extension CSRefreshableCollectionViewController{
         
         let collectionView = self.collectionView!
         
-        let didScrollToBottom = (collectionView.contentOffset.y > (collectionView.contentSize.height - collectionView.bounds.size.height))
+        let didScrollToBottom = (collectionView.contentOffset.y > (collectionView.contentSize.height - collectionView.bounds.size.height) - 100)
         
         if (didScrollToBottom && !isAlreadyFetching){
             println("scrolling")

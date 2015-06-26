@@ -18,6 +18,13 @@ class CSRepeatablePhotoBrowserCell: UICollectionViewCell {
     @IBOutlet var carbsEstimateGrams: UILabel!
     @IBOutlet var titleAndHashtags: UILabel!
     
+    var photoTapGesture : UITapGestureRecognizer{
+        get{
+            return _photoTapGesture
+        }
+    }
+    let _photoTapGesture = UITapGestureRecognizer()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,11 +35,23 @@ class CSRepeatablePhotoBrowserCell: UICollectionViewCell {
         
         self.carbsEstimate?.hidden = true
         
+        self.photo.userInteractionEnabled = true
+        self.photo.addGestureRecognizer(photoTapGesture)
+        
         let gesture = UITapGestureRecognizer(target: self, action: "toggleCarbsEstimateGramsVisibility")
         self.carbsEstimate?.userInteractionEnabled = true
         self.carbsEstimate?.addGestureRecognizer(gesture)
     }
 
+    func setUserWithUser(userOrNil: CSUser?){
+        if let user = userOrNil{
+            if let pic = user.microProfilePictureURL{
+                userProfilePicture.sd_setImageWithURL(pic)
+            }
+                
+            userProfileName.text = user.username
+        }
+    }
     
     func setPhotoWithThumbURL(thumbURL: NSURL, originalURL: NSURL){
         // First load the thumb image

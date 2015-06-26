@@ -56,7 +56,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate/*, UITabBarControllerDeleg
         // Make window visible
         self.window?.makeKeyAndVisible()
         
+        
+        // Testing
+        
+        var dequeuerTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "dequeueLastObject", userInfo: nil, repeats: true)
+        
         return true
+    }
+    
+    func dequeueLastObject(){
+        println("Dequeuing objects")
+        CSPhoto.dequeueLastObject()
     }
     
     private func generateOnboardingViewController() -> OnboardingViewController {

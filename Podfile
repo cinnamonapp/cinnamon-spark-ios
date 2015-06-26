@@ -7,6 +7,8 @@ target 'Cinnamon' do
 #    pod "Fabric"
     pod "DateTools"
     pod "SDWebImage", "~> 3.7"
+    pod "SlackTextViewController"
+#    pod "FCFileManager"
 end
 
 target 'CinnamonTests' do
