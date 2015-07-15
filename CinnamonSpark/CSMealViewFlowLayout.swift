@@ -112,7 +112,9 @@ class CSMealViewFlowLayout: UICollectionViewFlowLayout {
             }
         }
         
-        availableSpace -= edgeInsetsForSection.left + edgeInsetsForSection.right
+        availableSpace -= edgeInsetsForSection.left * 2 + edgeInsetsForSection.right
+        
+//        println(availableSpace)
         
         // Get current collection view's situation
         let itemsInSection = self.collectionView?.numberOfItemsInSection(indexPath.section)
@@ -257,8 +259,8 @@ class CSMealViewDishCell: UICollectionViewCell{
     }
     
     func setImageViewImageWithMealRecord(mealRecord: CSPhoto){
-        let URL = mealRecord.photoURL(.Medium)
-        let size = mealRecord.size
+        let URL     = mealRecord.photoURL(.Medium)
+        let size    = CSPhotoMealSize.Large //mealRecord.size
         
         imageView.sd_setImageWithURL(URL, completed: { (image: UIImage!, error: NSError!, cache: SDImageCacheType, url: NSURL!) -> Void in
             if(image !== nil){

@@ -25,6 +25,17 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
         }
     }
     
+    var controlsHidden : Bool{
+        get{
+            return cameraButtonHidden && pageStack.pageControl.hidden
+        }
+        
+        set{
+            cameraButtonHidden = newValue
+            pageStack.pageControl.hidden = newValue
+        }
+    }
+    
     var swipeInteractionEnabled : Bool{
         get{
             return (pageViewController?.dataSource !== nil)
@@ -58,6 +69,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
         }
         
 
+        println(CSUser.currentUserMealRecordsCount)
         
     }
 
@@ -108,6 +120,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
         // Add the page view controller's gesture recognizers to the book view controller's view so that the gestures are started more easily.
         self.view.gestureRecognizers = self.pageViewController!.gestureRecognizers
         
+        self.view.addSubview(self.pageStack.pageControl)
     }
     
     var pageStack: PageStackController {
@@ -196,7 +209,7 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
         UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         
         var title = description!
-        if(title == "Tell me more..."){
+        if(title == "Tell me more... if you like"){
             title = ""
         }
         
@@ -224,41 +237,63 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
         pageStack.dashboardViewController.dashboardObject?.backgroundImageURL = nil
         pageStack.dashboardViewController.refreshDataWithLastMealRecord(mealRecord)
         
-        cameraViewController.dismissViewControllerAnimated(true, completion: nil)
+//        cameraViewController.dismissViewControllerAnimated(true, completion: nil)
+        
+        showGreatJobNotification()
         
 //        CSAPIRequest().createMealRecord(params, withImageData: imageData, success: handleCreateMealRecordRequestSuccess)
         
 //        mealRecord.save(success: handleCreateMealRecordRequestSuccess, failure: handleCreateMealRecordRequestSuccess)
         
-        mealRecord.queue()
-        // Testing
-        
-        // Store an array of the items that needs to be uploaded
-        
-        
-        
+        mealRecord.queue(success: handleCreateMealRecordRequestSuccess, failure: handleCreateMealRecordRequestSuccess)
     }
     
-    func showMonster(){
-//        userDishCount += 1
-//        
-//        // Show the alert for the first 5 times
-//        // and every 50th dish uploaded
-//        if (userDishCount <= 5 || userDishCount % 50 == 0){
-//            
-//            var s = (userDishCount > 1) ? "s" : ""
-//            
-//            var alertview = JSSAlertView().show(self.cameraViewController, title: "Awesome", text: "You are awesome my friend, \(userDishCount) meal\(s) already and going straight! Now hold on, we know you can't wait to see your carb result.\nWe will notify you.", buttonText: "Whoa", color: mainActionColor, iconImage: UIImage(named: "MonsterCircle"))
-//            
-//            alertview.setTextTheme(.Light)
-//            alertview.addAction { () -> Void in
-//                self.cameraViewController.dismissViewControllerAnimated(true, completion: nil)
-//            }
-//            
-//        }else{
-//            self.cameraViewController.dismissViewControllerAnimated(true, completion: nil)
-//        }
+    
+    func showGreatJobNotification(){
+        if let currentUser = CSUser.currentUser(){
+            CSUser.currentUserMealRecordsCount += 1
+            
 
+            
+            cameraViewController.dismissViewControllerAnimated(true, completion: { () -> Void in
+                
+                let userMealRecordsCount = CSUser.currentUserMealRecordsCount
+                println(userMealRecordsCount)
+                
+                // For the first 5 mealRecords and every 50th
+                if (userMealRecordsCount <= 5 || userMealRecordsCount % 10 == 0){
+                    
+                    var message = "and counting! You certainly know the way to a healthy eating app's heart. Give me a moment to analyze the carbs."
+                    
+                    if(userMealRecordsCount == 1){
+                        message = "Got it! Now, give me some minutes to analyze those carbs."
+                    }
+                    
+                    if(userMealRecordsCount <= 5){
+                        message = "Looks delicious! Let me pull up those numbers for you! Just some minutes..."
+                    }
+                    
+                    
+                    
+                    var alertView = JSSAlertView()
+                    
+                    alertView.show(
+                        self,
+                        title: "\(userMealRecordsCount)",
+                        text: message,
+                        buttonText: "OK",
+                        color: UIColor.blackColor(),
+                        iconImage: UIImage()
+                    )
+                    
+                    alertView.setTextTheme(.Light)
+                }
+                
+            })
+            
+            
+        }
+        
     }
     
     func handleCreateMealRecordRequestSuccess(request: AFHTTPRequestOperation!, response: AnyObject!){
@@ -297,7 +332,43 @@ class RootViewController: UIViewController, UIPageViewControllerDelegate, CSCame
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    
+    func navigateToCommunityView(#completion: ((Bool) -> Void)!){
+        
+        if let currentController = pageViewController?.viewControllers.first as? CSSocialFeedNavigationController{
+            completion(true)
+        }else{
+            self.pageViewController?.setViewControllers([pageStack.communityView], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: completion)
+        }
+        
+        
+    }
+    
+    func navigateToDashboardView(#completion: ((Bool) -> Void)!){
+        
+        if let currentController = pageViewController?.viewControllers.first as? DashboardViewController{
+            completion(true)
+        }else{
+            self.pageViewController?.setViewControllers([pageStack.dashboardViewController], direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: completion)
+        }
+        
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [AnyObject]) {
+        if let nextViewController = pendingViewControllers.first as? UIViewController{
+            let index = self.pageStack.indexOfViewController(nextViewController)
+            println(index)
+            
+            self.pageStack.pageControl.currentPage = index
+        }
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        self.pageStack.pageControl.frame = CGRectMake(0, 20, view.frame.width, 20)
+    }
 }
 
 
@@ -310,6 +381,8 @@ class SuperFakeViewController : UIViewController{
 }
 
 class PageStackController: NSObject, UIPageViewControllerDataSource{
+    
+    var pageControl : UIPageControl!
     
     let dashboardViewController             : DashboardViewController!
     let userPhotoFeedNavigationController   : CSUserPhotoFeedNavigationController!
@@ -331,6 +404,11 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
     
     override init(){
         super.init()
+        
+        pageControl = UIPageControl()
+        pageControl.numberOfPages = 4
+        pageControl.currentPage = 2
+        pageControl.userInteractionEnabled = false
         
         // Init this
         let layout      = UICollectionViewFlowLayout()
@@ -418,6 +496,8 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         var index = self.indexOfViewController(viewController)
         
+        
+        
         println("Index => \(index)")
         
         if(index <= 0){
@@ -426,6 +506,7 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
         
         index--
         
+        
         return self.viewControllerAtIndex(index)
     }
     
@@ -433,7 +514,10 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
         
         var index = self.indexOfViewController(viewController)
         
+        
+        
         index++
+        
         
         if(index >= self.viewControllersCount()){
             return nil
@@ -442,6 +526,7 @@ class PageStackController: NSObject, UIPageViewControllerDataSource{
         return self.viewControllerAtIndex(index)
     }
 
+    
 
 }
 

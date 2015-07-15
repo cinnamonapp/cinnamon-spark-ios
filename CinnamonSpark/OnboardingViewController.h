@@ -46,6 +46,8 @@
 + (instancetype)onboardWithBackgroundVideoURL:(NSURL *)backgroundVideoURL contents:(NSArray *)contents;
 - (instancetype)initWithBackgroundVideoURL:(NSURL *)backgroundVideoURL contents:(NSArray *)contents;
 
+- (void)generateView;
+
 // Manually moving to next page
 - (void)moveNextPage;
 

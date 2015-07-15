@@ -19,9 +19,6 @@ class CSUserPhotoFeedViewController: CSRefreshableCollectionViewController, UICo
     
     var lastRetrievedMealsCount = 0
     
-    var backgroundImageView : UIImageView!
-    var blackLayer : UIView!
-    
     override init(){
         super.init(collectionViewLayout: CSMealViewFlowLayout())
     }
@@ -48,14 +45,6 @@ class CSUserPhotoFeedViewController: CSRefreshableCollectionViewController, UICo
         
         refreshData()
         
-        backgroundImageView = UIImageView()
-        backgroundImageView.contentMode = .Center
-        
-        blackLayer = UIView()
-        blackLayer.backgroundColor = UIColorFromHex(0x000000, alpha: 0.8)
-        backgroundImageView.addSubview(blackLayer)
-        
-        collectionView?.backgroundView = backgroundImageView
         collectionView?.alwaysBounceVertical = true
     }
     
@@ -102,7 +91,12 @@ class CSUserPhotoFeedViewController: CSRefreshableCollectionViewController, UICo
         }
         
         if(meals.count > 0){
-            backgroundImageView.sd_setImageWithURL(meals.first?.mealRecords.first?.photoURL(.BlurredBackground))
+            let firstMeal = meals[0]
+            if(firstMeal.mealRecords.count > 0){
+                let firstMealRecord = firstMeal.mealRecords[0]
+                self.setBlurredBackgroundImageWithURL(firstMealRecord.photoURL(.BlurredBackground))
+            }
+            
         }
         
         collectionView?.reloadData()
@@ -209,37 +203,35 @@ class CSUserPhotoFeedViewController: CSRefreshableCollectionViewController, UICo
         var meal = meals[indexPath.section]
         var mealRecord = meal.mealRecords[indexPath.item]
         
-        if(mealRecord.size == CSPhotoMealSize.ExtraSmall){
-            return CGSizeMake(80, 80)
-        }
+//        if(mealRecord.size == CSPhotoMealSize.ExtraSmall){
+//            return CGSizeMake(80, 80)
+//        }
+//        
+//        if(mealRecord.size == CSPhotoMealSize.Small){
+//            return CGSizeMake(100, 100)
+//        }
+//        
+//        if(mealRecord.size == CSPhotoMealSize.Medium){
+//            return CGSizeMake(125, 125)
+//        }
+//        
+//        if(mealRecord.size == CSPhotoMealSize.Large){
+//            return CGSizeMake(150, 150)
+//        }
         
-        if(mealRecord.size == CSPhotoMealSize.Small){
-            return CGSizeMake(100, 100)
-        }
-        
-        if(mealRecord.size == CSPhotoMealSize.Medium){
-            return CGSizeMake(125, 125)
-        }
-        
-        if(mealRecord.size == CSPhotoMealSize.Large){
-            return CGSizeMake(150, 150)
-        }
-        
-        return CGSizeMake(150, 150)
+        return CGSizeMake(100, 100)
     }
     
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-        return UIEdgeInsetsMake(0, 15, 0, 100)
+        return UIEdgeInsetsMake(0, 15, 0, 120)
     }
-
+    
 //    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, availableWidthSpaceForItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
 //        return collectionView.bounds.width
 //    }
     
     override func viewWillLayoutSubviews() {
-        backgroundImageView.frame = view.bounds
-        blackLayer.frame = backgroundImageView.bounds
     }
 }
 

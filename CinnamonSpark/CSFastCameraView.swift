@@ -20,6 +20,30 @@ import UIKit
 }
 
 class CSFastCameraView: UIView, FastttCameraDelegate, CSFastCameraSizeSelectorDelegate, CSFastCameraControlsDelegate, CSFastCameraServingSelectorDelegate {
+
+    // ------------------------------
+    // --   Above camera toolbar   --  [measurement label]
+    // ------------------------------
+    // --                          --
+    // --                          --
+    // --                          --
+    // --                          --
+    // --                          --
+    // --       Camera View        --  [+ size selector, still image view]
+    // --                          --
+    // --                          --
+    // --                          --
+    // --                          --
+    // --                          --
+    // ------------------------------
+    // --  Camera controls toolbar --  [serving selector]
+    // ------------------------------
+    // --                          --
+    // --   Camera controls view   --
+    // --                          --
+    // ------------------------------
+
+    
     
     var cameraView : FastttCamera!
 
@@ -38,6 +62,43 @@ class CSFastCameraView: UIView, FastttCameraDelegate, CSFastCameraSizeSelectorDe
     var stillImageView : UIImageView!
     
     var takenPicture : UIImage?
+    
+    
+    var aboveCameraToolbarHidden : Bool{
+        get{
+            return aboveCameraToolbar.hidden
+        }
+        
+        set{
+            aboveCameraToolbar.hidden = newValue
+            self.setNeedsLayout()
+        }
+    }
+    
+    var cameraControlsToolbarHidden : Bool{
+        get{
+            return servingSelector.hidden
+        }
+        set{
+            servingSelector.hidden = newValue
+            self.setNeedsLayout()
+        }
+    }
+    
+    var wantsSizeSelectorUserInteractionEnabled : Bool{
+        get{
+            return _wantsSizeSelectorUserInteractionEnabled
+        }
+        
+        set{
+            _wantsSizeSelectorUserInteractionEnabled = newValue
+            
+            sizeSelector.userInteractionEnabled = newValue
+        }
+    }
+    
+    var _wantsSizeSelectorUserInteractionEnabled : Bool = true
+    
     
     override init(){
         super.init()
@@ -228,7 +289,10 @@ class CSFastCameraView: UIView, FastttCameraDelegate, CSFastCameraSizeSelectorDe
             measurementLabel.text = "Looks good?"
         }else{
             cameraControlsView.leftControl.hidden = true
-            sizeSelector.userInteractionEnabled = true
+            
+            if(wantsSizeSelectorUserInteractionEnabled){
+                sizeSelector.userInteractionEnabled = true
+            }
             cameraControlsView.shutterButton.switchToShutterIcon()
             cameraControlsToolbar.hidden = false
             self.servingSelectorDidChangeSelectedValue(servingSelector, selectedValue: servingSelector.selectedServing)
@@ -247,11 +311,24 @@ class CSFastCameraView: UIView, FastttCameraDelegate, CSFastCameraSizeSelectorDe
         aboveCameraToolbar.frame = CGRectMake(0, 0, frame.width, sizeSelector.frame.origin.y)
         measurementLabel.frame = aboveCameraToolbar.frame
         
-        cameraControlsToolbar.frame = CGRectMake(0, CGRectGetMaxY(sizeSelector.frame), bounds.width, 40)
-        servingSelector.frame = cameraControlsToolbar.bounds
+        println("it is : \(cameraControlsToolbarHidden)")
+        if(cameraControlsToolbarHidden){
+            // Attach to the sizeSelector
+            cameraControlsView.frame.origin.y = CGRectGetMaxY(sizeSelector.frame)
+            // Assing the remaining space
+            cameraControlsView.frame.size.height = frame.height - CGRectGetMaxY(sizeSelector.frame)
+        }else{
+            // Attach the cameraControlsToolbar to the size selector
+            cameraControlsToolbar.frame = CGRectMake(0, CGRectGetMaxY(sizeSelector.frame), bounds.width, 40)
+            servingSelector.frame = cameraControlsToolbar.bounds
+            
+            // Attach the cameraControlsView to the cameraControlsToolbar
+            cameraControlsView.frame.origin.y = CGRectGetMaxY(cameraControlsToolbar.frame)
+            // Assign the remaining space
+            cameraControlsView.frame.size.height = frame.height - CGRectGetMaxY(cameraControlsToolbar.frame)
+        }
         
-        cameraControlsView.frame.origin.y = CGRectGetMaxY(cameraControlsToolbar.frame)
-        cameraControlsView.frame.size.height = frame.height - CGRectGetMaxY(cameraControlsToolbar.frame)
+        
 
     }
     

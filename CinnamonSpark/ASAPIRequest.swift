@@ -135,14 +135,16 @@ class ASAPIRequest: AFHTTPRequestOperationManager, ASAPIRequestInterface {
                 // Call the given block
                 if let callback = success{
                     callback(request, responseObject)
-                    self.currentUser(userDictionary, handleResponseForEvent: true)
                 }
+                
+                self.currentUser(userDictionary, handleResponseForEvent: true)
                 
             },
             failure: { (request: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println("Error checking in the user. Error: \(error)")
                 // Request unsuccessful
                 self.currentUser(nil, handleResponseForEvent: false)
+                self.checkCurrentUserInUsingDeviceUUID(success)
             }
         )
         

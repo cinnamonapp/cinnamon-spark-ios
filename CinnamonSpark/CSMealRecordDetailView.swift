@@ -13,20 +13,10 @@ let mealRecordDetailViewReuseIdentifier = "mealRecordDetailCell"
 class CSMealRecordDetailView: CSRefreshableCollectionViewController, UICollectionViewDelegateFlowLayout {
     
     var photo : CSPhoto!
-    var backgroundImageView: UIImageView!
     
     override init(){
         // TODO: - Allow the developer to set this from inheritance
         super.init(collectionViewLayout: CSVerticalImageRowLayout() )
-        
-        backgroundImageView = UIImageView(frame: view.bounds)
-        backgroundImageView.contentMode = UIViewContentMode.Center
-        collectionView?.backgroundView = UIView()
-        collectionView?.backgroundView?.addSubview(backgroundImageView)
-        
-        let blackView = UIView(frame: UIScreen.mainScreen().bounds)
-        blackView.backgroundColor = UIColorFromHex(0x000000, alpha: 0.6)
-        collectionView?.backgroundView?.addSubview(blackView)
         
         let closeButton = UIButton(frame: CGRectMake(view.bounds.width - 40 - 10, 30, 40, 40))
         let closeButtonImage = UIImageView(image: UIImage(named: "CameraCancelButton"))
@@ -35,6 +25,10 @@ class CSMealRecordDetailView: CSRefreshableCollectionViewController, UICollectio
         closeButton.addSubview(closeButtonImage)
         
         self.view.addSubview(closeButton)
+    }
+    
+    override func preferredStatusBarStyle() -> UIStatusBarStyle{
+        return UIStatusBarStyle.LightContent
     }
 
     convenience init(photo: CSPhoto){
@@ -63,8 +57,9 @@ class CSMealRecordDetailView: CSRefreshableCollectionViewController, UICollectio
     }
     
     func setBackgroundWithPhoto(photo: CSPhoto){
-        backgroundImageView.sd_setImageWithURL(photo.photoURL(CSPhotoPhotoStyle.BlurredBackground))
+        setBlurredBackgroundImageWithURL(photo.photoURL(CSPhotoPhotoStyle.BlurredBackground))
     }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -203,8 +198,29 @@ class CSMealRecordDetailView: CSRefreshableCollectionViewController, UICollectio
                 
                 newCell.backgroundColor = UIColor.clearColor()
                 
-                let backgroundImage = UIImageView(image: UIImage(named: "FakeCalorific"))
+                let backgroundImage = UIImageView()
+                backgroundImage.contentMode = UIViewContentMode.ScaleAspectFit
+                
+                // Hardcoding swaps
+                // Chips and crackers
+                if (self.photo.id == "1354"){
+                    backgroundImage.image = UIImage(named: "swap-chips")
+                // Lasagna
+                }else if(self.photo.id == "1366"){
+                    backgroundImage.image = UIImage(named: "swap-lasagna")
+                // Tortillas
+                }else if(self.photo.id == "1365"){
+                    backgroundImage.image = UIImage(named: "swap-tortilla")
+                // Coke
+                }else if(self.photo.id == "1370"){
+                    backgroundImage.image = UIImage(named: "swap-coke")
+                }else{
+                    backgroundImage.image = UIImage(named: "FakeCalorific")
+                }
+                
                 backgroundImage.frame = newCell.bounds
+                backgroundImage.frame.size.width -= 20
+                backgroundImage.frame.origin.x += 10
                 newCell.addSubview(backgroundImage)
                 
                 return newCell

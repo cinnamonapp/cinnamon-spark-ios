@@ -49,7 +49,7 @@ class CSUserWeekPhotoFeedViewController: CSPhotoBrowser, CSCameraDelegate, CSAPI
         self.webView = UIWebView(frame: webframe)
         self.webView.delegate = self
         self.webView.backgroundColor = viewsInsideBackgroundColor
-        let url = NSURL(string: "\(primaryAPIEndpoint)/users/\(CSAPIRequest().uniqueIdentifier())/week_view")
+        let url = NSURL(string: "\(APP_API_ACTIVE_ENDPOINT)/users/\(CSAPIRequest().uniqueIdentifier())/week_view")
         webView.loadRequest(NSURLRequest(URL: url!))
         self.view.addSubview(webView)
         

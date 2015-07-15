@@ -47,9 +47,17 @@ class CSCameraViewController: UIViewController, FastttCameraDelegate, CSFastCame
         self.navigationController?.navigationBarHidden = true
         
         cameraView = CSFastCameraView(frame: view.bounds)
+
         cameraView.delegate = self
         cameraView.configure()
+        
         self.view.addSubview(cameraView)
+        
+        cameraView.aboveCameraToolbarHidden = true
+        cameraView.cameraControlsToolbarHidden = true
+
+        cameraView.sizeSelector.selectValueWithIndex(3)
+        cameraView.wantsSizeSelectorUserInteractionEnabled = false
     }
     
     override func prefersStatusBarHidden() -> Bool {

@@ -12,12 +12,12 @@
 
 static CGFloat const kPageControlHeight = 35;
 static CGFloat const kSkipButtonWidth = 100;
-static CGFloat const kSkipButtonHeight = 44;
+static CGFloat const kSkipButtonHeight = 60;
 static CGFloat const kBackgroundMaskAlpha = 0.6;
 static CGFloat const kDefaultBlurRadius = 20;
 static CGFloat const kDefaultSaturationDeltaFactor = 1.8;
 
-static NSString * const kSkipButtonText = @"Skip";
+static NSString * const kSkipButtonText = @"Join";
 
 @implementation OnboardingViewController {
     NSURL *_videoURL;
@@ -25,8 +25,15 @@ static NSString * const kSkipButtonText = @"Skip";
     
     OnboardingContentViewController *_currentPage;
     OnboardingContentViewController *_upcomingPage;
+    
+    UIImageView *backgroundImageView;
+    UIImageView *upcomingBackgroundImageView;
 }
 
+
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 
 #pragma mark - Initializing with images
 
@@ -113,6 +120,8 @@ static NSString * const kSkipButtonText = @"Skip";
     }
 }
 
+
+
 - (void)generateView {
     // create our page view controller
     _pageVC = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
@@ -125,7 +134,7 @@ static NSString * const kSkipButtonText = @"Skip";
         [self blurBackground];
     }
     
-    UIImageView *backgroundImageView;
+//    UIImageView *backgroundImageView;
     
     // create the background image view and set it to aspect fill so it isn't skewed
     if (self.backgroundImage) {
@@ -147,6 +156,16 @@ static NSString * const kSkipButtonText = @"Skip";
     
     // set the initial current page as the first page provided
     _currentPage = [self.viewControllers firstObject];
+    
+    // The second object
+//    _upcomingPage = [self.viewControllers objectAtIndex:1];
+    
+//    if(_upcomingPage){
+//        upcomingBackgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+//        upcomingBackgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+//        [upcomingBackgroundImageView setImage:_upcomingPage.backgroundImage];
+//        [self.view addSubview:upcomingBackgroundImageView];
+//    }
     
     // more page controller setup
     [_pageVC setViewControllers:@[_currentPage] direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
@@ -174,7 +193,7 @@ static NSString * const kSkipButtonText = @"Skip";
     
     // create and configure the the page control
     if (!self.hidePageControl) {
-        self.pageControl.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame) - kPageControlHeight, self.view.frame.size.width, kPageControlHeight);
+        self.pageControl.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame) - kPageControlHeight - kSkipButtonHeight, self.view.frame.size.width, kPageControlHeight);
         self.pageControl.numberOfPages = self.viewControllers.count;
         self.pageControl.userInteractionEnabled = NO;
         [self.view addSubview:self.pageControl];
@@ -182,7 +201,8 @@ static NSString * const kSkipButtonText = @"Skip";
     
     // if we allow skipping, setup the skip button
     if (self.allowSkipping) {
-        self.skipButton.frame = CGRectMake(CGRectGetMaxX(self.view.frame) - kSkipButtonWidth, CGRectGetMaxY(self.view.frame) - kSkipButtonHeight, kSkipButtonWidth, kSkipButtonHeight);
+        self.skipButton.frame = CGRectMake(0, CGRectGetMaxY(self.view.frame) - kSkipButtonHeight, CGRectGetWidth(self.view.frame), kSkipButtonHeight);
+        self.skipButton.backgroundColor = [[UIColor alloc] initWithRed:0 green:0 blue:0 alpha:0.7];
         [self.skipButton setTitle:kSkipButtonText forState:UIControlStateNormal];
         [self.skipButton addTarget:self action:@selector(handleSkipButtonPressed) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:self.skipButton];
@@ -198,6 +218,12 @@ static NSString * const kSkipButtonText = @"Skip";
             }
         }
     }
+    
+    
+//    self.cameraButton = UIButton(frame: CGRectMake(0, bounds.size.height - 60, bounds.size.width, 60))
+//    self.cameraButton.titleLabel?.textAlignment = NSTextAlignment.Center
+//    self.cameraButton.backgroundColor = UIColorFromHex(0x000000, alpha: 0.7)
+    
     
     // set ourself as the delegate on all of the content views, to handle fading
     // and auto-navigation

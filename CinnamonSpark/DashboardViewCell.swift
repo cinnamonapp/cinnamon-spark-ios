@@ -37,6 +37,8 @@ class DashboardViewCell: UICollectionViewCell {
         carbsIndicatorSupportTextView?.text = "left"
         lastMealRecordView.contentMode = UIViewContentMode.Center
         
+        backgroundImage.contentMode = UIViewContentMode.ScaleAspectFill
+        
         ringDisplayView.addGestureRecognizer(ringDisplayViewTapGesture)
         
         setLastMealRecord(nil)
@@ -198,7 +200,7 @@ class DashboardViewCell: UICollectionViewCell {
         var blurredImage = image.applyBlurWithRadius(CGFloat(8), tintColor: nil, saturationDeltaFactor: 1, maskImage: nil)
         blurredImage = blurredImage.imageRotatedByDegrees(90, flip: false)
         
-        backgroundImage.contentMode = UIViewContentMode.ScaleAspectFill
+        
         
         UIView.transitionWithView(self.backgroundImage,
             duration:0.3,
@@ -209,7 +211,7 @@ class DashboardViewCell: UICollectionViewCell {
     }
     
     func setBackgroundImageWithURL(url: NSURL){
-        backgroundImage.contentMode = UIViewContentMode.Center
+//        backgroundImage.contentMode = UIViewContentMode.Center
         backgroundImage.sd_setImageWithURL(url, placeholderImage: backgroundImage.image) { (image: UIImage!, error: NSError!, cache: SDImageCacheType, url: NSURL!) -> Void in
             if(image !== nil){
                 let toImage = image

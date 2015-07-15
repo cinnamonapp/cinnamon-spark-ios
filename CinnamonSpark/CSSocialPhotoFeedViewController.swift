@@ -273,10 +273,13 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
         if let argumentableSender = sender as? Argumentable{
             if let passedArgs = argumentableSender.passedArguments as? NSDictionary{
                 if let indexPath = passedArgs["indexPath"] as? NSIndexPath{
+                    
+                    let mealRecord = photoAtIndexPath(indexPath)
+                    
                     // Tap on heart
                     if let heartButton = sender as? UIButton{
                         println("liking")
-                        let mealRecord = photoAtIndexPath(indexPath)
+                        
                         
                         if let loveButtonItem = heartButton._parent_ as? CSLoveBarButtonItem{
                             // Is liked
@@ -300,9 +303,13 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
                         like.save(success: handleLikeMealRecordRequestSuccess, failure: handleLikeMealRecordRequestFailure)
                     }
                     
+                    println("showing likers")
+                    
                     // Tap on label
                     if let gesture = sender as? UIGestureRecognizer{
                         println("showing likers")
+                        
+                        openMealRecordLikesViewForMealRecord(mealRecord)
                     }
                 }
             }
@@ -329,10 +336,22 @@ class CSSocialPhotoFeedViewController: CSPhotoBrowser, UIScrollViewDelegate {
             let mealRecordCommentsView = CSMealRecordCommentsView()
             mealRecordCommentsView.mealRecord = mealRecord
             
+            navigationController.popToRootViewControllerAnimated(false)
+            
             navigationController.pushViewController(mealRecordCommentsView, animated: true)
         }
     }
-
+    
+    func openMealRecordLikesViewForMealRecord(mealRecord: CSPhoto){
+        if let navigationController = self.navigationController{
+            let mealRecordLikesController = CSMealRecordLikesView(mealRecord: mealRecord)
+            
+            navigationController.popToRootViewControllerAnimated(false)
+            
+            navigationController.pushViewController(mealRecordLikesController, animated: true)
+        }
+    }
+    
     func handleLikeMealRecordRequestSuccess(request: AFHTTPRequestOperation!, response: AnyObject!) -> Void{
         println(response)
     }
@@ -383,51 +402,51 @@ protocol BlurBackgroundable{
 }
 
 private var blurredBackgroundImageViewAssociationKey : UInt8 = 0
-extension UICollectionViewController : BlurBackgroundable{
-    
-    
-    
-    var blurredBackgroundImage : UIImage?{
-        get{
-            return blurredBackgroundImageView.image
-        }
-        
-        set{
-            blurredBackgroundImageView.image = newValue
-        }
-    }
-    
-    func setBlurredBackgroundImageWithURL(url: NSURL) {
-        blurredBackgroundImageView.sd_setImageWithURL(url)
-    }
-    
-    private var blurredBackgroundImageView : UIImageView! {
-        get{
-            var imageView = objc_getAssociatedObject(self, &blurredBackgroundImageViewAssociationKey) as UIImageView!
-            
-            if(imageView == nil){
-                
-                let mainScreenBounds = UIScreen.mainScreen().bounds
-                
-                imageView = UIImageView(frame: mainScreenBounds)
-                imageView.contentMode = .Center
-                
-                let blackOverlay = UIView(frame: mainScreenBounds)
-                blackOverlay.backgroundColor = UIColorFromHex(0x000000, alpha: 0.6)
-                imageView.addSubview(blackOverlay)
-                
-                collectionView?.backgroundView = imageView
-                
-                objc_setAssociatedObject(self, &blurredBackgroundImageViewAssociationKey, imageView, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
-            }
-            
-            return imageView
-        }
-    }
-    
-}
+//extension UICollectionViewController : BlurBackgroundable{
+//    
+//    
+//    
+//    var blurredBackgroundImage : UIImage?{
+//        get{
+//            return blurredBackgroundImageView.image
+//        }
+//        
+//        set{
+//            blurredBackgroundImageView.image = newValue
+//        }
+//    }
+//    
+//    func setBlurredBackgroundImageWithURL(url: NSURL) {
+//        blurredBackgroundImageView.sd_setImageWithURL(url)
+//    }
+//    
+//    private var blurredBackgroundImageView : UIImageView! {
+//        get{
+//            var imageView = objc_getAssociatedObject(self, &blurredBackgroundImageViewAssociationKey) as UIImageView!
+//            
+//            if(imageView == nil){
+//                
+//                let mainScreenBounds = UIScreen.mainScreen().bounds
+//                
+//                imageView = UIImageView(frame: mainScreenBounds)
+//                imageView.contentMode = .Center
+//                
+//                let blackOverlay = UIView(frame: mainScreenBounds)
+//                blackOverlay.backgroundColor = UIColorFromHex(0x000000, alpha: 0.6)
+//                imageView.addSubview(blackOverlay)
+//                
+//                collectionView?.backgroundView = imageView
+//                
+//                objc_setAssociatedObject(self, &blurredBackgroundImageViewAssociationKey, imageView, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
+//            }
+//            
+//            return imageView
+//        }
+//    }
+//    
+//}
 
-extension SLKTextViewController : BlurBackgroundable{
+extension UIViewController : BlurBackgroundable{
     
     var blurredBackgroundImage : UIImage?{
         get{
@@ -452,14 +471,23 @@ extension SLKTextViewController : BlurBackgroundable{
                 let mainScreenBounds = UIScreen.mainScreen().bounds
                 
                 imageView = UIImageView(frame: mainScreenBounds)
-                imageView.contentMode = .Center
+                imageView.contentMode = UIViewContentMode.ScaleAspectFill
                 
                 let blackOverlay = UIView(frame: mainScreenBounds)
                 blackOverlay.backgroundColor = UIColorFromHex(0x000000, alpha: 0.6)
                 imageView.addSubview(blackOverlay)
                 
-                tableView?.backgroundView = imageView
-                
+                if let isCollectionViewController = self as? UICollectionViewController{
+                    isCollectionViewController.collectionView?.backgroundView = imageView
+                }else if let isTableViewController = self as? UITableViewController{
+                    isTableViewController.tableView?.backgroundView = imageView
+                }else if let isSLKTextViewController = self as? SLKTextViewController{
+                    isSLKTextViewController.collectionView?.backgroundView = imageView
+                    isSLKTextViewController.tableView?.backgroundView = imageView
+                }else{
+                    self.view.addSubview(imageView)
+                }
+
                 objc_setAssociatedObject(self, &blurredBackgroundImageViewAssociationKey, imageView, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
             }
             

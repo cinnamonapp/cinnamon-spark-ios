@@ -34,7 +34,7 @@ class CSMealRecordCommentsView: SLKTextViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         tableView.registerNib(UINib(nibName: "CSMealRecordCommentCell", bundle: nil), forCellReuseIdentifier: "mealRecordCommentCell")
-        tableView.backgroundColor = UIColor.clearColor()
+        tableView.backgroundColor = UIColor.blackColor()
         
         tableView.separatorColor = UIColor.clearColor()
         
@@ -48,9 +48,15 @@ class CSMealRecordCommentsView: SLKTextViewController {
         textInputbar.textView.placeholder = "Say something nice..."
         textInputbar.textView.keyboardAppearance = UIKeyboardAppearance.Dark
         
+        rightButton.backgroundColor = UIColorFromHex(0x75A87F, alpha: 1)
+        rightButton.titleLabel?.font = DefaultFont?.fontWithSize(15)
+        rightButton.tintColor = UIColor.whiteColor()
+
+        
         refreshData()
         
-        self.setBlurredBackgroundImageWithURL(mealRecord.photoURL(.BlurredBackground))
+        refreshMealRecordWithMealRecord(mealRecord)
+        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -58,7 +64,7 @@ class CSMealRecordCommentsView: SLKTextViewController {
         
         if let navigationController = self.navigationController{
             navigationController.navigationBarHidden = false
-            navigationController.cs_rootViewController?.cameraButtonHidden = true
+            navigationController.cs_rootViewController?.controlsHidden = true
             navigationController.cs_rootViewController?.swipeInteractionEnabled = false
         }
     }
@@ -69,7 +75,7 @@ class CSMealRecordCommentsView: SLKTextViewController {
         
         if let navigationController = self.navigationController{
             navigationController.navigationBarHidden = true
-            navigationController.cs_rootViewController?.cameraButtonHidden = false
+            navigationController.cs_rootViewController?.controlsHidden = false
         }
     }
     
@@ -130,6 +136,19 @@ class CSMealRecordCommentsView: SLKTextViewController {
         }
     }
     
+    func needsMealRecordDataFromAPI() -> Bool{
+        return (mealRecord.URL == nil)
+    }
+    
+    func refreshMealRecordWithMealRecord(mealRecord: CSPhoto){
+        self.mealRecord = mealRecord
+        
+        if(!needsMealRecordDataFromAPI()){
+            self.setBlurredBackgroundImageWithURL(mealRecord.photoURL(.BlurredBackground))
+            tableView.backgroundColor = UIColor.clearColor()
+        }
+    }
+    
     func refreshData(){
         CSAPIRequest().getMealRecordComments(mealRecord.id, success: handleCommentsRequestSuccess, failure: handleCommentsRequestFailure)
     }
@@ -137,11 +156,12 @@ class CSMealRecordCommentsView: SLKTextViewController {
     func handleCommentsRequestSuccess(request: AFHTTPRequestOperation!, response: AnyObject!) -> Void {
         var commentsArray = (response as NSDictionary)["comments"] as [NSDictionary]
         
-        println(commentsArray)
-        
         comments = []
         for (index, commentDictionary) in enumerate(commentsArray){
-            comments.append(CSComment(dictionary: commentDictionary))
+            let comment = CSComment(dictionary: commentDictionary)
+            comments.append(comment)
+            
+            refreshMealRecordWithMealRecord( comment.mealRecord )
         }
         
         tableView.reloadData()

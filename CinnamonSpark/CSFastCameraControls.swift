@@ -12,6 +12,7 @@ import Foundation
 class CSShutterButton : UIButton{
     
     private var circlePath : CAShapeLayer!
+    private var outerCirclePath : CAShapeLayer!
     private var okayLabel : UILabel!
     
     override init(frame: CGRect) {
@@ -27,11 +28,23 @@ class CSShutterButton : UIButton{
         circlePath = CAShapeLayer()
         circlePath.fillColor   = UIColor.whiteColor().CGColor
         
+        outerCirclePath = CAShapeLayer()
+        outerCirclePath.lineWidth = 3
+        outerCirclePath.fillColor = UIColor.clearColor().CGColor
+        outerCirclePath.strokeColor = UIColor.whiteColor().CGColor
+        circlePath.addSublayer(outerCirclePath)
+        
         layer.addSublayer(circlePath)
     }
     
     var shutterRadius: CGFloat {
         get {
+            return bounds.height / 2 - 6
+        }
+    }
+    
+    var outerRadius: CGFloat{
+        get{
             return bounds.height / 2
         }
     }
@@ -39,13 +52,24 @@ class CSShutterButton : UIButton{
     func circleFrame() -> CGRect {
         var circleFrame = CGRect(x: 0, y: 0, width: 2*shutterRadius, height: 2*shutterRadius)
         
-        //        circleFrame.origin.x = CGRectGetMidX(circlePath.bounds)// - CGRectGetMidX(circleFrame)
-        //        circleFrame.origin.y = CGRectGetMidY(circlePath.bounds)// - CGRectGetMidY(circleFrame)
+        circleFrame.origin.x = CGRectGetMidX(circlePath.bounds) - CGRectGetMidX(circleFrame)
+        circleFrame.origin.y = CGRectGetMidY(circlePath.bounds) - CGRectGetMidY(circleFrame)
+        
+        return circleFrame
+    }
+    
+    func outerCircleFrame() -> CGRect {
+        var circleFrame = CGRect(x: 0, y: 0, width: 2*outerRadius, height: 2*outerRadius)
+        
         return circleFrame
     }
     
     func getCirclePath() -> UIBezierPath {
         return UIBezierPath(ovalInRect: circleFrame())
+    }
+    
+    func getOuterCirclePath() -> UIBezierPath {
+        return UIBezierPath(ovalInRect: outerCircleFrame())
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -66,12 +90,15 @@ class CSShutterButton : UIButton{
         okayLabel.frame     = bounds
         
         circlePath.frame    = bounds
+        outerCirclePath.frame    = bounds
         circlePath.path     = getCirclePath().CGPath
+        outerCirclePath.path     = getOuterCirclePath().CGPath
     }
+    
 }
 
 class CSFastCameraControls : UIView{
-    let shutterButton : CSShutterButton = CSShutterButton(frame: CGRectMake(0, 0, 40, 40))
+    let shutterButton : CSShutterButton = CSShutterButton(frame: CGRectMake(0, 0, 65, 65))
     
     let rightControl    : UIButton = UIButton(frame: CGRectMake(0, 0, 40, 40))
     let leftControl     : UIButton = UIButton(frame: CGRectMake(0, 0, 40, 40))

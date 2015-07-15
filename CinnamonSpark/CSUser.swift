@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CSUser: NSObject {
+class CSUser: CSModel {
     var id : String?
     var username : String!
     
@@ -19,12 +19,14 @@ class CSUser: NSObject {
 
     var dailyCarbsLimit : Int!
     
+    var mealRecordsCount : Int!
     
     
     override init(){
         super.init()
         
         username = ""
+        mealRecordsCount = 0
     }
     
     convenience init(dictionary: NSDictionary){
@@ -49,6 +51,9 @@ class CSUser: NSObject {
         if let dailyCarbsLimitInt = user["daily_carbs_limit"] as? Int{
             self.dailyCarbsLimit = dailyCarbsLimitInt
         }
+        if let dailyCarbsLimitInt = user["daily_carbs_need"] as? Int{
+            self.dailyCarbsLimit = dailyCarbsLimitInt
+        }
         
         if let profilePictureNanoUrlString = user["profile_picture_nano_url"] as? String{
             self.nanoProfilePictureURL = NSURL(string: profilePictureNanoUrlString)
@@ -62,6 +67,28 @@ class CSUser: NSObject {
             self.profilePictureURL = NSURL(string: profilePictureUrlString)
         }
         
+        if let mealRecordsCountInt = user["meal_records_count"] as? Int{
+            self.mealRecordsCount = mealRecordsCountInt
+        }
+        
+    }
+    
+    override func toDictionary() -> NSDictionary! {
+        var dictionary = NSMutableDictionary(dictionary: super.toDictionary())
+        
+        dictionary.addEntriesFromDictionary([
+            "username": self.username!,
+            "daily_carbs_need": self.dailyCarbsLimit,
+            "meal_records_count": self.mealRecordsCount
+        ])
+        
+        if let id = self.id{
+            dictionary.addEntriesFromDictionary([
+                "id": id
+            ])
+        }
+        
+        return dictionary
     }
     
 }
@@ -69,14 +96,39 @@ class CSUser: NSObject {
 private var _currentUser : CSUser?
 private let cachedCurrentUserDictionaryKey = "cachedCurrentUserDictionary"
 extension CSUser{
+    class var currentUserMealRecordsCount : Int{
+        get{
+            if let cUser = currentUser(){
+                return cUser.mealRecordsCount
+            }else{
+                return -1
+            }
+        }
+        
+        set{
+            if let cUser = currentUser(){
+                cUser.mealRecordsCount = newValue
+                // Update currentUser
+                CSUser.setCurrentUser(user: cUser)
+            }
+        }
+    }
+    
     class func currentUser() -> CSUser?{
+        var result : CSUser?
+        
+        if let cUser = _currentUser{ }
+        else
         if let cachedCurrentUserDictionary = NSUserDefaults.standardUserDefaults().dictionaryForKey(cachedCurrentUserDictionaryKey){
             let cachedUser = CSUser(dictionary: cachedCurrentUserDictionary)
 
-            return cachedUser
+            _currentUser = cachedUser
+            
         }
         
-        return _currentUser
+        result = _currentUser
+        
+        return result
     }
     
     class func setCurrentUserOnce(#dictionary: NSDictionary){
@@ -85,21 +137,28 @@ extension CSUser{
         setCurrentUserOnce(user: user)
     }
     
+    class func setCurrentUser(#dictionary: NSDictionary){
+        let user = CSUser(dictionary: dictionary)
+        
+        setCurrentUser(user: user)
+    }
+    
     class func setCurrentUserOnce(#user: CSUser){
         if let current = currentUser(){}
         else{
-            let computedUserDictionary = [
-                "user": [
-                    "id": user.id!,
-                    "username": user.username!,
-                    "daily_carbs_limit": user.dailyCarbsLimit
-                ]
-            ]
-            
-            NSUserDefaults.standardUserDefaults().setObject(computedUserDictionary, forKey: cachedCurrentUserDictionaryKey)
-            
-            _currentUser = user
+            setCurrentUser(user: user)
         }
+    }
+    
+    // For internal use only
+    class func setCurrentUser(#user: CSUser){
+        let computedUserDictionary = [
+            "user": user.toDictionary()
+        ]
+        
+        NSUserDefaults.standardUserDefaults().setObject(computedUserDictionary, forKey: cachedCurrentUserDictionaryKey)
+        
+        _currentUser = user
     }
 //    private var _currentUser
 }

@@ -23,6 +23,8 @@
     UIButton *_actionButton;
 }
 
+@property (nonatomic, strong) UIImage *backgroundImage;
+
 @property (nonatomic, strong) UIImageView *imageView;
 
 @property (nonatomic) OnboardingViewController *delegate;

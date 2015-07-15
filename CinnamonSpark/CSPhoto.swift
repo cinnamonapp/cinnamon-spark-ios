@@ -135,6 +135,9 @@ class CSPhoto: CSModel {
             self.user = CSUser(dictionary: user)
         }
 
+        
+        // Force size at max size
+        self.size = CSPhotoMealSize.Large
     }
     
     func setSizeWithIntSize(intSize: Int){
@@ -376,9 +379,9 @@ extension CSPhoto : Queueable{
         updateCurrentQueue(newQueue)
         
         if let mealRecord = object as? CSPhoto{
-            println("Creating file at path \(mealRecordCacheFolderPath)\(queueableUniqueKey).jpg")
+            println("Creating file at path \(APP_DEFAULT_MEAL_RECORD_CACHE_FOLDER)\(queueableUniqueKey).jpg")
             
-            let filePath = "\(mealRecordCacheFolderPath)\(queueableUniqueKey).jpg"
+            let filePath = "\(APP_DEFAULT_MEAL_RECORD_CACHE_FOLDER)\(queueableUniqueKey).jpg"
             FCFileManager.createFileAtPath(filePath, withContent: mealRecord.image)
         }
 
@@ -402,7 +405,7 @@ extension CSPhoto : Queueable{
                     }
                     
                     // Remove the cached file from the file system
-                    FCFileManager.removeItemAtPath("\(mealRecordCacheFolderPath)\(queueable.queueableUniqueKey).jpg")
+                    FCFileManager.removeItemAtPath("\(APP_DEFAULT_MEAL_RECORD_CACHE_FOLDER)\(queueable.queueableUniqueKey).jpg")
                 }
                 
             }
@@ -476,7 +479,7 @@ extension CSPhoto : Queueable{
     
     func dequeue(){
         if let queueableUniqueKey = self.queueableUniqueKey{
-            FCFileManager.removeItemAtPath("\(mealRecordCacheFolderPath)\(queueableUniqueKey).jpg")
+            FCFileManager.removeItemAtPath("\(APP_DEFAULT_MEAL_RECORD_CACHE_FOLDER)\(queueableUniqueKey).jpg")
             CSPhoto.dequeueObjectWithKey(queueableUniqueKey)
         }
     }
@@ -495,7 +498,7 @@ extension CSPhoto : Queueable{
         
         
         mutableDictionary.setObject(key                                     ,   forKey: "queueable_key")
-        mutableDictionary.setObject("\(mealRecordCacheFolderPath)\(key).jpg",   forKey: "cached_image_path")
+        mutableDictionary.setObject("\(APP_DEFAULT_MEAL_RECORD_CACHE_FOLDER)\(key).jpg",   forKey: "cached_image_path")
         
         return mutableDictionary
     }
@@ -514,5 +517,15 @@ extension CSPhoto : Queueable{
         CSPhoto.addObjectToQueue(self, withKey: queueableUniqueKey!)
         
         self.save()
+    }
+    
+    func queue(#success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)) {
+        let now = NSDate()
+        
+        queueableUniqueKey = "cached_meal_record_\(now.timeIntervalSinceNow)"
+        
+        CSPhoto.addObjectToQueue(self, withKey: queueableUniqueKey!)
+        
+        self.save(success: success, failure: failure)
     }
 }

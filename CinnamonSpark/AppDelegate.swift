@@ -14,15 +14,14 @@ import Crashlytics
 var userDishCount = 0
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate/*, UITabBarControllerDelegate*/ {
+class AppDelegate: UIResponder, UIApplicationDelegate, SignupFlowViewControllerDelegate {
 
     var window: UIWindow?
-    
-//    var tabBarViewController: CSTabBarController!
 
     var rootViewController: RootViewController!
 
-    let userHasOnboardedKey = "final_user_has_onboarded"
+    let userHasOnboardedKey = USER_HAS_ALREADY_ONBOARDED_KEY
+    let hasCompletedSignupKey = USER_HAS_COMPLETED_SIGNUP_KEY
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
@@ -37,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate/*, UITabBarControllerDeleg
         // Onboarding or rootViewController
         var userHasOnboardedAlready = NSUserDefaults.standardUserDefaults().boolForKey(userHasOnboardedKey)
         
-        if userHasOnboardedAlready {
+        if(userHasOnboardedAlready) {
             self.setupNormalRootVC(false)
         }else{
             self.window!.rootViewController = self.generateOnboardingViewController()
@@ -59,13 +58,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate/*, UITabBarControllerDeleg
         
         // Testing
         
-        var dequeuerTimer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: "dequeueLastObject", userInfo: nil, repeats: true)
+        var dequeuerTimer = NSTimer.scheduledTimerWithTimeInterval(15, target: self, selector: "dequeueLastObject", userInfo: nil, repeats: true)
         
         return true
     }
     
+    func signupFlowViewController(signupFlowViewController: SignupFlowViewController, didCompleteSignupWithEvent event: SignupFlowEvent) {
+        
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: hasCompletedSignupKey)
+        
+        // Do something when signup is over
+        self.setupNormalRootVC(true)
+    }
+    
     func dequeueLastObject(){
-        println("Dequeuing objects")
+        println("Dequeuing objects \(NSDate())")
         CSPhoto.dequeueLastObject()
     }
     
@@ -79,105 +86,107 @@ class AppDelegate: UIResponder, UIApplicationDelegate/*, UITabBarControllerDeleg
         
         
         // Create the onboarding controller with the pages and return it.
-        let onboardingVC: OnboardingViewController = OnboardingViewController(backgroundImage: UIImage(named: "OnboardingBackground"), contents: [])
+        let onboardingVC: OnboardingViewController = OnboardingViewController(backgroundImage: UIImage(), contents: [])
         
+        onboardingVC.shouldFadeTransitions = true
         
         // Generate the first page...
-        let firstPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "Hi I am Mr. Cinnamon and I want\nto make a deal with you about\nyour health. ", image: UIImage(named:
-            "blue"), buttonText: "Yeah") {
+        let firstPage: OnboardingContentViewController = OnboardingContentViewController(title: "TAKE A\nSNAPSHOT\nOF YOUR MEAL", body: "Don't forget the treats, we all like them.", image: nil, buttonText: "Yeah") {
                 onboardingVC.moveNextPage()
         }
+        firstPage.backgroundImage = UIImage(named: "onboarding-orange")
         
         // Generate the second page...
-        let secondPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "You take a picture of your\nfood & drinks, I tell you about\nyour carbs.", image: nil, buttonText: "Ok, but why carbs? ") {
+        let secondPage: OnboardingContentViewController = OnboardingContentViewController(title: "GET INSTANT\nFEEDBACK ABOUT\nYOUR FOOD", body: "We tell you how many carbs, proteins and fats are in your meal and let you know if you're on target with your goal.", image: nil, buttonText: "Ok, but why carbs? ") {
             onboardingVC.moveNextPage()
         }
+        secondPage.backgroundImage = UIImage(named: "onboarding-green")
         
         // Generate the third page...
-        let thirdPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "Carbs = Sugar\nMuch sugar = Not good for you\n\nIt’s more complicated than that,\nbut let’s keep it simple for now. ", image: nil, buttonText: "Alright, and how?") {
-            onboardingVC.moveNextPage()
-        }
-        
-        // Generate the fourth page
-        let fourthPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "For each dish I give you a carb level:", image: UIImage(named: "Balls"), buttonText: "Fine") {
-            onboardingVC.moveNextPage()
-        }
-        
-        let fifthPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "And for each meal a range indicator:", image: UIImage(named: "Rects"), buttonText: "Ok") {
-            onboardingVC.moveNextPage()
-        }
-        
-        
-        let sixthPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "Let’s try to keep our carbs low, together.\n30-50g per meal would be awesome!", image: nil, buttonText: "Sure, but what’s in for me?") {
-            onboardingVC.moveNextPage()
-        }
-        
-        let seventhPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "You learn about your food.\nYou become aware of your habits.\nAnd I will inspire you to eat healthier.", image: nil, buttonText: "Count. Me. In.") {
-            onboardingVC.moveNextPage()
-        }
-        
-        let eightPage: OnboardingContentViewController = OnboardingContentViewController(title: nil, body: "There is one more thing:\nYour friends are also here!", image: nil, buttonText: "You had me at 'friends'") {
+        let thirdPage: OnboardingContentViewController = OnboardingContentViewController(title: "KEEP A\nFOOD JOURNAL,\nTHE EASY WAY", body: "Share with a like-minded community. Your peers will support your progress.", image: nil, buttonText: "Alright, and how?") {
             self.handleOnboardingCompletion()
         }
+        thirdPage.backgroundImage = UIImage(named: "onboarding-red")
         
-        onboardingVC.viewControllers = [firstPage, secondPage, thirdPage, fourthPage, fifthPage, sixthPage, seventhPage, eightPage]
+//        let fourthPage: OnboardingContentViewController = OnboardingContentViewController(title: "SIMPLICITY\nIS KET TO\nA RICH DIET", body: "We can show you how simple it is.", image: nil, buttonText: "You had me at 'friends'") {
+//            self.handleOnboardingCompletion()
+//        }
+//        fourthPage.backgroundImage = UIImage(named: "onboarding-red")
         
+        onboardingVC.viewControllers = [firstPage, secondPage, thirdPage]
+        
+        onboardingVC.titleFontName = "Futura"
+        onboardingVC.titleFontSize = 36
+        onboardingVC.bodyFontName = "Futura"
+        onboardingVC.bodyFontSize = 16
+
         
         onboardingVC.topPadding = 250
+        onboardingVC.underTitlePadding = 20
         onboardingVC.underBodyPadding = 5
         onboardingVC.iconHeight = 60
         onboardingVC.iconWidth = 150
         
-        onboardingVC.bodyFontSize = 15
-        onboardingVC.titleTextColor = UIColor.blackColor()
-        onboardingVC.bodyTextColor = UIColor.blackColor()
-        onboardingVC.buttonTextColor = UIColor.blackColor()
-        onboardingVC.swipingEnabled = false
+        onboardingVC.titleTextColor     = ColorPalette.DefaultTextColor
+        onboardingVC.bodyTextColor      = ColorPalette.DefaultTextColor
+        onboardingVC.buttonTextColor    = ColorPalette.DefaultTextColor
+//        onboardingVC.swipingEnabled = false
         onboardingVC.shouldMaskBackground = false
         onboardingVC.shouldBlurBackground = false
-        onboardingVC.hidePageControl = true
+        onboardingVC.allowSkipping = true
+        onboardingVC.skipHandler = {
+            self.handleOnboardingCompletion()
+        };
         
-        onboardingVC.underTitlePadding = 0
+        
         
         let hardware = UIDeviceHardware().platform()
         
         // The iPhone 4
         if(startsWith(hardware, "iPhone4")){
-            onboardingVC.topPadding = estimatedTopPadding - 50
-            onboardingVC.bottomPadding = 0
+            onboardingVC.titleFontSize = 30
+            onboardingVC.bodyFontSize = 14
+            onboardingVC.topPadding = 60
             // The iphone 5c/s
         }else if(startsWith(hardware, "iPhone5") || startsWith(hardware, "iPhone6")){
-            onboardingVC.topPadding = estimatedTopPadding
-            onboardingVC.bottomPadding = 45
+            onboardingVC.titleFontSize = 30
+            onboardingVC.bodyFontSize = 14
+            onboardingVC.topPadding = 150
             // The iPhone 6 and the other stuff
         }else{
-            onboardingVC.topPadding = estimatedTopPadding
-            onboardingVC.bottomPadding = 55
+
         }
-        
-        thirdPage.topPadding = thirdPage.topPadding - 10
-        fourthPage.topPadding = fourthPage.topPadding - 10
-        
-        sixthPage.topPadding = sixthPage.topPadding + 10
-        eightPage.topPadding = eightPage.topPadding + 10
+
         
         return onboardingVC
     }
 
     func handleOnboardingCompletion() {
+        
+        let hasCompletedSignup = NSUserDefaults.standardUserDefaults().boolForKey(hasCompletedSignupKey)
+        
+        if(hasCompletedSignup){
+            // Setup the normal root view controller of the application, and set that we want to do it animated so that
+            // the transition looks nice from onboarding to normal app.
+            setupNormalRootVC(true)
+        }else{
+            let signup = SignupFlowViewController()
+            signup.signupDelegate = self
+            signup.navigationBarHidden = true
+            
+            self.window!.rootViewController?.presentViewController(signup, animated: true, completion: nil)
+        }
+        
+        
+        
+    }
+
+    func setupNormalRootVC(animated : Bool) {
         // Now that we are done onboarding, we can set in our NSUserDefaults that we've onboarded now, so in the
         // future when we launch the application we won't see the onboarding again.
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: userHasOnboardedKey)
         
-        // Setup the normal root view controller of the application, and set that we want to do it animated so that
-        // the transition looks nice from onboarding to normal app.
-        setupNormalRootVC(true)
-    }
-
-    func setupNormalRootVC(animated : Bool) {
-        // Here I'm just creating a generic view controller to represent the root of my application.
-//        self.prepareSocialFeedNavigationControllerForReuse()
-//        self.prepareUserPhotoFeedNavigationControllerForReuse()
+        // Preparing the self.rootViewController to be used as rootViewController
         self.prepareRootViewControllerForReuse()
         
         
@@ -185,44 +194,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate/*, UITabBarControllerDeleg
         // however you want.
         if animated {
             UIView.transitionWithView(self.window!, duration: 0.5, options:.TransitionCrossDissolve, animations: { () -> Void in
-                // Set the tabBarViewController as root view controller
+                // Set the rootViewController as root view controller
                 self.window!.rootViewController = self.rootViewController
                 }, completion:nil)
         }
             
-        // Otherwise we just want to set the root view controller normally.
+            // Otherwise we just want to set the root view controller normally.
         else {
             self.window?.rootViewController = self.rootViewController
         }
     }
-
-    // Setup the tabBarViewController
-//    private func prepareTabBarViewControllerForReuse(){
-//        self.tabBarViewController = CSTabBarController(delegate: self)
-//    }
+    
     
     // Setup the rootViewController
     private func prepareRootViewControllerForReuse(){
         self.rootViewController = RootViewController()
     }
-    
-    // MARK: - UITabBarController delegate methods
-    
-//    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-//        if (viewController.title != "."){
-//            return true
-//        }else{
-//            return false
-//        }
-//    }
-//    
-//    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
-//        // Call this method
-//        viewController.willAppearAfterTabBarViewControllerSelection()
-//    }
-    
-    
-    
     
     // MARK: - Push notifications
     
@@ -236,10 +223,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate/*, UITabBarControllerDeleg
         let aps = userInfo["aps"] as NSDictionary
         
         if let photoId = userInfo["meal_record_id"] as? Int{
-//            self.tabBarViewController.selectedViewController = self.tabBarViewController.userPhotoFeedNavigationController
-//            self.tabBarViewController.userPhotoFeedNavigationController.openMealDetailViewControllerWithPhotoId(photoId.description, animated: false)
             
-            self.rootViewController.pageStack.dashboardViewController.refreshDashboard()
+            let mealRecord = CSPhoto()
+            mealRecord.id = photoId.description
+            
+            if let actionString = userInfo["action"] as? String{
+                if(actionString == "new_comment"){
+                    // Bring the user to comment view
+                    self.rootViewController.navigateToCommunityView(completion: { (animated: Bool) -> Void in
+                        self.rootViewController.pageStack.communityView.socialPhotoFeedViewController.openMealRecordCommentsViewForMealRecord(mealRecord)
+                    })
+                }else
+                if(actionString == "new_like"){
+                    // Bring the user to like view
+                    self.rootViewController.navigateToCommunityView(completion: { (animated: Bool) -> Void in
+                        self.rootViewController.pageStack.communityView.socialPhotoFeedViewController.openMealRecordLikesViewForMealRecord(mealRecord)
+                    })
+                    
+                }else
+                if(actionString == "update_meal_record"){
+                    self.rootViewController.navigateToDashboardView(completion: { (animated: Bool) -> Void in
+                        
+                        self.rootViewController.pageStack.dashboardViewController.refreshDashboard()
+                        
+                        if let shouldOpenMealRecordDetail = userInfo["should_open_meal_record"] as? Bool{
+                            if(shouldOpenMealRecordDetail){
+                                self.rootViewController.openMealDetailViewControllerWithPhotoId(mealRecord.id, animated: true)
+                            }
+                        }
+                        
+                    })
+                    
+                }
+            }
+            
+        }else{
+            if let actionString = userInfo["action"] as? String{
+                if(actionString == "take_picture_reminder"){
+                    self.rootViewController.openCamera()
+                }
+            }
         }
     }
     
@@ -345,12 +368,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate/*, UITabBarControllerDeleg
 
 }
 
-
-extension UIViewController{
-    func willAppearAfterTabBarViewControllerSelection(){
-        
-    }
-}
 
 extension UIApplication{
     func registerForRemoteNotificationsAllAtOnce(){

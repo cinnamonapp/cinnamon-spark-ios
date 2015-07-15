@@ -45,6 +45,8 @@ class CSUserPhotoFeedNavigationController: UINavigationController {
         
         self.navigationBarHidden = true
 //        self.appendMisterCinnamon()
+        
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
     }
 
     override func didReceiveMemoryWarning() {

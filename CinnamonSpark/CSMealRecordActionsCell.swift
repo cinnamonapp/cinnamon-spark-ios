@@ -36,6 +36,7 @@ class CSMealRecordActionsCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         self.addConstraint(NSLayoutConstraint(item: self.toolbar, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self, attribute: NSLayoutAttribute.Width, multiplier: 1, constant: 0))
+        backgroundColor = UIColor.clearColor()
     }
     
     override func layoutSubviews() {
@@ -169,7 +170,6 @@ class CSIconLabelBarButtonItem: UIBarButtonItem{
         
         icon._parent_ = self
         
-        label.text = "Ciao bella"
         label.font = DefaultFont?.fontWithSize(12)
         label.textColor = ColorPalette.DefaultTextColor
 
@@ -185,10 +185,11 @@ class CSIconLabelBarButtonItem: UIBarButtonItem{
     
     func updateFrames(){
         icon.frame = CGRectMake(0, 0, width * iconReservedWidth, 44)
-        iconImageView.frame = icon.frame
-        iconImageView.frame.size.width = icon.frame.width - 5
+        icon.frame.origin.x = width / 2 - icon.frame.width / 2 // Center the icon
+        iconImageView.frame = icon.bounds
+        iconImageView.frame.size.width = icon.frame.width
         
-        label.frame = CGRectMake(icon.frame.width, 0, width * labelReservedWidth, 44)
+        label.frame = CGRectMake(CGRectGetMaxX(icon.frame) + 5, 0, width * labelReservedWidth, 44)
     }
     
     override func awakeFromNib() {
@@ -203,7 +204,7 @@ class CSIconLabelBarButtonItem: UIBarButtonItem{
             label.passedArguments = self.passedArguments
             icon.passedArguments = self.passedArguments
             
-            label.addTarget(target, action: self.action, forControlEvents: UIControlEvents.TouchUpInside, passedValue: "label")
+            label.addTarget(target, action: self.action, passedArguments: passedArguments)
             icon.addTarget(target, action: self.action, forControlEvents: UIControlEvents.TouchUpInside)
             
             
@@ -236,6 +237,17 @@ extension UILabel : Argumentable{
         set{
             objc_setAssociatedObject(self, &passedArgumentsAssociationKey, newValue, objc_AssociationPolicy(OBJC_ASSOCIATION_RETAIN))
         }
+    }
+    
+    func addTarget(target: AnyObject?, action: Selector, passedArguments: AnyObject?) {
+        self.userInteractionEnabled = true
+        self.passedArguments = passedArguments
+        
+        // Apply a transparent ui button layer on top
+        let tapGesture = UITapGestureRecognizer(target: target!, action: action)
+        tapGesture.passedArguments = passedArguments
+        
+        self.addGestureRecognizer(tapGesture)
     }
 }
 

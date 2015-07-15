@@ -9,7 +9,7 @@
 import UIKit
 
 let yellow = UIColorFromHex(0xFEDB6C, alpha: 1)
-let transparent = UIColorFromHex(0xD8D8D8, alpha: 0.2)
+let transparent = UIColorFromHex(0xD8D8D8, alpha: 0.15)
 
 class RingView: UIView {
 
@@ -110,7 +110,7 @@ class RingView: UIView {
         circlePathLayer.lineWidth   = lineWidth
         circlePathLayer.fillColor   = UIColor.clearColor().CGColor
         circlePathLayer.strokeColor = yellow.CGColor
-        
+
         circlePathLayer.lineCap     = kCALineCapRound
         circlePathLayer.lineJoin    = kCALineJoinRound
         
@@ -140,8 +140,8 @@ class RingView: UIView {
     
     func circlePath() -> UIBezierPath {
         let f = circleFrame()
-        let s : CGFloat = CGFloat(-(M_PI)/2.0)
-        let e : CGFloat = CGFloat(3*M_PI/2.0)
+        let s : CGFloat = CGFloat(-(M_PI)/2.0 + 0.025)
+        let e : CGFloat = CGFloat(3*M_PI/2.0 + 0.025)
         
         return UIBezierPath(arcCenter: f.origin, radius: circleRadius, startAngle: s, endAngle: e, clockwise: true)
     }

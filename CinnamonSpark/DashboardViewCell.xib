@@ -120,7 +120,7 @@ carb dinner will do good.</string>
                         </constraints>
                     </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MealMarkers" translatesAutoresizingMaskIntoConstraints="NO" id="kvK-ef-8th">
-                        <rect key="frame" x="22" y="120" width="285" height="285"/>
+                        <rect key="frame" x="23" y="120" width="285" height="285"/>
                     </imageView>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YPn-bl-zNA" customClass="DotsScrollView" customModule="Cinnamon" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="425" width="330" height="40"/>
@@ -134,7 +134,7 @@ carb dinner will do good.</string>
             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="iT4-8a-aiW" secondAttribute="bottom" id="9Od-dR-ESm"/>
-                <constraint firstItem="tWE-mp-mph" firstAttribute="leading" secondItem="kvK-ef-8th" secondAttribute="leading" constant="1" id="BIa-W0-PoJ"/>
+                <constraint firstItem="tWE-mp-mph" firstAttribute="leading" secondItem="kvK-ef-8th" secondAttribute="leading" id="BIa-W0-PoJ"/>
                 <constraint firstAttribute="centerX" secondItem="6lH-B6-OES" secondAttribute="centerX" constant="-0.5" id="Kim-df-tld"/>
                 <constraint firstAttribute="centerY" secondItem="wgj-Zs-XHl" secondAttribute="centerY" id="MlX-HY-0oU"/>
                 <constraint firstItem="YPn-bl-zNA" firstAttribute="bottom" secondItem="iT4-8a-aiW" secondAttribute="bottom" constant="-60" id="O08-W2-j02"/>

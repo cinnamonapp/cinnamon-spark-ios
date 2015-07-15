@@ -137,26 +137,43 @@ static CGFloat const kMainPageControlHeight = 35;
     CGFloat horizontalCenter = viewWidth / 2;
     CGFloat contentWidth = viewWidth * kContentWidthMultiplier;
     
+    
+    UIImageView *backgroundImageView;
+    
+    // create the background image view and set it to aspect fill so it isn't skewed
+    if (self.backgroundImage) {
+        backgroundImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+        backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+        [backgroundImageView setImage:self.backgroundImage];
+        [self.view addSubview:backgroundImageView];
+    }
+
+    
+    
     // create and configure the main text label sitting underneath the icon with the provided padding
-    _mainTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.topPadding, contentWidth, 0)];
+    _mainTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.topPadding, contentWidth, 150)];
     _mainTextLabel.text = _titleText;
     _mainTextLabel.textColor = self.titleTextColor;
     _mainTextLabel.font = [UIFont fontWithName:self.titleFontName size:self.titleFontSize];
     _mainTextLabel.numberOfLines = 0;
-    _mainTextLabel.textAlignment = NSTextAlignmentCenter;
+    _mainTextLabel.textAlignment = NSTextAlignmentLeft;
     [_mainTextLabel sizeToFit];
+    [_mainTextLabel setFrame: CGRectMake(0, _mainTextLabel.frame.origin.y, contentWidth,  _mainTextLabel.frame.size.height)];
+
     _mainTextLabel.center = CGPointMake(horizontalCenter, _mainTextLabel.center.y);
     [self.view addSubview:_mainTextLabel];
     
     
     // create and configure the sub text label
-    _subTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mainTextLabel.frame) + self.underTitlePadding, contentWidth, 0)];
+    _subTextLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(_mainTextLabel.frame) + self.underTitlePadding, contentWidth, 40)];
     _subTextLabel.text = _body;
     _subTextLabel.textColor = self.bodyTextColor;
     _subTextLabel.font = [UIFont fontWithName:self.bodyFontName size:self.bodyFontSize];
     _subTextLabel.numberOfLines = 0;
-    _subTextLabel.textAlignment = NSTextAlignmentCenter;
+    _subTextLabel.textAlignment = NSTextAlignmentLeft;
     [_subTextLabel sizeToFit];
+    [_subTextLabel setFrame: CGRectMake(0, _subTextLabel.frame.origin.y, contentWidth,  _subTextLabel.frame.size.height)];
+    
     _subTextLabel.center = CGPointMake(horizontalCenter, _subTextLabel.center.y);
     [self.view addSubview:_subTextLabel];
     
@@ -169,14 +186,14 @@ static CGFloat const kMainPageControlHeight = 35;
 
     
     // create the action button if we were given button text
-    if (_buttonText) {
-        _actionButton = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetMaxX(self.view.frame) / 2) - (contentWidth / 2), CGRectGetMaxY(self.view.frame) - kMainPageControlHeight - kActionButtonHeight - self.bottomPadding, contentWidth, kActionButtonHeight)];
-        _actionButton.titleLabel.font = [UIFont fontWithName:self.buttonFontName size:self.buttonFontSize];
-        [_actionButton setTitle:_buttonText forState:UIControlStateNormal];
-        [_actionButton setTitleColor:self.buttonTextColor forState:UIControlStateNormal];
-        [_actionButton addTarget:self action:@selector(handleButtonPressed) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:_actionButton];
-    }
+//    if (_buttonText) {
+//        _actionButton = [[UIButton alloc] initWithFrame:CGRectMake((CGRectGetMaxX(self.view.frame) / 2) - (contentWidth / 2), CGRectGetMaxY(self.view.frame) - kMainPageControlHeight - kActionButtonHeight - self.bottomPadding, contentWidth, kActionButtonHeight)];
+//        _actionButton.titleLabel.font = [UIFont fontWithName:self.buttonFontName size:self.buttonFontSize];
+//        [_actionButton setTitle:_buttonText forState:UIControlStateNormal];
+//        [_actionButton setTitleColor:self.buttonTextColor forState:UIControlStateNormal];
+//        [_actionButton addTarget:self action:@selector(handleButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+//        [self.view addSubview:_actionButton];
+//    }
 }
 
 

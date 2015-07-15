@@ -18,6 +18,9 @@
 		B01B2BDD1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B01B2BDB1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib */; };
 		B01B2BE61AEEBC4C0017919A /* CSUserPhotoFeedNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B01B2BE51AEEBC4C0017919A /* CSUserPhotoFeedNavigationController.swift */; };
 		B022479B1AE7738F0031DADC /* CSMealSizeSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B022479A1AE7738F0031DADC /* CSMealSizeSelector.swift */; };
+		B024EDB71B42A581004B4C24 /* CSMealRecordLikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024EDB51B42A581004B4C24 /* CSMealRecordLikeCell.swift */; };
+		B024EDB81B42A581004B4C24 /* CSMealRecordLikeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B024EDB61B42A581004B4C24 /* CSMealRecordLikeCell.xib */; };
+		B024EDBA1B42A854004B4C24 /* CSMealRecordLikesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B024EDB91B42A854004B4C24 /* CSMealRecordLikesView.swift */; };
 		B02BA6431ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */; };
 		B02BA6451ACECBF500BC46F1 /* CSPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */; };
 		B02F13A71AD7DE7800075E41 /* UILabel+CSTextLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02F13A61AD7DE7800075E41 /* UILabel+CSTextLink.swift */; };
@@ -40,19 +43,26 @@
 		B0548DDE1B0B379400384B55 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = B0548DDB1B0B379400384B55 /* UIImage+ImageEffects.m */; };
 		B0548DDF1B0B379400384B55 /* UIImageEffects-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0548DDC1B0B379400384B55 /* UIImageEffects-Info.plist */; };
 		B0548DE11B0B39E100384B55 /* ImageRotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0548DE01B0B39E100384B55 /* ImageRotation.swift */; };
+		B054FBDA1B4FBAE4005DAE2F /* PersonalDataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B054FBD81B4FBAE4005DAE2F /* PersonalDataViewController.xib */; };
+		B054FBDD1B500955005DAE2F /* CarbsGoalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B054FBDC1B500955005DAE2F /* CarbsGoalViewController.xib */; };
+		B054FBDF1B500968005DAE2F /* CarbsGoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B054FBDE1B500968005DAE2F /* CarbsGoalViewController.swift */; };
 		B0716C001B1F3D8C00FEC634 /* CSMealViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0716BFF1B1F3D8C00FEC634 /* CSMealViewFlowLayout.swift */; };
 		B074349B1AC062960065403A /* CSTapSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = B074349A1AC062960065403A /* CSTapSelector.swift */; };
+		B07CA0631B550171001953F6 /* PersonalDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07CA0621B550171001953F6 /* PersonalDataViewController.swift */; };
 		B08041AB1B022C7F008B19BB /* DashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08041A91B022C7F008B19BB /* DashboardViewController.swift */; };
 		B0862F4C1B0112A50026A01D /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0862F4B1B0112A50026A01D /* RootViewController.swift */; };
 		B08786311B1EF6EF0056F34B /* CSMeal.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08786301B1EF6EF0056F34B /* CSMeal.swift */; };
 		B087ACD11AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */; };
 		B087ACD71AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */; };
+		B08922BE1B501E960050B962 /* SignupFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08922BD1B501E960050B962 /* SignupFlowViewController.swift */; };
 		B0A148E21ACD7EB80019E08F /* CSPhotoBrowser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */; };
 		B0A148E41ACD9BE00019E08F /* CSVerticalImageRowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */; };
 		B0A148E61ACD9C010019E08F /* CSGridImageTagLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */; };
 		B0A2632D1B3AED0800860800 /* CSModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A2632C1B3AED0800860800 /* CSModel.swift */; };
 		B0A263301B3B0A1200860800 /* FCFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A2632F1B3B0A1200860800 /* FCFileManager.m */; };
 		B0A81B8C1AE91D580006F4B4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A81B8B1AE91D570006F4B4 /* Constants.swift */; };
+		B0AB73351B54398800944A5E /* MacronutrientsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AB73331B54398800944A5E /* MacronutrientsViewController.swift */; };
+		B0AB73361B54398800944A5E /* MacronutrientsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0AB73341B54398800944A5E /* MacronutrientsViewController.xib */; };
 		B0AF55161AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0AF55151AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift */; };
 		B0BF897F1B03466B003BF9F9 /* DashboardViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0BF897D1B03466B003BF9F9 /* DashboardViewCell.swift */; };
 		B0BF89801B03466B003BF9F9 /* DashboardViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0BF897E1B03466B003BF9F9 /* DashboardViewCell.xib */; };
@@ -117,6 +127,9 @@
 		B01B2BDB1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSSmartAlertPhotoBrowserCell.xib; sourceTree = "<group>"; };
 		B01B2BE51AEEBC4C0017919A /* CSUserPhotoFeedNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUserPhotoFeedNavigationController.swift; sourceTree = "<group>"; };
 		B022479A1AE7738F0031DADC /* CSMealSizeSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMealSizeSelector.swift; sourceTree = "<group>"; };
+		B024EDB51B42A581004B4C24 /* CSMealRecordLikeCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMealRecordLikeCell.swift; sourceTree = "<group>"; };
+		B024EDB61B42A581004B4C24 /* CSMealRecordLikeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CSMealRecordLikeCell.xib; sourceTree = "<group>"; };
+		B024EDB91B42A854004B4C24 /* CSMealRecordLikesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMealRecordLikesView.swift; sourceTree = "<group>"; };
 		B02BA6421ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowserCell.swift; sourceTree = "<group>"; };
 		B02BA6441ACECBF500BC46F1 /* CSPhoto.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhoto.swift; sourceTree = "<group>"; };
 		B02F13A61AD7DE7800075E41 /* UILabel+CSTextLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UILabel+CSTextLink.swift"; sourceTree = "<group>"; };
@@ -136,19 +149,24 @@
 		B05257D11B15CF0E007A1B07 /* UICountingLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UICountingLabel.h; sourceTree = "<group>"; };
 		B05257D21B15CF0E007A1B07 /* UICountingLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UICountingLabel.m; sourceTree = "<group>"; };
 		B0548DD51B0A164200384B55 /* CSFastCameraSizeSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFastCameraSizeSelector.swift; sourceTree = "<group>"; };
-		B0548DD71B0A8AE200384B55 /* CSFastCameraSavePictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSFastCameraSavePictureViewController.swift; sourceTree = "<group>"; };
+		B0548DD71B0A8AE200384B55 /* CSFastCameraSavePictureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = CSFastCameraSavePictureViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B0548DDA1B0B379400384B55 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
 		B0548DDB1B0B379400384B55 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		B0548DDC1B0B379400384B55 /* UIImageEffects-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "UIImageEffects-Info.plist"; sourceTree = "<group>"; };
 		B0548DDD1B0B379400384B55 /* UIImageEffects-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageEffects-Prefix.pch"; sourceTree = "<group>"; };
 		B0548DE01B0B39E100384B55 /* ImageRotation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageRotation.swift; sourceTree = "<group>"; };
+		B054FBD81B4FBAE4005DAE2F /* PersonalDataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonalDataViewController.xib; sourceTree = "<group>"; };
+		B054FBDC1B500955005DAE2F /* CarbsGoalViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CarbsGoalViewController.xib; sourceTree = "<group>"; };
+		B054FBDE1B500968005DAE2F /* CarbsGoalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CarbsGoalViewController.swift; sourceTree = "<group>"; };
 		B0716BFF1B1F3D8C00FEC634 /* CSMealViewFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMealViewFlowLayout.swift; sourceTree = "<group>"; };
 		B074349A1AC062960065403A /* CSTapSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSTapSelector.swift; sourceTree = "<group>"; };
+		B07CA0621B550171001953F6 /* PersonalDataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonalDataViewController.swift; sourceTree = "<group>"; };
 		B08041A91B022C7F008B19BB /* DashboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewController.swift; sourceTree = "<group>"; };
-		B0862F4B1B0112A50026A01D /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		B0862F4B1B0112A50026A01D /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = RootViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		B08786301B1EF6EF0056F34B /* CSMeal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSMeal.swift; sourceTree = "<group>"; };
 		B087ACD01AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UINavigationBar+CSMisterCinnamon.swift"; sourceTree = "<group>"; };
 		B087ACD61AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+EmptyBackButton.m"; sourceTree = "<group>"; };
+		B08922BD1B501E960050B962 /* SignupFlowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupFlowViewController.swift; sourceTree = "<group>"; };
 		B0A148E11ACD7EB80019E08F /* CSPhotoBrowser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSPhotoBrowser.swift; sourceTree = "<group>"; };
 		B0A148E31ACD9BE00019E08F /* CSVerticalImageRowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVerticalImageRowLayout.swift; sourceTree = "<group>"; };
 		B0A148E51ACD9C010019E08F /* CSGridImageTagLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSGridImageTagLayout.swift; sourceTree = "<group>"; };
@@ -156,6 +174,8 @@
 		B0A2632F1B3B0A1200860800 /* FCFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCFileManager.m; sourceTree = "<group>"; };
 		B0A263311B3B0A2200860800 /* FCFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FCFileManager.h; sourceTree = "<group>"; };
 		B0A81B8B1AE91D570006F4B4 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		B0AB73331B54398800944A5E /* MacronutrientsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MacronutrientsViewController.swift; sourceTree = "<group>"; };
+		B0AB73341B54398800944A5E /* MacronutrientsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MacronutrientsViewController.xib; sourceTree = "<group>"; };
 		B0AF55151AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSUserWeekPhotoFeedViewController.swift; sourceTree = "<group>"; };
 		B0AF66B11AC1754000E23657 /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
 		B0BF897D1B03466B003BF9F9 /* DashboardViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardViewCell.swift; sourceTree = "<group>"; };
@@ -272,6 +292,7 @@
 				B02F13AA1AD7EE6F00075E41 /* CSSocialFeedNavigationController.swift */,
 				B0DE33A41ACAEA29003E8626 /* CSSocialPhotoFeedViewController.swift */,
 				B02F13AE1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift */,
+				B024EDB91B42A854004B4C24 /* CSMealRecordLikesView.swift */,
 			);
 			name = SocialMealRecords;
 			sourceTree = "<group>";
@@ -291,6 +312,8 @@
 				B03F0EF51B306682003DAC71 /* CSMealRecordActionsCell.swift */,
 				B0DE63861B307C82007443CE /* CSMealRecordActionsCell.xib */,
 				B0CCBDDA1B347812003F2C46 /* CSMealRecordCommentCell.swift */,
+				B024EDB51B42A581004B4C24 /* CSMealRecordLikeCell.swift */,
+				B024EDB61B42A581004B4C24 /* CSMealRecordLikeCell.xib */,
 			);
 			name = Layouts;
 			sourceTree = "<group>";
@@ -355,6 +378,20 @@
 			name = "UIImage+ImageEffects";
 			sourceTree = "<group>";
 		};
+		B054FBDB1B50093B005DAE2F /* Signup */ = {
+			isa = PBXGroup;
+			children = (
+				B054FBDE1B500968005DAE2F /* CarbsGoalViewController.swift */,
+				B07CA0621B550171001953F6 /* PersonalDataViewController.swift */,
+				B054FBD81B4FBAE4005DAE2F /* PersonalDataViewController.xib */,
+				B054FBDC1B500955005DAE2F /* CarbsGoalViewController.xib */,
+				B08922BD1B501E960050B962 /* SignupFlowViewController.swift */,
+				B0AB73331B54398800944A5E /* MacronutrientsViewController.swift */,
+				B0AB73341B54398800944A5E /* MacronutrientsViewController.xib */,
+			);
+			name = Signup;
+			sourceTree = "<group>";
+		};
 		B0A2632E1B3B09F300860800 /* FCFileManager */ = {
 			isa = PBXGroup;
 			children = (
@@ -367,6 +404,7 @@
 		B0AF66B31AC1763E00E23657 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				B054FBDB1B50093B005DAE2F /* Signup */,
 				B01B2BE01AEEA6990017919A /* SocialMealRecords */,
 				B01B2BDF1AEEA6780017919A /* UserMealRecords */,
 				B0EDD69F1ABC2A170065644F /* CSCameraViewController.swift */,
@@ -604,11 +642,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				B01B2BDD1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.xib in Resources */,
+				B054FBDD1B500955005DAE2F /* CarbsGoalViewController.xib in Resources */,
 				B0BF89801B03466B003BF9F9 /* DashboardViewCell.xib in Resources */,
+				B024EDB81B42A581004B4C24 /* CSMealRecordLikeCell.xib in Resources */,
 				B0EDD6A81ABC2A170065644F /* LaunchScreen.xib in Resources */,
 				B0DE63871B307C82007443CE /* CSMealRecordActionsCell.xib in Resources */,
 				B0EDD6A51ABC2A170065644F /* Images.xcassets in Resources */,
 				B0CE45B71AE543BB0045C3BF /* (null) in Resources */,
+				B0AB73361B54398800944A5E /* MacronutrientsViewController.xib in Resources */,
+				B054FBDA1B4FBAE4005DAE2F /* PersonalDataViewController.xib in Resources */,
 				B0548DDF1B0B379400384B55 /* UIImageEffects-Info.plist in Resources */,
 				B0CABA981B0F307E009878AD /* CSMealRecordDetailCell.xib in Resources */,
 				B0CE45B81AE543BB0045C3BF /* (null) in Resources */,
@@ -677,6 +719,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B07CA0631B550171001953F6 /* PersonalDataViewController.swift in Sources */,
 				B01B2BDC1AEE8FA50017919A /* CSSmartAlertPhotoBrowserCell.swift in Sources */,
 				B0548DE11B0B39E100384B55 /* ImageRotation.swift in Sources */,
 				B00C45501AEA9EF40023520C /* OnboardingContentViewController.m in Sources */,
@@ -699,6 +742,7 @@
 				B02F13AF1AD811A900075E41 /* CSFriendPhotoFeedViewController.swift in Sources */,
 				B0862F4C1B0112A50026A01D /* RootViewController.swift in Sources */,
 				B02BA6431ACE96DE00BC46F1 /* CSPhotoBrowserCell.swift in Sources */,
+				B0AB73351B54398800944A5E /* MacronutrientsViewController.swift in Sources */,
 				B0EDD6A01ABC2A170065644F /* CSCameraViewController.swift in Sources */,
 				B0FFC33E1AEB70E2008CE15D /* UIDeviceHardware.m in Sources */,
 				B02BA6451ACECBF500BC46F1 /* CSPhoto.swift in Sources */,
@@ -706,6 +750,7 @@
 				B02F13AD1AD80C6000075E41 /* CSUser.swift in Sources */,
 				B03F0EF61B306682003DAC71 /* CSMealRecordActionsCell.swift in Sources */,
 				B0CABA9A1B0F333B009878AD /* IndicatorRingView.swift in Sources */,
+				B024EDB71B42A581004B4C24 /* CSMealRecordLikeCell.swift in Sources */,
 				B0548DD61B0A164200384B55 /* CSFastCameraSizeSelector.swift in Sources */,
 				B087ACD11AE6629E00BEBB15 /* UINavigationBar+CSMisterCinnamon.swift in Sources */,
 				B047379D1B063B47003FCD78 /* CSFastCameraView.swift in Sources */,
@@ -713,11 +758,13 @@
 				B0E3B41E1AC4B71700347B91 /* CSBaseDelegate.swift in Sources */,
 				B0F079CD1B038EA200B4A872 /* CircleImageView.swift in Sources */,
 				B08041AB1B022C7F008B19BB /* DashboardViewController.swift in Sources */,
+				B054FBDF1B500968005DAE2F /* CarbsGoalViewController.swift in Sources */,
 				B0AF55161AE7EDB900D41559 /* CSUserWeekPhotoFeedViewController.swift in Sources */,
 				B0548DDE1B0B379400384B55 /* UIImage+ImageEffects.m in Sources */,
 				B0DE33A71ACAEC2C003E8626 /* CSTabBarController.swift in Sources */,
 				B087ACD71AE67C5C00BEBB15 /* UIViewController+EmptyBackButton.m in Sources */,
 				B0001A3E1B27101D0098897B /* Superpowers+NSDate.swift in Sources */,
+				B08922BE1B501E960050B962 /* SignupFlowViewController.swift in Sources */,
 				B0BF897F1B03466B003BF9F9 /* DashboardViewCell.swift in Sources */,
 				B0001A3C1B26FB380098897B /* CSRefreshableCollectionViewController.swift in Sources */,
 				B0BF89831B0362FD003BF9F9 /* RingView.swift in Sources */,
@@ -737,6 +784,7 @@
 				B0DCEF371AE52C3C00068B79 /* CSRepeatablePhotoBrowserCell.swift in Sources */,
 				B074349B1AC062960065403A /* CSTapSelector.swift in Sources */,
 				B0CCBDDB1B347812003F2C46 /* CSMealRecordCommentCell.swift in Sources */,
+				B024EDBA1B42A854004B4C24 /* CSMealRecordLikesView.swift in Sources */,
 				B014ECBF1AC5B06900DBD1BD /* CSAPIRequest.swift in Sources */,
 				B0EDD69B1ABC2A170065644F /* AppDelegate.swift in Sources */,
 				B0A81B8C1AE91D580006F4B4 /* Constants.swift in Sources */,

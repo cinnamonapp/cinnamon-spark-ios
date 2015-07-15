@@ -101,7 +101,6 @@ class CSFastCameraSizeSelector : UIView{
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     func configure(){
         
         configureTapGesture()
@@ -123,6 +122,10 @@ class CSFastCameraSizeSelector : UIView{
         
         layer.addSublayer(borderCircleLayer)
         
+    }
+    
+    func selectValueWithIndex(index: Int){
+        selectedValueIndex = index
     }
     
     func configureTapGesture(){

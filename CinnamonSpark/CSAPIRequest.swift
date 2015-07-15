@@ -12,7 +12,7 @@ import AdSupport
 class CSAPIRequest: ASAPIRequest {
     
     // MARK: - Constants and Variables
-    private let apiEndpoint : NSURL = NSURL(string: primaryAPIEndpoint)!
+    private let apiEndpoint : NSURL = NSURL(string: APP_API_ACTIVE_ENDPOINT)!
     
     override init() {
         super.init(baseURL: apiEndpoint)
@@ -31,14 +31,38 @@ class CSAPIRequest: ASAPIRequest {
             "Like"          : "/likes/:id.json",
             "Meal"          : "/meals/:id.json",
             "Comment"       : "/comments/:id.json",
-            "Dashboard"     : "/dashboard"
+            "Dashboard"     : "/dashboard/:id.json"
         ]
     }
     
     
     override func currentUser(userDictionary: NSDictionary?, handleResponseForEvent: Bool) {
         if let userD = userDictionary{
-            CSUser.setCurrentUserOnce(dictionary: userD)
+            CSUser.setCurrentUser(dictionary: userD)
+        }
+    }
+    
+    func updateCurrentUserWithDictionary(userDictionary: NSDictionary?) {
+        if let userD = userDictionary{
+            
+            let params = [
+                "user": userD
+            ]
+            
+            let userPath : String = self.getAPIPath("User", withRecordId: self.uniqueIdentifier())
+            
+            self.PUT(userPath,
+                parameters: params,
+                success: { (request: AFHTTPRequestOperation!, responseObject: AnyObject!) -> Void in
+                    println("Current user fields have been updated. \n \(responseObject)")
+                },
+                failure: { (request: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                    println("Error when updating the user record: \n \(error)")
+                    
+                    self.updateCurrentUserWithDictionary(userDictionary)
+                }
+            )
+            
         }
     }
     
@@ -242,6 +266,13 @@ class CSAPIRequest: ASAPIRequest {
         self.POST(likesPath, parameters: params, success: success, failure: failure)
     }
     
+    
+    func getMealRecordLikes(mealRecordId: String, success: ((AFHTTPRequestOperation!, AnyObject!) -> Void), failure: ((AFHTTPRequestOperation!, NSError!) -> Void)){
+        let likesPath : String = "/api/v1" + self.getAPICombinedPath("MealRecord", withParentRecordId: mealRecordId, andModel: "Like")
+        
+        self.GET(likesPath, parameters: [], success: success, failure: failure)
+    }
+
     
     // Comments
     

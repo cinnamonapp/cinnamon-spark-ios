@@ -81,7 +81,7 @@ class CSFastCameraSavePictureViewController: UIViewController, CSFastCameraContr
         imageDetailsTextField.font = UIFont(name: "Futura", size: 18)
         imageDetailsTextField.autocorrectionType = UITextAutocorrectionType.No
         imageDetailsTextField.keyboardType = UIKeyboardType.Twitter
-        imageDetailsTextField.text = "Tell me more..."
+        imageDetailsTextField.text = "Tell me more... if you like"
         imageDetailsTextField.delegate = self
         imageDetailsTextField.textColor = UIColor.lightGrayColor()
         imageDetailsTextField.selectedTextRange = imageDetailsTextField.textRangeFromPosition(imageDetailsTextField.beginningOfDocument, toPosition: imageDetailsTextField.beginningOfDocument)
@@ -167,7 +167,7 @@ class CSFastCameraSavePictureViewController: UIViewController, CSFastCameraContr
         // and set the cursor to the beginning of the text view
         if countElements(updatedText) == 0 {
             
-            textView.text = "Tell me more..."
+            textView.text = "Tell me more... if you like"
             textView.textColor = UIColor.lightGrayColor()
             
             textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)

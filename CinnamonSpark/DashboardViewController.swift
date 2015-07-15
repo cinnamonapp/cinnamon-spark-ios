@@ -10,7 +10,7 @@ import UIKit
 
 let dashboardCellReuseIdentifier = "dashboardViewCell"
 
-class DashboardViewController: CSRefreshableCollectionViewController, UIViewControllerTransitioningDelegate, DotsScrollViewDelegate {
+class DashboardViewController: UICollectionViewController, UIViewControllerTransitioningDelegate, DotsScrollViewDelegate {
     
     var dashboardObject : CSDashboard? {
         get{
@@ -34,13 +34,20 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
         // Register cell classes
         collectionView!.registerNib(UINib(nibName: "DashboardViewCell", bundle: nil), forCellWithReuseIdentifier: dashboardCellReuseIdentifier)
         
-        collectionView!.alwaysBounceVertical = true
+//        collectionView!.alwaysBounceVertical = true
         
         // Do any additional setup after loading the view.
+        refreshDashboard()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
         refreshDashboard()
     }
     
@@ -51,7 +58,7 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
 
     func refreshDashboard(){
         println("Refreshing dashboard content")
-        refreshDataWithRefreshControl(self.refreshControl)
+        refreshDataWithRefreshControl(nil)
     }
     
     func refreshDataWithLastMealRecord(mealRecord: CSPhoto){
@@ -62,7 +69,7 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
         setReloadCollectionView()
     }
     
-    override func refreshDataWithRefreshControl(refreshControlOrNil: UIRefreshControl?) {
+    func refreshDataWithRefreshControl(refreshControlOrNil: UIRefreshControl?) {
         selectedStreakDay = nil
         // Get data for the dashboard
         CSAPIRequest().getUserDashboard(handleRequestSuccessResponse, handleRequestFailureResponse)
@@ -95,7 +102,7 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
     }
     
     func handleRequestFailureResponse(request: AFHTTPRequestOperation!, error: NSError!){
-        self.refreshControl.endRefreshing()
+        refreshControlEndRefreshing()
     }
     
     /*
@@ -174,7 +181,7 @@ class DashboardViewController: CSRefreshableCollectionViewController, UIViewCont
                 if let dashboard = dashboardObject{
                     
                     cell.configure(dashboard: dashboard)
-                    
+
                 }else{
                     
                     if let cachedDashboardDictionary = NSUserDefaults.standardUserDefaults().dictionaryForKey("dashboardObjectDictionary"){
